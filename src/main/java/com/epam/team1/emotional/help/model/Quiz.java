@@ -11,7 +11,7 @@ import lombok.*;
 public class Quiz {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    long id;
 
 //    @Column(name = "name", nullable = false, unique = true)
     String name;
