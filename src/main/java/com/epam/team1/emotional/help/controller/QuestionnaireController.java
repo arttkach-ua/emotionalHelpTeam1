@@ -21,12 +21,6 @@ public class QuestionnaireController {
         this.questionnaireMapper = questionnaireMapper;
     }
 
-    @GetMapping("/{questionnaire_id}")
-    private QuestionnaireResponseDTO getById(@PathVariable Long questionnaire_id) {
-        Questionnaire questionnaire = questionnaireService.getById(questionnaire_id);
-        return questionnaireMapper.mapToResponseDto(questionnaire);
-    }
-
     @GetMapping
     private String test () {
 
