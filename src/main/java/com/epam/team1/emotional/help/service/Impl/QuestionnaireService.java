@@ -2,7 +2,6 @@ package com.epam.team1.emotional.help.service.Impl;
 
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.repository.QuestionnaireRepository;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,11 @@ public class QuestionnaireService {
 
         return questionnaireRepository
                 .findById(questionnaire_id)
-                .orElseThrow( ()->{throw new EntityNotFoundException("entity with id " + questionnaire_id + " not found");
-        } );
+                .orElseThrow(() ->
+                        new EntityNotFoundException("entity with id " + questionnaire_id + " not found"));
+    }
+
+    public void save(Questionnaire questionnaire) {
+        questionnaireRepository.save(questionnaire);
     }
 }

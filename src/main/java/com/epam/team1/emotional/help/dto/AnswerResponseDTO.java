@@ -1,6 +1,5 @@
 package com.epam.team1.emotional.help.dto;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

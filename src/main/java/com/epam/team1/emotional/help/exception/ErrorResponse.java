@@ -1,6 +1,9 @@
 package com.epam.team1.emotional.help.exception;
 
 public class ErrorResponse {
+    public ErrorResponse() {
+    }
+
     public ErrorResponse(int status, String message, long timeStamp) {
         this.status = status;
         this.message = message;
@@ -34,6 +37,5 @@ public class ErrorResponse {
     public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
     }
-
 
 }

@@ -1,25 +1,19 @@
 package com.epam.team1.emotional.help.model;
 
 import com.epam.team1.emotional.help.BaseEntity;
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "question")
-/*
-The data annotation includes the following
- @ToString,
- @EqualsAndHashCode,
- @Getter on all fields,
- @Setter on all non-final fields,
- @RequiredArgsConstructor
- */
-@Data
-@NoArgsConstructor
 public class Question extends BaseEntity {
+    public Question() {
+    }
+
     @NotNull
     @Column(name = "question", nullable = false, unique = true)
     private String question;
@@ -28,5 +22,40 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "question_id")
     private List<Answer> answersList;
 
+    public String getQuestion() {
+        return question;
+    }
 
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public List<Answer> getAnswersList() {
+        return answersList;
+    }
+
+    public void setAnswersList(List<Answer> answersList) {
+        this.answersList = answersList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question1 = (Question) o;
+        return Objects.equals(question, question1.question) && Objects.equals(answersList, question1.answersList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(question, answersList);
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", answersList=" + answersList +
+                '}';
+    }
 }

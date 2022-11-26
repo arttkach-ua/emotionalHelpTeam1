@@ -1,25 +1,19 @@
 package com.epam.team1.emotional.help.model;
 
 import com.epam.team1.emotional.help.BaseEntity;
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "questionnaire")
-/*
-The data annotation includes the following
- @ToString,
- @EqualsAndHashCode,
- @Getter on all fields,
- @Setter on all non-final fields,
- @RequiredArgsConstructor
- */
-@Data
-@NoArgsConstructor
 public class Questionnaire extends BaseEntity {
+
+    public Questionnaire() {
+    }
 
     @NotNull
     @Column(name = "name", nullable = false, unique = true)
@@ -32,4 +26,50 @@ public class Questionnaire extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "questionnaire_id")
     private List<Question> questionList;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Question> getQuestionList() {
+        return questionList;
+    }
+
+    public void setQuestionList(List<Question> questionList) {
+        this.questionList = questionList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Questionnaire that = (Questionnaire) o;
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(questionList, that.questionList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, questionList);
+    }
+
+    @Override
+    public String toString() {
+        return "Questionnaire{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", questionList=" + questionList +
+                '}';
+    }
 }
