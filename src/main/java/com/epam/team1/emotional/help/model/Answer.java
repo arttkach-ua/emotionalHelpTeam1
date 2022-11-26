@@ -12,8 +12,7 @@ import java.util.Objects;
 
 @Entity(name = "answer")
 public class Answer extends BaseEntity {
-    public Answer() {
-    }
+    public Answer() {}
 
     @NotNull
     @Column(name = "answer", nullable = false, unique = true)
