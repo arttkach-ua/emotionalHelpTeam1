@@ -2,7 +2,8 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.QuestionnaireDto;
 import com.epam.team1.emotional.help.model.Questionnaire;
-import com.epam.team1.emotional.help.reposithory.QuestionnaireRepository;
+import com.epam.team1.emotional.help.repository.AnswerRepository;
+import com.epam.team1.emotional.help.repository.QuestionnaireRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,12 +26,15 @@ class QuestionnaireServiceTest {
 
     @Test
     void findAll() {
+        //Given
         List<Questionnaire> testList = getQuestionnairesForTests();
 
+        //When
         when(questionnaireRepository.findAll())
                 .thenReturn(testList);
 
         List<Questionnaire> result = questionnaireService.findAll();
+        //Then
         assertEquals(testList,result);
         verify(questionnaireRepository, times(1)).findAll();
     }

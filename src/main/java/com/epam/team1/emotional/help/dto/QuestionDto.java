@@ -5,8 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class QuestionnaireDto {
-    long id;
+public class QuestionDto {
+    long questionnaireId;
     String name;
-    String description;
 }
