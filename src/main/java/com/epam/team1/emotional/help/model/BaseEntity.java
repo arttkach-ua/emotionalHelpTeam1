@@ -1,4 +1,8 @@
-package com.epam.team1.emotional.help;
+package com.epam.team1.emotional.help.model;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,14 +11,14 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 @MappedSuperclass
+@Setter
+@Getter
+@NoArgsConstructor
 public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
-
-    public BaseEntity() {
-    }
 
     public BaseEntity(long id) {
         this.id = id;

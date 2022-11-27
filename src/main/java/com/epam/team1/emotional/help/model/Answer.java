@@ -1,9 +1,8 @@
 package com.epam.team1.emotional.help.model;
 
-import com.epam.team1.emotional.help.BaseEntity;
-
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,10 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity(name = "answer")
+@Setter
+@Getter
+@NoArgsConstructor
 public class Answer extends BaseEntity {
-    public Answer() {}
 
     @NotNull
     @Column(name = "answer", nullable = false, unique = true)
@@ -21,22 +22,6 @@ public class Answer extends BaseEntity {
     @NotNull
     @Column(name = "point", nullable = false, unique = false)
     private int point;
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public int getPoint() {
-        return point;
-    }
-
-    public void setPoint(int point) {
-        this.point = point;
-    }
 
     @Override
     public boolean equals(Object o) {

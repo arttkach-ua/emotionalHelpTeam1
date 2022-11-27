@@ -1,8 +1,8 @@
 package com.epam.team1.emotional.help.model;
 
-import com.epam.team1.emotional.help.BaseEntity;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "question")
+@Setter
+@Getter
+@NoArgsConstructor
 public class Question extends BaseEntity {
-    public Question() {
-    }
 
     @NotNull
     @Column(name = "question", nullable = false, unique = true)
@@ -21,22 +22,6 @@ public class Question extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private List<Answer> answersList;
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public List<Answer> getAnswersList() {
-        return answersList;
-    }
-
-    public void setAnswersList(List<Answer> answersList) {
-        this.answersList = answersList;
-    }
 
     @Override
     public boolean equals(Object o) {
