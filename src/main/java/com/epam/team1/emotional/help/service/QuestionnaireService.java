@@ -19,10 +19,10 @@ import java.util.List;
 @Data
 public class QuestionnaireService {
     @Autowired
-    QuestionnaireDtoMapper questionnaireDtoMapper;
+    private QuestionnaireDtoMapper questionnaireDtoMapper;
 
     @Autowired
-    QuestionnaireRepository questionnaireRepository;
+    private QuestionnaireRepository questionnaireRepository;
 
     public List<Questionnaire> findAll() {
         return questionnaireRepository.findAll();

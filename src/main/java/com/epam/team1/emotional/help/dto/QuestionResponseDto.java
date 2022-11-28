@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @Builder
 public class QuestionResponseDto {
-    long id;
-    String name;
-    List<AnswerResponseDTO> answers;
+    private Long id;
+    private String name;
+    private List<AnswerResponseDTO> answers;
 }

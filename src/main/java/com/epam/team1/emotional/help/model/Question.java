@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class Question extends BaseEntity {
-    @JsonIgnore
+    @JsonIgnore//TODO удалить эту аннотацию. Для этого не возвращать ентити
     @ManyToOne()
     @JoinColumn(name = "questionaries_id")
     private Questionnaire questionnaire;

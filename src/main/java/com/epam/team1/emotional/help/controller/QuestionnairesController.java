@@ -14,10 +14,10 @@ import java.util.List;
 @RequestMapping("/questionnaires")
 public class QuestionnairesController {
     @Autowired
-    QuestionnaireService questionnaireService;
+    private QuestionnaireService questionnaireService;
 
     @Autowired
-    QuestionService questionService;
+    private QuestionService questionService;
 
     @GetMapping
     public List<QuestionnaireDto> getQuizzes(){

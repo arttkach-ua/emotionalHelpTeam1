@@ -30,6 +30,5 @@ public class Questionnaire extends BaseEntity {
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "questionnaire")
-    //@JoinColumn(name = "questionnaire_id")
     private List<Question> questionList;
 }

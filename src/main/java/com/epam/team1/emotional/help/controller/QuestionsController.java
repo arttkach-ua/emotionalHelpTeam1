@@ -13,7 +13,7 @@ import java.util.List;
 public class QuestionsController {
 
     @Autowired
-    QuestionService questionService;
+    private QuestionService questionService;
 
     @PostMapping
     public Question createQuestion(@RequestBody QuestionDto dto){

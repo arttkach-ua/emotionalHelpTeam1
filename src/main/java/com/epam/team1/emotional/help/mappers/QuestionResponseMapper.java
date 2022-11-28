@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class QuestionResponseMapper {
     @Autowired
-    AnswerMapper answerMapper;
+    private AnswerMapper answerMapper;
 
     /**
      * Maps Question entity to QuestionResponseDto

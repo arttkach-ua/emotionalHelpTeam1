@@ -41,8 +41,8 @@ class QuestionnaireServiceTest {
 
     private List<Questionnaire> getQuestionnairesForTests(){
         List<Questionnaire> questionnaires = new ArrayList<>();
-        questionnaires.add(Questionnaire.builder().id(1).name("test1").description("desk1").build());
-        questionnaires.add(Questionnaire.builder().id(2).name("test2").description("desk2").build());
+        questionnaires.add(Questionnaire.builder().id(1L).name("test1").description("desk1").build());
+        questionnaires.add(Questionnaire.builder().id(2L).name("test2").description("desk2").build());
         return questionnaires;
     }
 
@@ -53,7 +53,7 @@ class QuestionnaireServiceTest {
                 .description("desk1")
                 .build();
         Questionnaire questionnaire = Questionnaire.builder()
-                .id(1)
+                .id(1L)
                 .name("test1")
                 .description("desk1")
                 .build();

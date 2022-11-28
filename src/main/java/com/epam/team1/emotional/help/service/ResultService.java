@@ -10,13 +10,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResultService {
     @Autowired
-    ResultMapper resultMapper;
+    private ResultMapper resultMapper;
 
     @Autowired
-    ResultRepository resultRepository;
+    private ResultRepository resultRepository;
+
+    @Autowired
+    private QuestionnaireService questionnaireService;
 
     public Result create(ResultRequestDto dto){
         Result result = resultMapper.fromDto(dto);
         return resultRepository.save(result);
+    }
+
+    private Result mapResultFromResultRequestDto(ResultRequestDto dto){
+        Result result = resultMapper.fromDto(dto);
+        result.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
+        return result;
     }
 }

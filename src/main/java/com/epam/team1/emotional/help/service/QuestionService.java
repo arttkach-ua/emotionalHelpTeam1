@@ -16,16 +16,16 @@ import java.util.List;
 @Service
 public class QuestionService {
     @Autowired
-    QuestionRepository questionRepository;
+    private QuestionRepository questionRepository;
 
     @Autowired
-    QuestionDtoMapper questionDtoMapper;
+    private QuestionDtoMapper questionDtoMapper;
 
     @Autowired
-    QuestionnaireService questionnaireService;
+    private QuestionnaireService questionnaireService;
 
     @Autowired
-    QuestionResponseMapper questionResponseMapper;
+    private QuestionResponseMapper questionResponseMapper;
 
     public List<Question> getAllByQuestionnaireId(){
         //TODO: finish it
@@ -39,7 +39,7 @@ public class QuestionService {
      */
     public Question create(QuestionDto dto){
         //TODO finish it
-        Question question = questionDtoMapper.fromDto(dto);
+        Question question = mapQuestionFromQuestionDto(dto);
         return questionRepository.save(question);
     }
 
@@ -57,5 +57,10 @@ public class QuestionService {
         return getAllByQuestionnaireId(id).stream()
                 .map(questionResponseMapper::toDto)
                 .toList();
+    }
+    public Question mapQuestionFromQuestionDto(QuestionDto dto){
+        Question question = questionDtoMapper.fromDto(dto);
+        question.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
+        return question;
     }
 }

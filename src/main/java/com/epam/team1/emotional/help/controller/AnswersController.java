@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/answers")
 public class AnswersController {
     @Autowired
-    AnswersService answersService;
+    private AnswersService answersService;
 
     @PostMapping
     String createAnswer(){
