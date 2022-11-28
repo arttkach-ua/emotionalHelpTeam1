@@ -4,16 +4,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-@Entity(name = "answer")
+@Entity(name = "answers")
+@Table
 @Setter
 @Getter
 @NoArgsConstructor
-public class Answer extends BaseEntity {
+public class Answer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected long id;
 
     @NotNull
     @Column(name = "answer", nullable = false, unique = true)

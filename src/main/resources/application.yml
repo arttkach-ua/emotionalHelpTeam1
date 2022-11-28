@@ -1,10 +1,10 @@
 server:
-  port: 8080
+  port: 8087
   application:
     name: Emotional_Help
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/my_family_tree?currentSchema=my_family_tree
+    url: jdbc:mysql://localhost:3306/emotional_help?createDatabaseIfNotExist=TRUE&currentSchema=emotional_help
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
