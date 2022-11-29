@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class QuestionDtoMapper {
-    public Question fromDto(QuestionDto dto){
+    public Question toQuestion(QuestionDto dto){
         Question question = new Question();
         question.setName(dto.getName());
         return question;

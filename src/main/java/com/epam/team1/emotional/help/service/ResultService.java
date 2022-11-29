@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ResultService {
@@ -34,12 +34,10 @@ public class ResultService {
     }
 
     public Result getResult(Questionnaire questionnaire, Integer points){
-        List<Result> results = resultRepository.getByPoints(questionnaire, points);
-        if (results.size()!=0){
-            return results.get(0);
-        }else{
-            //TODO:add message here
-            throw new EntityNotFoundException("result not found");
-        }
+        Optional<Result> result = resultRepository
+                .findFirstByQuestionnaireAndPointsGreaterThanEqualOrderByPointsAsc(questionnaire, points);
+        //TODO:add message here
+        return result
+                .orElseThrow(()->new EntityNotFoundException("result not found"));
     }
 }

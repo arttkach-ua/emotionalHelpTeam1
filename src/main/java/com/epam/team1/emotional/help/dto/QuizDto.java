@@ -1,6 +1,5 @@
 package com.epam.team1.emotional.help.dto;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class TestDto {
+public class QuizDto {
     private String token;
     private Long questionnaireId;
     private List<CompleteAnswer> answers;
