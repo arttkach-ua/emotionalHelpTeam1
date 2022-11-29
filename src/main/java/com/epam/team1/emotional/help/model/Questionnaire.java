@@ -1,24 +1,34 @@
 package com.epam.team1.emotional.help.model;
 
-import lombok.*;
+import com.epam.team1.emotional.help.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "questionaries")
 @Getter
 @Setter
-@Builder
-@Table(name = "questionaries")
-public class Questionnaire {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+@AllArgsConstructor
+//@RequiredArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
+public class Questionnaire extends BaseEntity {
 
+    @NotNull
     @Column(name = "name", nullable = false, unique = true)
-    String name;
+    private String name;
 
+    @NotNull
     @Column(name = "description")
-    String description;
+    private String description;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "questionnaire")
+    private List<Question> questionList;
 }

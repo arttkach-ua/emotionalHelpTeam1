@@ -1,10 +1,11 @@
 package com.epam.team1.emotional.help.controller;
 
+import com.epam.team1.emotional.help.dto.QuestionResponseDto;
 import com.epam.team1.emotional.help.dto.QuestionnaireDto;
 import com.epam.team1.emotional.help.model.Questionnaire;
+import com.epam.team1.emotional.help.service.QuestionService;
 import com.epam.team1.emotional.help.service.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +14,10 @@ import java.util.List;
 @RequestMapping("/questionnaires")
 public class QuestionnairesController {
     @Autowired
-    QuestionnaireService questionnaireService;
+    private QuestionnaireService questionnaireService;
+
+    @Autowired
+    private QuestionService questionService;
 
     @GetMapping
     public List<QuestionnaireDto> getQuizzes(){
@@ -23,5 +27,15 @@ public class QuestionnairesController {
     @PostMapping
     public Questionnaire postQuiz(@RequestBody QuestionnaireDto dto){
         return questionnaireService.create(dto);
+    }
+
+    /**
+     * Returns a list od questions for questionary
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}/questions")
+    public List<QuestionResponseDto> getAllQuestionsByQuestionnaireId(@PathVariable("id") long id){
+        return questionService.getAllDtoByQuestionnaireId(id);
     }
 }
