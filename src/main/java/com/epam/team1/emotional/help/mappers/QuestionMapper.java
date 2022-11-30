@@ -1,6 +1,7 @@
 package com.epam.team1.emotional.help.mappers;
 
 import com.epam.team1.emotional.help.dto.AnswerResponseDto;
+import com.epam.team1.emotional.help.dto.QuestionRequestDto;
 import com.epam.team1.emotional.help.dto.QuestionResponseDto;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Question;
@@ -18,17 +19,28 @@ public class QuestionMapper {
         this.answerMapper = answerMapper;
     }
 
-    public QuestionResponseDto mapToResponseDto(Question question) {
-        QuestionResponseDto questionResponseDTO = new QuestionResponseDto();
-        questionResponseDTO.setId(question.getId());
-        questionResponseDTO.setName(question.getName());
-        questionResponseDTO.setAnswers(mapAll(question.getAnswersList()));
-        return questionResponseDTO;
+    public Question toQuestion(QuestionRequestDto dto){
+        Question question = new Question();
+        question.setName(dto.getName());
+        return question;
     }
 
-    private List<AnswerResponseDto> mapAll(List<Answer> answers) {
-        return answers.stream().map(answerMapper::mapToResponseDto).collect(Collectors.toList());
+    /**
+     * Maps Question entity to QuestionResponseDto
+     * @param question
+     * @return QuestionResponseDto
+     */
+    public QuestionResponseDto toQuestionResponseDto(Question question){
+        return QuestionResponseDto.builder()
+                .id(question.getId())
+                .name(question.getName())
+                .answers(mapAllAnswers(question.getAnswersList()))
+                .build();
     }
 
-
+    private List<AnswerResponseDto> mapAllAnswers(List<Answer> answers) {
+        return answers.stream()
+                .map(answerMapper::mapToResponseDto)
+                .collect(Collectors.toList());
+    }
 }

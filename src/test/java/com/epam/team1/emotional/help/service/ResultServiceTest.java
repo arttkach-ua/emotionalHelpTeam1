@@ -18,7 +18,7 @@ class ResultServiceTest {
 
     @Test
     void getResult() {
-        Questionnaire questionnaire = questionnaireService.getById(1);
+        Questionnaire questionnaire = questionnaireService.getById(1L);
         Result result = resultService.getResult(questionnaire,7);
         assertEquals("short_desc1",result.getShortDescription());
         result = resultService.getResult(questionnaire,8);
