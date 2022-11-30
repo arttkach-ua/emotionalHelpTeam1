@@ -2,7 +2,7 @@ version: '3'
 
 services:
   docker-mysql:
-    image: mysql:8.0.31
+    image: mysql:latest
     networks:
       - backend
     environment:

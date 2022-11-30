@@ -7,6 +7,17 @@ spring:
     url: jdbc:mysql://localhost:3306/emotional_help?createDatabaseIfNotExist=TRUE&currentSchema=emotional_help
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
       ddl-auto: create
+#The username and password for connecting to the
+#database server and other secret data are not
+#included in this file, since this file is published
+#in the github repository, in order for your
+#application to connect to the database, you need
+#to have a local configuration file
+#(.yml or .properties (in the resource directory))
+#with these configurations.
