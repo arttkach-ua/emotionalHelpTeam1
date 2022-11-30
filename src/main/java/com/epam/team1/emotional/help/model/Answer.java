@@ -1,50 +1,34 @@
 package com.epam.team1.emotional.help.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.epam.team1.emotional.help.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
-@Entity(name = "answers")
-@Table
-@Setter
+@Entity
+@Table(name = "answers")
 @Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
-public class Answer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
-
-    @NotNull
-    @Column(name = "answer", nullable = false, unique = true)
-    private String answer;
+@SuperBuilder
+public class Answer extends BaseEntity {
+    @JsonIgnore//TODO удалить эту аннотацию. Для этого не возвращать ентити
+    @ManyToOne()
+    @JoinColumn(name = "quetisons_id")
+    private Question question;
 
     @NotNull
-    @Column(name = "point", nullable = false, unique = false)
-    private int point;
+    @Column(name = "name", nullable = false, unique = true)
+    private String name;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Answer answer1 = (Answer) o;
-        return point == answer1.point && Objects.equals(answer, answer1.answer);
-    }
+    @NotNull
+    @Column(name = "points", nullable = false, unique = false)
+    private int points;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(answer, point);
-    }
 
-    @Override
-    public String toString() {
-        return "Answer{" +
-                "answer='" + answer + '\'' +
-                ", point=" + point +
-                '}';
-    }
 }
