@@ -1,5 +1,6 @@
 package com.epam.team1.emotional.help.model;
 
+import com.epam.team1.emotional.help.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
