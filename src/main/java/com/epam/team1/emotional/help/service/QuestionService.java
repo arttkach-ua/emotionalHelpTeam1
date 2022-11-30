@@ -55,11 +55,11 @@ public class QuestionService {
      */
     public List<QuestionResponseDto> getAllDtoByQuestionnaireId(long id){
         return getAllByQuestionnaireId(id).stream()
-                .map(questionResponseMapper::toDto)
+                .map(questionResponseMapper::toQuestionResponseDto)
                 .toList();
     }
     public Question mapQuestionFromQuestionDto(QuestionDto dto){
-        Question question = questionDtoMapper.fromDto(dto);
+        Question question = questionDtoMapper.toQuestion(dto);
         question.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
         return question;
     }
