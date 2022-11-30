@@ -14,7 +14,7 @@ public class QuestionResponseMapper {
      * @param question
      * @return QuestionResponseDto
      */
-    public QuestionResponseDto toDto(Question question){
+    public QuestionResponseDto toQuestionResponseDto(Question question){
         return QuestionResponseDto.builder()
                 .id(question.getId())
                 .name(question.getName())

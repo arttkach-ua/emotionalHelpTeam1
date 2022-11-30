@@ -11,16 +11,18 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class ResultServiceTest {
     @Autowired
-    ResultService resultService;
+    private ResultService resultService;
 
     @Autowired
-    QuestionnaireService questionnaireService;
+    private QuestionnaireService questionnaireService;
 
     @Test
     void getResult() {
         Questionnaire questionnaire = questionnaireService.getById(1);
-        Result result = resultService.getResult(questionnaire,6);
+        Result result = resultService.getResult(questionnaire,7);
         assertEquals("short_desc1",result.getShortDescription());
+        result = resultService.getResult(questionnaire,8);
+        assertEquals("short_desc2",result.getShortDescription());
 
     }
 }
