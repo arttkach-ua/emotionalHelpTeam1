@@ -1,6 +1,8 @@
 package com.epam.team1.emotional.help.controller;
 
-import com.epam.team1.emotional.help.dto.*;
+import com.epam.team1.emotional.help.dto.QuestionResponseDto;
+import com.epam.team1.emotional.help.dto.QuestionnaireDto;
+import com.epam.team1.emotional.help.dto.QuizRequestDto;
 import com.epam.team1.emotional.help.service.QuestionService;
 import com.epam.team1.emotional.help.service.QuestionnaireService;
 import com.epam.team1.emotional.help.service.QuizService;
@@ -11,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/questionnaires")
-@CrossOrigin
 public class QuestionnairesController {
     @Autowired
     private QuestionnaireService questionnaireService;
@@ -48,7 +49,16 @@ public class QuestionnairesController {
      * @return - dto with result
      */
     @PostMapping("/{id}/quiz")
-    public QuizResponseDto calculateQuiz(@RequestBody QuizRequestDto dto){
-        return quizService.calculateQuiz(dto);
+    public QuizRequestDto calculateQuiz(@RequestBody QuizRequestDto dto){
+        quizService.calculateQuiz(dto);
+        //Todo::: delete it after finishing quiz service
+        QuizRequestDto quizRequestDto = new QuizRequestDto();
+        quizRequestDto.setToken("1");
+        quizRequestDto.setQuestionnaireId(1L);
+        QuizRequestDto.CompleteAnswer answer = new QuizRequestDto.CompleteAnswer();
+        answer.setAnswerId(1L);
+        answer.setQuestionId(1L);
+        quizRequestDto.setAnswers(List.of(answer));
+        return quizRequestDto;
     }
 }
