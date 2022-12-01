@@ -18,10 +18,7 @@ spring:
       ddl-auto: update
 
 springdoc:
-  #version: @springdoc.version@
   swagger-ui:
-    use-root-path: false
     path: /swagger-ui.html
-    config-url: /v3/api-docs/swagger-config
-    enabled: true
+
 
