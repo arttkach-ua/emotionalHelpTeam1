@@ -1,13 +1,10 @@
 package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.ResultRequestDto;
-import com.epam.team1.emotional.help.dto.ResultResponseDto;
-import com.epam.team1.emotional.help.mappers.ResultRequestDtoMapper;
-import com.epam.team1.emotional.help.mappers.ResultResponseDtoMapper;
+import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.model.Result;
 import com.epam.team1.emotional.help.repository.ResultRepository;
-import com.epam.team1.emotional.help.util.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +14,7 @@ import java.util.Optional;
 @Service
 public class ResultService {
     @Autowired
-    private ResultRequestDtoMapper resultRequestDtoMapper;
-
-    @Autowired
-    private ResultResponseDtoMapper resultResponseDtoMapper;
+    private ResultMapper resultMapper;
 
     @Autowired
     private ResultRepository resultRepository;
@@ -28,13 +22,13 @@ public class ResultService {
     @Autowired
     private QuestionnaireService questionnaireService;
 
-    public ResultResponseDto create(ResultRequestDto dto){
-        Result result = resultRequestDtoMapper.fromDto(dto);
-        return resultResponseDtoMapper.toDto(resultRepository.save(result));
+    public Result create(ResultRequestDto dto){
+        Result result = resultMapper.fromDto(dto);
+        return resultRepository.save(result);
     }
 
     private Result mapResultFromResultRequestDto(ResultRequestDto dto){
-        Result result = resultRequestDtoMapper.fromDto(dto);
+        Result result = resultMapper.fromDto(dto);
         result.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
         return result;
     }
@@ -42,7 +36,8 @@ public class ResultService {
     public Result getResult(Questionnaire questionnaire, Integer points){
         Optional<Result> result = resultRepository
                 .findFirstByQuestionnaireAndPointsGreaterThanEqualOrderByPointsAsc(questionnaire, points);
+        //TODO:add message here
         return result
-                .orElseThrow(()->new EntityNotFoundException(ErrorMessages.RESULT_NOT_FOUND));
+                .orElseThrow(()->new EntityNotFoundException("result not found"));
     }
 }

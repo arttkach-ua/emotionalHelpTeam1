@@ -3,7 +3,6 @@ package com.epam.team1.emotional.help.service;
 import com.epam.team1.emotional.help.dto.QuizDto;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
-import com.epam.team1.emotional.help.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +10,14 @@ import org.springframework.stereotype.Service;
 public class QuizService {
     @Autowired
     private QuestionnaireService questionnaireService;
-    @Autowired
-    private ResultService resultService;
+
     @Autowired
     private AnswersService answersService;
 
-    public void calculateQuiz(QuizDto dto){
+    public void calculateTest(QuizDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
-        Result result = resultService.getResult(quiz.getQuestionnaire(),quiz.getTotalPoints());
-        //Todo finish it
     }
 
     public Quiz mapTestDtoToTest(QuizDto dto){
