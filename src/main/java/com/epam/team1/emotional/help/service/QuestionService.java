@@ -47,9 +47,8 @@ public class QuestionService {
      * @return list of questionResponse dto
      */
     public List<QuestionResponseDto> getAllDtoByQuestionnaireId(long id){
-        return getAllByQuestionnaireId(id).stream()
-                .map(questionMapper::toQuestionResponseDto)
-                .toList();
+        List<Question> questions = getAllByQuestionnaireId(id);
+        return questionMapper.toQuestionResponseDtoList(questions);
     }
     public Question mapQuestionFromQuestionDto(QuestionRequestDto dto){
         Question question = questionMapper.toQuestion(dto);
