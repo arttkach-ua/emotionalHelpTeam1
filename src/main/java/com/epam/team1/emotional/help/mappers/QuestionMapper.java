@@ -36,8 +36,6 @@ public class QuestionMapper {
                 .build();
     }
 
-
-
     public List<QuestionResponseDto> toQuestionResponseDtoList(List<Question> questions){
         return questions.stream()
                 .map(this::toQuestionResponseDto)
