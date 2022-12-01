@@ -60,9 +60,9 @@ class QuestionnaireServiceTest {
 
         when(questionnaireRepository.save(any(Questionnaire.class)))
                 .thenReturn(questionnaire);
-        Questionnaire result = questionnaireService.create(dto);
+        QuestionnaireDto resultDto = questionnaireService.create(dto);
 
-        assertEquals(questionnaire,result);
+        assertEquals("desk1",resultDto.getDescription());
         verify(questionnaireRepository,times(1))
                 .save(any(Questionnaire.class));
     }

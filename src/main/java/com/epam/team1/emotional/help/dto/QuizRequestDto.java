@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class QuizDto {
+public class QuizRequestDto {
     private String token;
     private Long questionnaireId;
     private List<CompleteAnswer> answers;

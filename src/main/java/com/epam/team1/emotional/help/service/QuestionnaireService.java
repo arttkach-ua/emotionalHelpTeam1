@@ -4,6 +4,7 @@ import com.epam.team1.emotional.help.dto.QuestionnaireDto;
 import com.epam.team1.emotional.help.mappers.QuestionnaireDtoMapper;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.repository.QuestionnaireRepository;
+import com.epam.team1.emotional.help.util.ErrorMessages;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,6 @@ import java.util.List;
 public class QuestionnaireService {
     @Autowired
     private QuestionnaireDtoMapper questionnaireDtoMapper;
-
     @Autowired
     private QuestionnaireRepository questionnaireRepository;
 
@@ -31,18 +31,17 @@ public class QuestionnaireService {
     public List<QuestionnaireDto> findAllDto() {
         List<Questionnaire> questionnaires = findAll();
         return questionnaires.stream()
-                .map(a-> questionnaireDtoMapper.toDTO(a))
+                .map(questionnaireDtoMapper::toDTO)
                 .toList();
     }
 
-    public Questionnaire create(QuestionnaireDto dto) {
+    public QuestionnaireDto create(QuestionnaireDto dto) {
         //TODO add validation before create
         Questionnaire questionnaire = questionnaireDtoMapper.fromDto(dto);
-        return questionnaireRepository.save(questionnaire);
+        return questionnaireDtoMapper.toDTO(questionnaireRepository.save(questionnaire));
     }
-    public Questionnaire getById(long id){
-        //TODO fix this bug
+    public Questionnaire getById(Long id){
         return questionnaireRepository.findById(id)
-                .orElseThrow(()->new EntityNotFoundException(String.format("Questionnaire with id %c not found", id)));
+                .orElseThrow(()->new EntityNotFoundException(String.format(ErrorMessages.QUESTIONNAIRE_NOT_FOUND, id)));
     }
 }

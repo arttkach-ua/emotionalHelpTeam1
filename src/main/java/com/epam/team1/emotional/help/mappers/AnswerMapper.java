@@ -4,6 +4,8 @@ import com.epam.team1.emotional.help.dto.AnswerResponseDto;
 import com.epam.team1.emotional.help.model.Answer;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class AnswerMapper {
 
@@ -14,4 +16,9 @@ public class AnswerMapper {
 
       return answerResponseDTO;
   }
+    public List<AnswerResponseDto> toAnswerResponseDtoList(List<Answer> answers) {
+        return answers.stream()
+                .map(this::mapToResponseDto)
+                .toList();
+    }
 }
