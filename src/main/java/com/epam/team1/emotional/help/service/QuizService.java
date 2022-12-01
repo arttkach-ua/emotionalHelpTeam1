@@ -3,7 +3,6 @@ package com.epam.team1.emotional.help.service;
 import com.epam.team1.emotional.help.dto.QuizRequestDto;
 import com.epam.team1.emotional.help.dto.QuizResponseDto;
 import com.epam.team1.emotional.help.dto.ResultResponseDto;
-import com.epam.team1.emotional.help.mappers.QuizMapper;
 import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
@@ -21,18 +20,13 @@ public class QuizService {
     private AnswersService answersService;
     @Autowired
     private ResultMapper resultMapper;
-    @Autowired
-    private QuizMapper quizMapper;
-    @Autowired
-    private UserService userService;
 
-    public QuizResponseDto calculateQuiz(QuizRequestDto dto){
+    public ResultResponseDto calculateQuiz(QuizRequestDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
         Result result = resultService.getResult(quiz.getQuestionnaire(),quiz.getTotalPoints());
-        return quizMapper.toQuizResponseDto(userService.userIsAuthorized(),result, quiz);
-
+        return resultMapper.toResultResponseDto(result);
     }
 
     public Quiz mapTestDtoToTest(QuizRequestDto dto){
