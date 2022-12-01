@@ -4,7 +4,6 @@ import com.epam.team1.emotional.help.dto.QuestionResponseDto;
 import com.epam.team1.emotional.help.dto.QuestionnaireResponseDto;
 import com.epam.team1.emotional.help.model.Question;
 import com.epam.team1.emotional.help.model.Questionnaire;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

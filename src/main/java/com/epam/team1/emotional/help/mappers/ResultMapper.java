@@ -3,11 +3,9 @@ package com.epam.team1.emotional.help.mappers;
 import com.epam.team1.emotional.help.dto.ResultRequestDto;
 import com.epam.team1.emotional.help.dto.ResultResponseDto;
 import com.epam.team1.emotional.help.model.Result;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class ResultMapper {
 
     public ResultRequestDto toResultRequestDto(Result result){

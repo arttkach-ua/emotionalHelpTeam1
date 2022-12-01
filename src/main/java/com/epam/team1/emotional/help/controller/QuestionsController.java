@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/questions")
+@CrossOrigin
 public class QuestionsController {
 
     @Autowired
