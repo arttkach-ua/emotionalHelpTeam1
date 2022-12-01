@@ -1,8 +1,9 @@
 package com.epam.team1.emotional.help.service;
 
-import com.epam.team1.emotional.help.dto.QuestionRequestDto;
+import com.epam.team1.emotional.help.dto.QuestionDto;
 import com.epam.team1.emotional.help.dto.QuestionResponseDto;
-import com.epam.team1.emotional.help.mappers.QuestionMapper;
+import com.epam.team1.emotional.help.mappers.QuestionDtoMapper;
+import com.epam.team1.emotional.help.mappers.QuestionResponseMapper;
 import com.epam.team1.emotional.help.model.Question;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.repository.QuestionRepository;
@@ -16,10 +17,15 @@ import java.util.List;
 public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
+
     @Autowired
-    private QuestionMapper questionMapper;
+    private QuestionDtoMapper questionDtoMapper;
+
     @Autowired
     private QuestionnaireService questionnaireService;
+
+    @Autowired
+    private QuestionResponseMapper questionResponseMapper;
 
     public List<Question> getAllByQuestionnaireId(){
         //TODO: finish it
@@ -29,11 +35,12 @@ public class QuestionService {
     /**
      * Saves question entity to db
      * @param dto
-     * @return QuestionResponseDto with saved entity
+     * @return saved entity
      */
-    public QuestionResponseDto create(QuestionRequestDto dto){
+    public Question create(QuestionDto dto){
+        //TODO finish it
         Question question = mapQuestionFromQuestionDto(dto);
-        return questionMapper.toQuestionResponseDto(questionRepository.save(question));
+        return questionRepository.save(question);
     }
 
     public List<Question> getAllByQuestionnaireId(long id){
@@ -48,11 +55,11 @@ public class QuestionService {
      */
     public List<QuestionResponseDto> getAllDtoByQuestionnaireId(long id){
         return getAllByQuestionnaireId(id).stream()
-                .map(questionMapper::toQuestionResponseDto)
+                .map(questionResponseMapper::toQuestionResponseDto)
                 .toList();
     }
-    public Question mapQuestionFromQuestionDto(QuestionRequestDto dto){
-        Question question = questionMapper.toQuestion(dto);
+    public Question mapQuestionFromQuestionDto(QuestionDto dto){
+        Question question = questionDtoMapper.toQuestion(dto);
         question.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
         return question;
     }
