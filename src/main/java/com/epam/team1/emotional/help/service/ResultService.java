@@ -2,8 +2,7 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.ResultRequestDto;
 import com.epam.team1.emotional.help.dto.ResultResponseDto;
-import com.epam.team1.emotional.help.mappers.ResultRequestDtoMapper;
-import com.epam.team1.emotional.help.mappers.ResultResponseDtoMapper;
+import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.model.Result;
 import com.epam.team1.emotional.help.repository.ResultRepository;
@@ -17,24 +16,19 @@ import java.util.Optional;
 @Service
 public class ResultService {
     @Autowired
-    private ResultRequestDtoMapper resultRequestDtoMapper;
-
-    @Autowired
-    private ResultResponseDtoMapper resultResponseDtoMapper;
-
+    private ResultMapper resultMapper;
     @Autowired
     private ResultRepository resultRepository;
-
     @Autowired
     private QuestionnaireService questionnaireService;
 
     public ResultResponseDto create(ResultRequestDto dto){
-        Result result = resultRequestDtoMapper.fromDto(dto);
-        return resultResponseDtoMapper.toDto(resultRepository.save(result));
+        Result result = resultMapper.toResult(dto);
+        return resultMapper.toResultResponseDto(resultRepository.save(result));
     }
 
     private Result mapResultFromResultRequestDto(ResultRequestDto dto){
-        Result result = resultRequestDtoMapper.fromDto(dto);
+        Result result = resultMapper.toResult(dto);
         result.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
         return result;
     }

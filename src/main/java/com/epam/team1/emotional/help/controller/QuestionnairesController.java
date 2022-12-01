@@ -30,7 +30,7 @@ public class QuestionnairesController {
     }
 
     @PostMapping
-    public Questionnaire postQuiz(@RequestBody QuestionnaireDto dto){
+    public QuestionnaireDto createQuiz(@RequestBody QuestionnaireDto dto){
         return questionnaireService.create(dto);
     }
 
@@ -52,7 +52,7 @@ public class QuestionnairesController {
     @PostMapping("/{id}/quiz")
     public QuizDto calculateQuiz(@RequestBody QuizDto dto){
         quizService.calculateQuiz(dto);
-
+        //Todo::: delete it after finishing quiz service
         QuizDto quizDto = new QuizDto();
         quizDto.setToken("1");
         quizDto.setQuestionnaireId(1L);
