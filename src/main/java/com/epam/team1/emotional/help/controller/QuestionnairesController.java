@@ -2,8 +2,7 @@ package com.epam.team1.emotional.help.controller;
 
 import com.epam.team1.emotional.help.dto.QuestionResponseDto;
 import com.epam.team1.emotional.help.dto.QuestionnaireDto;
-import com.epam.team1.emotional.help.dto.QuizDto;
-import com.epam.team1.emotional.help.model.Questionnaire;
+import com.epam.team1.emotional.help.dto.QuizRequestDto;
 import com.epam.team1.emotional.help.service.QuestionService;
 import com.epam.team1.emotional.help.service.QuestionnaireService;
 import com.epam.team1.emotional.help.service.QuizService;
@@ -50,16 +49,16 @@ public class QuestionnairesController {
      * @return - dto with result
      */
     @PostMapping("/{id}/quiz")
-    public QuizDto calculateQuiz(@RequestBody QuizDto dto){
+    public QuizRequestDto calculateQuiz(@RequestBody QuizRequestDto dto){
         quizService.calculateQuiz(dto);
         //Todo::: delete it after finishing quiz service
-        QuizDto quizDto = new QuizDto();
-        quizDto.setToken("1");
-        quizDto.setQuestionnaireId(1L);
-        QuizDto.CompleteAnswer answer = new QuizDto.CompleteAnswer();
+        QuizRequestDto quizRequestDto = new QuizRequestDto();
+        quizRequestDto.setToken("1");
+        quizRequestDto.setQuestionnaireId(1L);
+        QuizRequestDto.CompleteAnswer answer = new QuizRequestDto.CompleteAnswer();
         answer.setAnswerId(1L);
         answer.setQuestionId(1L);
-        quizDto.setAnswers(List.of(answer));
-        return quizDto;
+        quizRequestDto.setAnswers(List.of(answer));
+        return quizRequestDto;
     }
 }

@@ -1,6 +1,9 @@
 package com.epam.team1.emotional.help.service;
 
-import com.epam.team1.emotional.help.dto.QuizDto;
+import com.epam.team1.emotional.help.dto.QuizRequestDto;
+import com.epam.team1.emotional.help.dto.QuizResponseDto;
+import com.epam.team1.emotional.help.dto.ResultResponseDto;
+import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
 import com.epam.team1.emotional.help.model.Result;
@@ -15,16 +18,18 @@ public class QuizService {
     private ResultService resultService;
     @Autowired
     private AnswersService answersService;
+    @Autowired
+    private ResultMapper resultMapper;
 
-    public void calculateQuiz(QuizDto dto){
+    public ResultResponseDto calculateQuiz(QuizRequestDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
         Result result = resultService.getResult(quiz.getQuestionnaire(),quiz.getTotalPoints());
-        //Todo finish it
+        return resultMapper.toResultResponseDto(result);
     }
 
-    public Quiz mapTestDtoToTest(QuizDto dto){
+    public Quiz mapTestDtoToTest(QuizRequestDto dto){
         Quiz quiz = new Quiz();
         quiz.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
         quiz.setAnswers(dto.getAnswers().stream()
