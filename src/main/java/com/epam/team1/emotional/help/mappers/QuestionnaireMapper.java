@@ -5,13 +5,12 @@ import com.epam.team1.emotional.help.dto.QuestionnaireResponseDto;
 import com.epam.team1.emotional.help.model.Question;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class QuestionnaireMapper {
 
     private final QuestionMapper questionMapper;
