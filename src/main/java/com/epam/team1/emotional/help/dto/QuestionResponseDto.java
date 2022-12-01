@@ -12,8 +12,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class QuestionResponseDto {
+
     private Long id;
-    private Long questionnaireId;
     private String name;
     private List<AnswerResponseDto> answers;
 }
