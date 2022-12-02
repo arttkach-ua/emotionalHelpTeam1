@@ -18,7 +18,7 @@ class QuestionnaireDtoMapperTest {
     void toDTO() {
         //given
         Questionnaire questionnaire = Questionnaire.builder()
-                .id(1)
+                .id(1L)
                 .name("test")
                 .description("description")
                 .build();
@@ -35,7 +35,7 @@ class QuestionnaireDtoMapperTest {
     void fromDto() {
         //given
         QuestionnaireDto dto = QuestionnaireDto.builder()
-                .id(1)
+                .id(1L)
                 .name("test")
                 .description("description")
                 .build();
