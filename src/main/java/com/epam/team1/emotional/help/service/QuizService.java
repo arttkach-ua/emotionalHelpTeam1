@@ -2,7 +2,6 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.QuizRequestDto;
 import com.epam.team1.emotional.help.dto.QuizResponseDto;
-import com.epam.team1.emotional.help.mappers.QuizMapper;
 import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
@@ -21,16 +20,14 @@ public class QuizService {
     @Autowired
     private ResultMapper resultMapper;
     @Autowired
-    private QuizMapper quizMapper;
-    @Autowired
     private UserService userService;
 
     public QuizResponseDto calculateQuiz(QuizRequestDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
-        Result result = resultService.getResult(quiz.getQuestionnaire(),quiz.getTotalPoints());
-        return quizMapper.toQuizResponseDto(userService.userIsAuthorized(),result, quiz);
+        Result result = resultService.getResultByQuestionnaireAndPoints(quiz.getQuestionnaire(),quiz.getTotalPoints());
+        return prepareQuizResponseDto(userService.userIsAuthorized(),result, quiz);
 
     }
 
@@ -48,4 +45,10 @@ public class QuizService {
                 .mapToInt(Answer::getPoints)
                 .sum();
     }
+    public QuizResponseDto prepareQuizResponseDto(Boolean userIsAuthorized, Result result, Quiz quiz){
+        QuizResponseDto dto = new QuizResponseDto();
+        dto.setDescription(userIsAuthorized==Boolean.TRUE?result.getFullDescription() : result.getShortDescription());
+        dto.setTotalPoints(quiz.getTotalPoints());
+        return dto;
+    };
 }
