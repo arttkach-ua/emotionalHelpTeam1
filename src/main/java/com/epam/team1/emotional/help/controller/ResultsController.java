@@ -10,16 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/results")
-@CrossOrigin
 public class ResultsController {
-    @Autowired
-    private ResultService resultService;
 
     @PostMapping
-    public ResultResponseDto addResult(@RequestBody ResultRequestDto dto){
-        return resultService.create(dto);
+    public String addResult(@RequestBody ResultRequestDto dto){
+        //todo finish it
+        return "in progress";
     }
 }

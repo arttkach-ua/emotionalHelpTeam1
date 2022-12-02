@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class QuestionRequestDto {
+public class QuestionDto {
     private Long questionnaireId;
     private String name;
 }
