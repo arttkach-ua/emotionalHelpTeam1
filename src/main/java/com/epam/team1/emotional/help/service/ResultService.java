@@ -33,7 +33,7 @@ public class ResultService {
         return result;
     }
 
-    public Result getResult(Questionnaire questionnaire, Integer points){
+    public Result getResultByQuestionnaireAndPoints(Questionnaire questionnaire, Integer points){
         Optional<Result> result = resultRepository
                 .findFirstByQuestionnaireAndPointsGreaterThanEqualOrderByPointsAsc(questionnaire, points);
         //TODO:add message here
