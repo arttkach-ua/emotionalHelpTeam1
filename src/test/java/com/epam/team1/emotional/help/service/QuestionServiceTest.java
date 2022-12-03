@@ -21,31 +21,20 @@ class QuestionServiceTest {
     private QuestionService questionService;
 
     @MockBean
-    private QuestionRepository questionRepository;
+    private QuestionRepository mockedQuestionRepository;
 
     @MockBean
-    private QuestionnaireService questionnaireService;
+    private QuestionnaireService mockedQuestionnaireService;
 
     @ParameterizedTest
     @ArgumentsSource(QuestionDataProvider.class)
-    void createCorrectCase(QuestionRequestDto dto, Question question, Long id, String name) {
+    void testCreateCorrectCase(QuestionRequestDto dto, Question question, Long id, String name) {
 
-        when(questionRepository.save(any(Question.class)))
+        when(mockedQuestionRepository.save(any(Question.class)))
                 .thenReturn(question);
 
-        QuestionResponseDto resultQuestion = assertDoesNotThrow(()->questionService.create(dto));
+        QuestionResponseDto resultQuestion = questionService.create(dto);
         assertEquals(id, resultQuestion.getId());
         assertEquals(name, resultQuestion.getName());
     }
-
-//    @ParameterizedTest
-//    @MethodSource("com.epam.team1.emotional.help.providers.TestDataProvider#get")
-//    void getAllByQuestionnaireId() {
-//        when(questionnaireService.getById(anyLong()))
-//                .thenReturn(TestDataProvider.getSingleQuestionnaireForTests().get(0));
-//        when(questionRepository.findByQuestionnaire(any(Questionnaire.class)))
-//                .thenReturn();
-//        List<Question> resultQuestions = assertDoesNotThrow(()->questionService.getAllByQuestionnaireId(1L));
-//        assertEquals();
-//    }
 }

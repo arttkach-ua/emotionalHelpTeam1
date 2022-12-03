@@ -37,7 +37,6 @@ public class ResultService {
     public Result getResultByQuestionnaireAndPoints(Questionnaire questionnaire, Integer points){
         Optional<Result> result = resultRepository
                 .findFirstByQuestionnaireAndPointsGreaterThanEqualOrderByPointsAsc(questionnaire, points);
-        //TODO:add message here
         return result
                 .orElseThrow(()->new EntityNotFoundException(ErrorMessages.RESULT_NOT_FOUND));
     }

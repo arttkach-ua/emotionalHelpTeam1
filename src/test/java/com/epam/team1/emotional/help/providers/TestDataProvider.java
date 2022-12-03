@@ -2,6 +2,7 @@ package com.epam.team1.emotional.help.providers;
 
 import com.epam.team1.emotional.help.model.Question;
 import com.epam.team1.emotional.help.model.Questionnaire;
+import com.epam.team1.emotional.help.model.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,16 @@ public class TestDataProvider {
                 .answersList(new ArrayList<>())
                 .build();
         return List.of(question);
+    }
+
+    public static Result getSingleResultForTests(){
+        return Result.builder()
+                .id(1L)
+                .points(25)
+                .fullDescription("full")
+                .shortDescription("short")
+                .questionnaire(TestDataProvider.getSingleQuestionnaireForTests())
+                .build();
     }
 
 }

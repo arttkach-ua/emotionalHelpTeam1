@@ -25,22 +25,22 @@ class QuestionnaireServiceTest {
     private QuestionnaireService questionnaireService;
 
     @MockBean
-    private QuestionnaireRepository questionnaireRepository;
+    private QuestionnaireRepository mockedQuestionnaireRepository;
 
     @Test
-    void findAll() {
+    void testFindAll() {
         List<Questionnaire> tests = TestDataProvider.getQuestionnairesForTests();
-        when(questionnaireRepository.findAll())
+        when(mockedQuestionnaireRepository.findAll())
                 .thenReturn(tests);
 
         List<Questionnaire> result = questionnaireService.findAll();
 
         assertEquals(tests,result);
-        verify(questionnaireRepository, times(1)).findAll();
+        verify(mockedQuestionnaireRepository, times(1)).findAll();
     }
 
     @Test
-    void createShouldPassCorrectly() {
+    void testCreateShouldPassCorrectly() {
         QuestionnaireDto dto = QuestionnaireDto.builder()
                 .name("test1")
                 .description("desk1")
@@ -51,52 +51,52 @@ class QuestionnaireServiceTest {
                 .description("desk1")
                 .build();
 
-        when(questionnaireRepository.save(any(Questionnaire.class)))
+        when(mockedQuestionnaireRepository.save(any(Questionnaire.class)))
                 .thenReturn(questionnaire);
         QuestionnaireDto result = questionnaireService.create(dto);
 
         assertEquals("desk1",result.getDescription());
         assertEquals("test1",result.getName());
         assertEquals(1L,result.getId());
-        verify(questionnaireRepository,times(1))
+        verify(mockedQuestionnaireRepository,times(1))
                 .save(any(Questionnaire.class));
     }
 
     @Test
-    void findAllDtoRepoIsEmpty() {
-        when(questionnaireRepository.findAll())
+    void testFindAllDtoRepoIsEmpty() {
+        when(mockedQuestionnaireRepository.findAll())
                 .thenReturn(new ArrayList<Questionnaire>());
-        List<QuestionnaireDto> dtoList = assertDoesNotThrow(()->questionnaireService.findAllDto());
+        List<QuestionnaireDto> dtoList = questionnaireService.findAllDto();
         assertEquals(0, dtoList.size());
     }
 
     @Test
-    void findAllDtoRepoHasData() {
+    void testFindAllDtoRepoHasData() {
         List<Questionnaire> questionnaireList = TestDataProvider.getQuestionnairesForTests();
-        when(questionnaireRepository.findAll())
+        when(mockedQuestionnaireRepository.findAll())
                 .thenReturn(questionnaireList);
 
-        List<QuestionnaireDto> dtoList = assertDoesNotThrow(()->questionnaireService.findAllDto());
+        List<QuestionnaireDto> dtoList = questionnaireService.findAllDto();
         assertEquals("test1", dtoList.get(0).getName());
         assertEquals("test2", dtoList.get(1).getName());
         assertEquals(2, dtoList.size());
     }
 
     @Test
-    void getByIdEntityIsFound() {
+    void testGetByIdEntityIsFound() {
         Questionnaire testQuestionnaire = TestDataProvider.getSingleQuestionnaireForTests();
-        when(questionnaireRepository.findById(any(Long.class)))
+        when(mockedQuestionnaireRepository.findById(any(Long.class)))
                 .thenReturn(Optional.of(testQuestionnaire));
 
-        Questionnaire result = assertDoesNotThrow(()->questionnaireService.getById(1L));
+        Questionnaire result = questionnaireService.getById(1L);
         assertEquals("test1", result.getName());
         assertEquals("desk1", result.getDescription());
         assertEquals(1L, result.getId());
     }
 
     @Test
-    void getByIdEntityNotFound() {
-        when(questionnaireRepository.findById(anyLong()))
+    void testGetByIdEntityNotFound() {
+        when(mockedQuestionnaireRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
 
         Exception ex = assertThrows(EntityNotFoundException.class,()->questionnaireService.getById(1L));
