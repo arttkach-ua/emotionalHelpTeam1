@@ -22,7 +22,7 @@ class ResultServiceTest {
     private QuestionnaireService questionnaireService;
 
     @MockBean
-    ResultRepository mockedResultRepository;
+    private ResultRepository mockedResultRepository;
 
     @Test
     void testCreate() {
