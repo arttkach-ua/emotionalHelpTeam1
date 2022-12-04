@@ -38,7 +38,7 @@ public class QuestionnairesController {
      * @return
      */
     @GetMapping("/{id}/questions")
-    public List<QuestionResponseDto> getAllQuestionsByQuestionnaireId(@PathVariable(required = true, name = "id") Long id){
+    public List<QuestionResponseDto> getAllQuestionsByQuestionnaireId(@PathVariable("id") Long id){
         return questionService.getAllDtoByQuestionnaireId(id);
     }
 

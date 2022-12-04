@@ -25,7 +25,7 @@ class ResultServiceTest {
     ResultRepository mockedResultRepository;
 
     @Test
-    void testCreateShouldRunCorrectly() {
+    void testCreate() {
         ResultRequestDto dto = ResultRequestDto.builder()
                 .points(25)
                 .fullDescription("full")
