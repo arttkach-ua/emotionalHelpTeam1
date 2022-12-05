@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "questionaries")
+@Table(name = "questionnaires")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,7 +21,7 @@ import java.util.List;
 public class Questionnaire extends BaseEntity {
 
     @NotNull
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = false)
     private String name;
 
     @NotNull

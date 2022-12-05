@@ -1,7 +1,7 @@
 package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.QuestionDto;
-import com.epam.team1.emotional.help.dto.QuestionResponseDto;
+import com.epam.team1.emotional.help.dto.response.QuestionResponseDto;
 import com.epam.team1.emotional.help.mappers.QuestionDtoMapper;
 import com.epam.team1.emotional.help.mappers.QuestionResponseMapper;
 import com.epam.team1.emotional.help.model.Question;

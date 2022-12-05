@@ -1,6 +1,6 @@
 package com.epam.team1.emotional.help.controller;
 
-import com.epam.team1.emotional.help.dto.ResultRequestDto;
+import com.epam.team1.emotional.help.dto.request.ResultRequestDto;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

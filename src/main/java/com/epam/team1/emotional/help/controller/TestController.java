@@ -1,13 +1,15 @@
 package com.epam.team1.emotional.help.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/")
+@RestController
+@RequestMapping("/testController")
 public class TestController {
 
-    @GetMapping
+    @GetMapping("/access-only-user")
     public String test(){
-        return "hello  Arthur";
+        return "hello";
     }
 }

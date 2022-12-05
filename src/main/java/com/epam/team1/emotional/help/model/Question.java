@@ -1,8 +1,9 @@
 package com.epam.team1.emotional.help.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -17,13 +18,13 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class Question extends BaseEntity {
-    @JsonIgnore//TODO удалить эту аннотацию. Для этого не возвращать ентити
+
     @ManyToOne()
-    @JoinColumn(name = "questionaries_id")
+    @JoinColumn(name = "questionnaires_id")
     private Questionnaire questionnaire;
 
     @NotNull
-    @Column(name = "name", nullable = false, unique = true)
+    //@Column(name = "name", nullable = false, unique = false)
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "question")
