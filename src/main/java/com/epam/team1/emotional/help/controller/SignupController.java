@@ -20,6 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/signup")
 @RequiredArgsConstructor
+@CrossOrigin
 public class SignupController {
 
     private final SignupService signupService;

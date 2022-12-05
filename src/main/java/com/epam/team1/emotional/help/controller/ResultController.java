@@ -1,15 +1,13 @@
 package com.epam.team1.emotional.help.controller;
 
 import com.epam.team1.emotional.help.dto.QuizDto;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/result")//Todo rename to ("/completeQuiz")
+@CrossOrigin
 public class ResultController {
     @PostMapping
     QuizDto calculateResult(@RequestBody QuizDto dto){

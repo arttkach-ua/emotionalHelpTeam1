@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/questionnaires")
+@CrossOrigin
 public class QuestionnairesController {
     @Autowired
     private QuestionnaireService questionnaireService;
