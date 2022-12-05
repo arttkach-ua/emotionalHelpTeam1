@@ -42,7 +42,6 @@ class QuestionnaireDtoMapperTest {
         //when
         Questionnaire questionnaire = mapper.fromDto(dto);
         //then
-        assertThat(questionnaire).isNotNull();
         assertThat(questionnaire.getName()).isEqualTo( "test");
         assertThat(questionnaire.getDescription()).isEqualTo( "description" );
         assertThat(questionnaire.getId()).isEqualTo(1);

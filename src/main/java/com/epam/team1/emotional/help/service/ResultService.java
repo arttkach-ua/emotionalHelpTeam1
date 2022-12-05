@@ -5,6 +5,7 @@ import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.model.Result;
 import com.epam.team1.emotional.help.repository.ResultRepository;
+import com.epam.team1.emotional.help.util.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,7 @@ public class ResultService {
     public Result getResultByQuestionnaireAndPoints(Questionnaire questionnaire, Integer points){
         Optional<Result> result = resultRepository
                 .findFirstByQuestionnaireAndPointsGreaterThanEqualOrderByPointsAsc(questionnaire, points);
-        //TODO:add message here
         return result
-                .orElseThrow(()->new EntityNotFoundException("result not found"));
+                .orElseThrow(()->new EntityNotFoundException(ErrorMessages.RESULT_NOT_FOUND));
     }
 }

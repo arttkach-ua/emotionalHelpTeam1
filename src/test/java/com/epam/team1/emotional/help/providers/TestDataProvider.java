@@ -50,6 +50,7 @@ public class TestDataProvider {
                 .questionnaire(TestDataProvider.getSingleQuestionnaireForTests())
                 .build();
     }
+
     public static List<Specialist> getSpecialistListForTests(){
         return List.of(
                 Specialist.builder().id(1L).info("some info1").name("some name1").image("some path1").build(),
@@ -70,5 +71,4 @@ public class TestDataProvider {
                 .image("some path")
                 .build();
     }
-
 }
