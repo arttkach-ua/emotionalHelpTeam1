@@ -1,9 +1,9 @@
 package com.epam.team1.emotional.help.providers;
 
-import com.epam.team1.emotional.help.dto.Specialist.SpecialistRequestDto;
 import com.epam.team1.emotional.help.model.Question;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.model.Result;
+import com.epam.team1.emotional.help.dto.Specialist.SpecialistRequestDto;
 import com.epam.team1.emotional.help.model.Specialist;
 
 import java.util.ArrayList;
@@ -50,7 +50,6 @@ public class TestDataProvider {
                 .questionnaire(TestDataProvider.getSingleQuestionnaireForTests())
                 .build();
     }
-
     public static List<Specialist> getSpecialistListForTests(){
         return List.of(
                 Specialist.builder().id(1L).info("some info1").name("some name1").image("some path1").build(),
