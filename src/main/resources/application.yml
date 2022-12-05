@@ -30,8 +30,8 @@ jwt:
   secret: bookingSystem
   # those are the expiration durations for jwt access and jwt refresh
   # introduced in milliseconds.
-  accessExpirationMs: 1800000
-  refreshExpirationMs: 3000000
+  accessExpirationMs: 18000000
+  refreshExpirationMs: 30000000
 
 
 
