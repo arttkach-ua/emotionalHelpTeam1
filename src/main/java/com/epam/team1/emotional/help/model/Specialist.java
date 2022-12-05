@@ -23,7 +23,7 @@ public class Specialist extends BaseEntity{
     @Column(name = "name", nullable = false, unique = true)
     private String name;
     @NotNull
-    @Column(name = "info", nullable = false, unique = true)
+    @Column(name = "info", nullable = false)
     private String info;
     @NotNull
     @Column(name = "image", nullable = false, unique = true)
