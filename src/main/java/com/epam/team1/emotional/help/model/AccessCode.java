@@ -27,7 +27,6 @@ public class AccessCode implements Serializable {
         this.code = code;
         this.createdAt = createdAt;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
