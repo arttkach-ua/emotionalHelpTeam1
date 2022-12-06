@@ -1,8 +1,8 @@
-package com.epam.team1.emotional.help.exception.handler;
+package com.epam.team1.emotional.help.exception;
 
 import com.epam.team1.emotional.help.exception.EmailAlreadyExistsException;
 import com.epam.team1.emotional.help.exception.IncorrectCurrentPasswordException;
-import com.epam.team1.emotional.help.exception.dto.ErrorResponse;
+import com.epam.team1.emotional.help.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

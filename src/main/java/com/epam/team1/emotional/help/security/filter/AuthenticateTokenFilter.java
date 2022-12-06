@@ -1,6 +1,6 @@
 package com.epam.team1.emotional.help.security.filter;
 
-import com.epam.team1.emotional.help.exception.dto.ErrorResponse;
+import com.epam.team1.emotional.help.exception.ErrorResponse;
 import com.epam.team1.emotional.help.service.UserDetailsServiceImplementation;
 import com.epam.team1.emotional.help.security.util.JwtUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;

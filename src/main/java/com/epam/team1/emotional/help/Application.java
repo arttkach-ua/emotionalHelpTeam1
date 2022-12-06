@@ -31,40 +31,40 @@ public class Application implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 
-		if (!questionnaireRepository.existsByName("questionnaire 1")){
-			Questionnaire questionnaire = new Questionnaire();
-			questionnaire.setName("questionnaire 1");
-			questionnaire.setDescription("questionnaire description");
-
-			List<Question> questionList = new ArrayList<>();
-
-			for (int i = 1; i < 4; i++) {
-				Question question = new Question();
-				question.setName("question " + i);
-				question.setQuestionnaire(questionnaire);
-				List<Answer> answerList = new ArrayList<>();
-
-				for (int j = 1; j < 4; j++) {
-
-					Answer answer = new Answer();
-					answer.setName("answer " + j);
-					answer.setPoints(j*j);
-					answer.setQuestion(question);
-
-					answerList.add(answer);
-					System.out.println(answer);
-				}
-				question.setAnswersList(answerList);
-
-				questionList.add(question);
-			}
-
-			questionnaire.setQuestionList(questionList);
-
-			questionnaireRepository.save(questionnaire);
-
-
-		}
+//		if (!questionnaireRepository.existsByName("questionnaire 1")){
+//			Questionnaire questionnaire = new Questionnaire();
+//			questionnaire.setName("questionnaire 1");
+//			questionnaire.setDescription("questionnaire description");
+//
+//			List<Question> questionList = new ArrayList<>();
+//
+//			for (int i = 1; i < 4; i++) {
+//				Question question = new Question();
+//				question.setName("question " + i);
+//				question.setQuestionnaire(questionnaire);
+//				List<Answer> answerList = new ArrayList<>();
+//
+//				for (int j = 1; j < 4; j++) {
+//
+//					Answer answer = new Answer();
+//					answer.setName("answer " + j);
+//					answer.setPoints(j*j);
+//					answer.setQuestion(question);
+//
+//					answerList.add(answer);
+//					System.out.println(answer);
+//				}
+//				question.setAnswersList(answerList);
+//
+//				questionList.add(question);
+//			}
+//
+//			questionnaire.setQuestionList(questionList);
+//
+//			questionnaireRepository.save(questionnaire);
+//
+//
+//		}
 
 
 	}

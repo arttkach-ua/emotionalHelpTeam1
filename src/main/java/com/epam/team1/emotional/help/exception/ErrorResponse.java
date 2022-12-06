@@ -1,11 +1,10 @@
-package com.epam.team1.emotional.help.exception.dto;
+package com.epam.team1.emotional.help.exception;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-
 public class ErrorResponse {
 
     public ErrorResponse(int status, String message, long timeStamp) {

@@ -1,7 +1,7 @@
 package com.epam.team1.emotional.help.controller;
 
 import com.epam.team1.emotional.help.dto.TokenRefreshResponseDTO;
-import com.epam.team1.emotional.help.exception.dto.ErrorResponse;
+import com.epam.team1.emotional.help.exception.ErrorResponse;
 import com.epam.team1.emotional.help.dto.ForgotPasswordRequestDTO;
 import com.epam.team1.emotional.help.dto.LoginRequestDTO;
 import com.epam.team1.emotional.help.dto.PasswordResetRequest;

@@ -1,15 +1,11 @@
 package com.epam.team1.emotional.help.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -20,17 +16,17 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @SuperBuilder
 public class Answer extends BaseEntity {
-
+    @JsonIgnore//TODO удалить эту аннотацию. Для этого не возвращать ентити
     @ManyToOne()
-    @JoinColumn(name = "questions_id")
+    @JoinColumn(name = "quetisons_id")
     private Question question;
 
     @NotNull
-    //@Column(name = "name", nullable = false, unique = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @NotNull
-    // @Column(name = "points", nullable = false, unique = false)
+    @Column(name = "points", nullable = false, unique = false)
     private int points;
 
 

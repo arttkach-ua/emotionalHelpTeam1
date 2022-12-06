@@ -6,28 +6,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
-@Table(name = "questionaries")
+@Table(name = "specialists")
 @Getter
 @Setter
 @AllArgsConstructor
-//@RequiredArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Questionnaire extends BaseEntity {
-
+public class Specialist extends BaseEntity{
     @NotNull
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-
     @NotNull
-    @Column(name = "description")
-    private String description;
-
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "questionnaire")
-    private List<Question> questionList;
+    @Column(name = "info", nullable = false)
+    private String info;
+    @NotNull
+    @Column(name = "image", nullable = false, unique = true)
+    private String image;
 }

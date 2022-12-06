@@ -1,7 +1,7 @@
-package com.epam.team1.emotional.help.exception.handler;
+package com.epam.team1.emotional.help.exception;
 
 
-import com.epam.team1.emotional.help.exception.dto.ErrorResponse;
+import com.epam.team1.emotional.help.exception.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

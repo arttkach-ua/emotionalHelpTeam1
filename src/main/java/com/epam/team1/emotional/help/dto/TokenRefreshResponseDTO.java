@@ -10,6 +10,7 @@ public class TokenRefreshResponseDTO {
         this.jwtRefresh = jwtRefresh;
     }
 
+
     private String jwtAccess;
     private String jwtRefresh;
 

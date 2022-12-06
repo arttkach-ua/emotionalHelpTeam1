@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginMapper {
 
-
-
     public UserResponseDTO mapToResponseDto(User user) {
         UserResponseDTO response = new UserResponseDTO();
         response.setId(user.getId());
