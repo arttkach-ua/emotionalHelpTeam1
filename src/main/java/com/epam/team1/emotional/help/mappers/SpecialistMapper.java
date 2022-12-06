@@ -15,7 +15,7 @@ public class SpecialistMapper {
     /**
      * maps {@link SpecialistRequestDto} to {@link Specialist} entity
      * @param dto - {@link SpecialistRequestDto}
-     * @return {@link SpecialistRequestDto}
+     * @return {@link Specialist}
      */
     public Specialist toSpecialist(SpecialistRequestDto dto){
         return Specialist.builder()
