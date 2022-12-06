@@ -3,6 +3,8 @@ package com.epam.team1.emotional.help.providers;
 import com.epam.team1.emotional.help.model.Question;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.model.Result;
+import com.epam.team1.emotional.help.dto.Specialist.SpecialistRequestDto;
+import com.epam.team1.emotional.help.model.Specialist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,4 +51,24 @@ public class TestDataProvider {
                 .build();
     }
 
+    public static List<Specialist> getSpecialistListForTests(){
+        return List.of(
+                Specialist.builder().id(1L).info("some info1").name("some name1").image("some path1").build(),
+                Specialist.builder().id(2L).info("some info2").name("some name2").image("some path2").build());
+    }
+    public static Specialist getSingleSpecialistForTests(){
+        return Specialist.builder()
+                .id(1L)
+                .info("some info")
+                .name("some name")
+                .image("some path")
+                .build();
+    }
+    public static SpecialistRequestDto getSingleSpecialistRequestDtoForTests(){
+        return SpecialistRequestDto.builder()
+                .info("some info")
+                .name("some name")
+                .image("some path")
+                .build();
+    }
 }
