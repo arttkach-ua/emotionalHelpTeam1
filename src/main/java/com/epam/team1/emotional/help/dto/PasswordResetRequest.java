@@ -8,9 +8,9 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class PasswordResetRequest {
     @NotBlank(message = "Please provide your password")
-    String currentPassword;
+    private String currentPassword;
     @ValidPassword
-    String newPassword;
+    private String newPassword;
     @ValidPassword
-    String conformNewPassword;
+    private String conformNewPassword;
 }

@@ -9,9 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginMapper {
 
-    public User mapToEntity(LoginRequestDTO loginRequestDTO) {
-        return null;
-    }
+
 
     public UserResponseDTO mapToResponseDto(User user) {
         UserResponseDTO response = new UserResponseDTO();

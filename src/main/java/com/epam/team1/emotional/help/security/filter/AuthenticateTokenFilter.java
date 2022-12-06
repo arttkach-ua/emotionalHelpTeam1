@@ -33,8 +33,6 @@ public class AuthenticateTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        System.out.println("Filter AuthenticateTokenFilter doFilterInternal");
-
         try {
             String jwt = jwtUtils.parseJwt(request);
 

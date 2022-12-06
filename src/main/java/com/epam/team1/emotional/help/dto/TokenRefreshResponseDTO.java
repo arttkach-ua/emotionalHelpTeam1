@@ -11,7 +11,6 @@ public class TokenRefreshResponseDTO {
     }
 
     private String jwtAccess;
-    private String type = "Bearer";
     private String jwtRefresh;
 
 }

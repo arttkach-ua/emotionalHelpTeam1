@@ -18,25 +18,9 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    public UserResponseDTO addData(UserAdditionalDataRequestDto userAdditionalDataRequestDto) {
-
-        //UserDetails userDetails = AuthService.getUserDetails();
-        System.out.println(AuthService.getUserDetails());
-        //Optional<User> optionalUser = userRepository.findByEmail(userDetails.getUsername());
-        //User user = optionalUser.orElseThrow(() -> new EntityNotFoundException("User not found"));
-        // System.out.println(user.getClass().getName());
-//        if(userAdditionalDataRequestDto.getBirthday()!=null){
-//            user.setBirthday(userAdditionalDataRequestDto.getBirthday());
-//        }
-//        if (userAdditionalDataRequestDto.getGender()!=null){
-//            user.setGender(userAdditionalDataRequestDto.getGender());
-//        }
-//        if (userAdditionalDataRequestDto.getCountry()!=null){
-//            user.setCountry(userAdditionalDataRequestDto.getCountry());
-//        }
-//        userRepository.save(user);
-        // return userMapper.mapToResponseDto(user);
-        return null;
-
+    public Boolean userIsAuthorized(){
+        //TODO finish it
+        return Boolean.TRUE;
     }
+
 }

@@ -16,10 +16,4 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/add-data")
-    public UserResponseDTO addData(@RequestBody UserAdditionalDataRequestDto userAdditionalDataRequestDto) {
-        UserResponseDTO userResponseDTO = userService.addData(userAdditionalDataRequestDto);
-        log.error("user updated his/her data with following " + userAdditionalDataRequestDto);
-        return userResponseDTO;
-    }
 }

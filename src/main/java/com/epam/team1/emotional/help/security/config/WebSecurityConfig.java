@@ -49,19 +49,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                // .antMatchers("/auth/logout").authenticated()
-
                 .antMatchers("/authentication/refresh-token").authenticated()
                 .antMatchers("/authentication/reset-password").authenticated()
-                .antMatchers("/authentication/logout").authenticated()
-                 //.antMatchers("/authentication/refresh-token").authenticated()
                 .antMatchers("/authentication/**").permitAll()
                 //
                 .antMatchers("/signup/user").permitAll()
                 .antMatchers("/**").permitAll()
-                //
-                .antMatchers("/users/add-data").authenticated()
-                // todo this method and this permission have to be removed
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

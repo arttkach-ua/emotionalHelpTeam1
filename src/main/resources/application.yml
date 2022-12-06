@@ -27,7 +27,7 @@ spring:
             enable: true
     confirmLinkIP: http://localhost:8087/
 jwt:
-  secret: bookingSystem
+  bearer: Bearer
   # those are the expiration durations for jwt access and jwt refresh
   # introduced in milliseconds.
   accessExpirationMs: 18000000

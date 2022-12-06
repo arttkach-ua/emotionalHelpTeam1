@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.transform.sax.SAXResult;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,9 @@ public class JwtUtils {
     private int jwtAccessExpirationMs;
     @Value("${jwt.refreshExpirationMs}")
     private int jwtRefreshExpirationMs;
+
+    @Value("${jwt.bearer}")
+    private String bearer;
 
     public String generateJwtToken(UserDetails userDetails, boolean forRefresh) {
         Map<String, Object> claims = new HashMap<>();
@@ -40,7 +44,7 @@ public class JwtUtils {
     public String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
 
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith(bearer + " ")) {
             return headerAuth.substring(7, headerAuth.length());
         }
         return null;
@@ -49,7 +53,7 @@ public class JwtUtils {
     public String parseRefreshJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Refresh-Toket");
 
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith(bearer + " ")) {
             return headerAuth.substring(7, headerAuth.length());
         }
         return null;
