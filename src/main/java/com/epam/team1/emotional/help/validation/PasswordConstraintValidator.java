@@ -1,7 +1,7 @@
-package com.epam.team1.emotional.help.security.validation;
+package com.epam.team1.emotional.help.validation;
 
 
-import com.epam.team1.emotional.help.security.validation.annotation.ValidPassword;
+import com.epam.team1.emotional.help.validation.annotation.ValidPassword;
 import org.passay.*;
 
 import javax.validation.ConstraintValidator;
@@ -21,8 +21,6 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
                 new LengthRule(6, 24),
 
                 new CharacterRule(EnglishCharacterData.UpperCase, 1),
-
-               // new CharacterRule(EnglishCharacterData.LowerCase, 1),
 
                 new CharacterRule(EnglishCharacterData.Digit, 1),
 

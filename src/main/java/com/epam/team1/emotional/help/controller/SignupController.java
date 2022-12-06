@@ -1,11 +1,12 @@
 package com.epam.team1.emotional.help.controller;
 
 
+import com.epam.team1.emotional.help.dto.response.SignupResponseDTO;
+import com.epam.team1.emotional.help.mappers.SignupMapper;
 import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.mappers.UserMapper;
 import com.epam.team1.emotional.help.dto.request.SignupUserRequestDTO;
 import com.epam.team1.emotional.help.dto.response.MessageResponse;
-import com.epam.team1.emotional.help.dto.response.UserResponseDTO;
 import com.epam.team1.emotional.help.exception.EmailAlreadyExistsException;
 import com.epam.team1.emotional.help.service.SignupService;
 import lombok.RequiredArgsConstructor;
@@ -24,24 +25,19 @@ import java.util.Optional;
 public class SignupController {
 
     private final SignupService signupService;
-    private final UserMapper userMapper;
-
+    private final SignupMapper signupMapper;
 
     @PostMapping("/user")
-    public @ResponseStatus(HttpStatus.CREATED) UserResponseDTO registerUser(@Valid @RequestBody SignupUserRequestDTO signupUserRequestDTO) {
-        System.out.println("SignupController registerUser");
-        Optional<User> user = signupService.findByEmail(signupUserRequestDTO.getEmail());
-        if (user.isPresent()) {
-            throw new EmailAlreadyExistsException("the provided email address already exists");
-        }
+    public @ResponseStatus(HttpStatus.CREATED) SignupResponseDTO registerUser(@Valid @RequestBody SignupUserRequestDTO signupUserRequestDTO) {
         User savedUser = signupService.saveUser(signupUserRequestDTO);
-        System.out.println("controller registerUser()");
-        return userMapper.mapToResponseDto(savedUser);
+        log.error("new user is registered " + signupUserRequestDTO);
+        return signupMapper.mapToResponseDto(savedUser);
     }
 
     @GetMapping("/confirm-email/{code}")
     public MessageResponse confirmEmail(@PathVariable("code") String code) {
         MessageResponse messageResponse = signupService.confirmEmail(code);
+        log.error("email is conformed with code " + code);
         return messageResponse;
     }
 

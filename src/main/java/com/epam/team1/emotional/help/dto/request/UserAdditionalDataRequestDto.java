@@ -15,7 +15,6 @@ public class UserAdditionalDataRequestDto {
 
     private LocalDateTime birthday;
     private String country;
-    @Enumerated(EnumType.STRING)
     private Gender gender;
 
 }

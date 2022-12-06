@@ -1,6 +1,6 @@
-package com.epam.team1.emotional.help.security.validation.annotation;
+package com.epam.team1.emotional.help.validation.annotation;
 
-import com.epam.team1.emotional.help.security.validation.PasswordConstraintValidator;
+import com.epam.team1.emotional.help.validation.PasswordConstraintValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

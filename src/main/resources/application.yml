@@ -25,7 +25,7 @@ spring:
           auth: true
           starttls:
             enable: true
-    confirmLinkIP: http://localhost:8087
+    confirmLinkIP: http://localhost:8087/
 jwt:
   secret: bookingSystem
   # those are the expiration durations for jwt access and jwt refresh

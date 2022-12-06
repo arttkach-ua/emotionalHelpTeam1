@@ -1,11 +1,12 @@
 package com.epam.team1.emotional.help.dto.request;
 
 
-import com.epam.team1.emotional.help.security.validation.annotation.ValidPassword;
+import com.epam.team1.emotional.help.validation.annotation.ValidPassword;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -18,6 +19,7 @@ public class SignupUserRequestDTO {
     private String name;
 
     @Email
+    @NotBlank
     private String email;
 
     @ValidPassword

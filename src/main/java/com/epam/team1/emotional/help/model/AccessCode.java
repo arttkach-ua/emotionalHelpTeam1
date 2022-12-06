@@ -1,11 +1,17 @@
 package com.epam.team1.emotional.help.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "access_code")
+@Getter
+@Setter
 public class AccessCode implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,27 +28,16 @@ public class AccessCode implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccessCode that = (AccessCode) o;
+        return Objects.equals(id, that.id) && Objects.equals(code, that.code) && Objects.equals(createdAt, that.createdAt);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, code, createdAt);
     }
 }

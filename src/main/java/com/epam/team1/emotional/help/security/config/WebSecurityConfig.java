@@ -57,8 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                  //.antMatchers("/authentication/refresh-token").authenticated()
                 .antMatchers("/authentication/**").permitAll()
                 //
-                .antMatchers("/testController/access-only-user").hasRole("USER")
-                //
                 .antMatchers("/signup/user").permitAll()
                 .antMatchers("/**").permitAll()
                 //

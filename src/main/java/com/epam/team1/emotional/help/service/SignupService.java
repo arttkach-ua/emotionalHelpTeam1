@@ -1,6 +1,7 @@
 package com.epam.team1.emotional.help.service;
 
 
+import com.epam.team1.emotional.help.exception.EmailAlreadyExistsException;
 import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.model.AccessCode;
 import com.epam.team1.emotional.help.repository.AccessCodeRepository;
@@ -48,7 +49,10 @@ public class SignupService {
     }
 
     public User saveUser(SignupUserRequestDTO signupUserRequestDTO) {
-        System.out.println("SignupService saveUser");
+        Optional<User> optionalUser = userRepository.findByEmail(signupUserRequestDTO.getEmail());
+        if (optionalUser.isPresent()) {
+            throw new EmailAlreadyExistsException("the provided email address already exists");
+        }
         User user = userMapper.mapToEntity(signupUserRequestDTO);
         user.setPassword(encoder.encode(user.getPassword()));
         String code = mailService.generateCode();
