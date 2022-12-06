@@ -1,7 +1,7 @@
 package com.epam.team1.emotional.help.mappers;
 
-import com.epam.team1.emotional.help.dto.request.SignupUserRequestDTO;
-import com.epam.team1.emotional.help.dto.response.SignupResponseDTO;
+import com.epam.team1.emotional.help.dto.SignupUserRequestDTO;
+import com.epam.team1.emotional.help.dto.SignupResponseDTO;
 import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.model.enums.Role;
 import org.springframework.stereotype.Component;

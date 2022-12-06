@@ -1,13 +1,11 @@
 package com.epam.team1.emotional.help.controller;
 
 
-import com.epam.team1.emotional.help.dto.response.SignupResponseDTO;
+import com.epam.team1.emotional.help.dto.SignupResponseDTO;
 import com.epam.team1.emotional.help.mappers.SignupMapper;
 import com.epam.team1.emotional.help.model.User;
-import com.epam.team1.emotional.help.mappers.UserMapper;
-import com.epam.team1.emotional.help.dto.request.SignupUserRequestDTO;
-import com.epam.team1.emotional.help.dto.response.MessageResponse;
-import com.epam.team1.emotional.help.exception.EmailAlreadyExistsException;
+import com.epam.team1.emotional.help.dto.SignupUserRequestDTO;
+import com.epam.team1.emotional.help.dto.MessageResponse;
 import com.epam.team1.emotional.help.service.SignupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Slf4j
 @RestController

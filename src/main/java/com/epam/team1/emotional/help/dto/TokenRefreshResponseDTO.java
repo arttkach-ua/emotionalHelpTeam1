@@ -1,4 +1,4 @@
-package com.epam.team1.emotional.help.dto.response;
+package com.epam.team1.emotional.help.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -2,8 +2,8 @@ package com.epam.team1.emotional.help.mappers;
 
 
 import com.epam.team1.emotional.help.model.User;
-import com.epam.team1.emotional.help.dto.request.LoginRequestDTO;
-import com.epam.team1.emotional.help.dto.response.UserResponseDTO;
+import com.epam.team1.emotional.help.dto.LoginRequestDTO;
+import com.epam.team1.emotional.help.dto.UserResponseDTO;
 import org.springframework.stereotype.Component;
 
 @Component

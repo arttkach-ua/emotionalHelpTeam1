@@ -1,14 +1,13 @@
 package com.epam.team1.emotional.help.controller;
 
-import com.epam.team1.emotional.help.dto.response.TokenRefreshResponseDTO;
+import com.epam.team1.emotional.help.dto.TokenRefreshResponseDTO;
 import com.epam.team1.emotional.help.exception.dto.ErrorResponse;
-import com.epam.team1.emotional.help.dto.request.ForgotPasswordRequestDTO;
-import com.epam.team1.emotional.help.dto.request.LoginRequestDTO;
-import com.epam.team1.emotional.help.dto.request.PasswordResetRequest;
-import com.epam.team1.emotional.help.dto.response.LoginResponseDTO;
-import com.epam.team1.emotional.help.dto.response.MessageResponse;
+import com.epam.team1.emotional.help.dto.ForgotPasswordRequestDTO;
+import com.epam.team1.emotional.help.dto.LoginRequestDTO;
+import com.epam.team1.emotional.help.dto.PasswordResetRequest;
+import com.epam.team1.emotional.help.dto.LoginResponseDTO;
+import com.epam.team1.emotional.help.dto.MessageResponse;
 import com.epam.team1.emotional.help.service.AuthService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

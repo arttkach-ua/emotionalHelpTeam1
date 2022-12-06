@@ -1,6 +1,6 @@
 package com.epam.team1.emotional.help.controller;
 
-import com.epam.team1.emotional.help.dto.response.QuestionResponseDto;
+import com.epam.team1.emotional.help.dto.QuestionResponseDto;
 import com.epam.team1.emotional.help.dto.QuestionnaireDto;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.service.QuestionService;

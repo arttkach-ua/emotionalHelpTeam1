@@ -1,4 +1,4 @@
-package com.epam.team1.emotional.help.dto.response;
+package com.epam.team1.emotional.help.dto;
 
 import com.epam.team1.emotional.help.model.enums.Role;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.epam.team1.emotional.help.mappers;
 
-import com.epam.team1.emotional.help.dto.request.ResultRequestDto;
+import com.epam.team1.emotional.help.dto.ResultRequestDto;
 import com.epam.team1.emotional.help.model.Result;
 import org.springframework.stereotype.Component;
 

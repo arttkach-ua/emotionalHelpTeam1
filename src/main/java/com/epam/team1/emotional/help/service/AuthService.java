@@ -1,12 +1,12 @@
 package com.epam.team1.emotional.help.service;
 
 
-import com.epam.team1.emotional.help.dto.request.ForgotPasswordRequestDTO;
-import com.epam.team1.emotional.help.dto.request.LoginRequestDTO;
-import com.epam.team1.emotional.help.dto.request.PasswordResetRequest;
-import com.epam.team1.emotional.help.dto.response.LoginResponseDTO;
-import com.epam.team1.emotional.help.dto.response.MessageResponse;
-import com.epam.team1.emotional.help.dto.response.TokenRefreshResponseDTO;
+import com.epam.team1.emotional.help.dto.ForgotPasswordRequestDTO;
+import com.epam.team1.emotional.help.dto.LoginRequestDTO;
+import com.epam.team1.emotional.help.dto.PasswordResetRequest;
+import com.epam.team1.emotional.help.dto.LoginResponseDTO;
+import com.epam.team1.emotional.help.dto.MessageResponse;
+import com.epam.team1.emotional.help.dto.TokenRefreshResponseDTO;
 import com.epam.team1.emotional.help.exception.IncorrectCurrentPasswordException;
 import com.epam.team1.emotional.help.mappers.LoginMapper;
 import com.epam.team1.emotional.help.model.AccessCode;

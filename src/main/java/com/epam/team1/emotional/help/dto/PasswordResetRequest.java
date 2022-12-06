@@ -1,4 +1,4 @@
-package com.epam.team1.emotional.help.dto.request;
+package com.epam.team1.emotional.help.dto;
 
 import com.epam.team1.emotional.help.validation.annotation.ValidPassword;
 import lombok.Data;
