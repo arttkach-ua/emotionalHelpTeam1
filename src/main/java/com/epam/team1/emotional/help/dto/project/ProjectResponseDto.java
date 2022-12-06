@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class ProjectResponseDto {
-    Long id;
-    String title;
-    String description;
+    private Long id;
+    private String title;
+    private String description;
 }

@@ -12,8 +12,8 @@ import javax.validation.constraints.Size;
 public class ProjectRequestDto {
     @NotNull(message = ValidationMessages.NULL_TITLE)
     @Size(min = 5, message = ValidationMessages.TITLE_TOO_SHORT)
-    String title;
+    private String title;
     @NotNull(message = ValidationMessages.NULL_DESCRIPTION)
     @Size(min = 5, message = ValidationMessages.DESCRIPTION_TOO_SHORT)
-    String description;
+    private String description;
 }
