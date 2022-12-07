@@ -1,18 +1,11 @@
 package com.epam.team1.emotional.help.mappers;
 
-import com.epam.team1.emotional.help.dto.ResultRequestDto;
-import com.epam.team1.emotional.help.model.Questionnaire;
-import com.epam.team1.emotional.help.model.Result;
-import com.epam.team1.emotional.help.repository.QuestionnaireRepository;
-import com.epam.team1.emotional.help.repository.ResultRepository;
 import com.epam.team1.emotional.help.service.QuestionnaireService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class ResultMapperTest {
