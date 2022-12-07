@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 public class MessageResponse {
 
     private String message;
+    private String token;
 
     public MessageResponse(String message) {
         this.message = message;
