@@ -12,6 +12,7 @@ import com.epam.team1.emotional.help.repository.UserRepository;
 import com.epam.team1.emotional.help.dto.SignupUserRequestDTO;
 import com.epam.team1.emotional.help.security.util.JwtUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -24,6 +25,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SignupService {
 
     private final AccessCodeRepository accessCodeRepository;
@@ -50,6 +52,7 @@ public class SignupService {
         accessCodeRepository.deleteById(accesscode.getId());
         String jwtAccess = jwtUtils.generateJwtToken(user.getEmail());
         UserResponseDTO userResponseDTO = userMapper.mapToResponseDto(user);
+        log.error("success email conformation with code " + code);
 
         return new SignupConformedResponseDto(jwtAccess,userResponseDTO);
 
