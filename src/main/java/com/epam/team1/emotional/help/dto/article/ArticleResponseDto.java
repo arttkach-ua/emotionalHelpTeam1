@@ -3,7 +3,7 @@ package com.epam.team1.emotional.help.dto.article;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -12,5 +12,5 @@ public class ArticleResponseDto {
     private String title;
     private String description;
     private String fullDescription;
-    private Date creationDate;
+    private LocalDateTime creationDate;
 }

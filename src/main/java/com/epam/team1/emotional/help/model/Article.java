@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "articles")
@@ -26,5 +26,5 @@ public class Article extends BaseEntity{
     @Column(name = "full_Description", nullable = false)
     private String fullDescription;
     @Column(name = "creation_date", nullable = false)
-    private Date creationDate;
+    private LocalDateTime creationDate;
 }

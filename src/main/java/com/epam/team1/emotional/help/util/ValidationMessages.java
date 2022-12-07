@@ -1,6 +1,6 @@
 package com.epam.team1.emotional.help.util;
 
-public class ValidationMessages {
+public final class ValidationMessages {
     private ValidationMessages(){}
 
     public static final String INFO_TOO_SHORT = "Info must be at least 2 characters";
