@@ -12,12 +12,16 @@ public class UserService {
         return Boolean.TRUE;
     }
 
-
-
-    private User getCurrentUser() {
-        return ((UserDetailsImplementation) SecurityContextHolder.
-                getContext().
-                getAuthentication().
-                getPrincipal()).getUser();
+    public User getCurrentUser() {
+        User currentUser;
+        try {
+            currentUser = ((UserDetailsImplementation) SecurityContextHolder.
+                    getContext().
+                    getAuthentication().
+                    getPrincipal()).getUser();
+        } catch (Exception e) {
+            return null;
+        }
+        return currentUser;
     }
 }

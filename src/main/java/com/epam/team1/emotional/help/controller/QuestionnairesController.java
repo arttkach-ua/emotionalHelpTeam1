@@ -4,6 +4,7 @@ import com.epam.team1.emotional.help.dto.*;
 import com.epam.team1.emotional.help.service.QuestionService;
 import com.epam.team1.emotional.help.service.QuestionnaireService;
 import com.epam.team1.emotional.help.service.QuizService;
+import com.epam.team1.emotional.help.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,9 @@ import java.util.List;
 @RequestMapping("/questionnaires")
 @CrossOrigin
 public class QuestionnairesController {
+
+    @Autowired
+    UserService userService;
     @Autowired
     private QuestionnaireService questionnaireService;
 
@@ -24,6 +28,7 @@ public class QuestionnairesController {
 
     @GetMapping
     public List<QuestionnaireDto> getQuizzes(){
+        System.out.println("ffffffffffffffffffffffff" + userService.getCurrentUser().toString() );
         return questionnaireService.findAllDto();
     }
 
