@@ -1,11 +1,11 @@
 package com.epam.team1.emotional.help.controller;
 
 
+import com.epam.team1.emotional.help.dto.SignupConformedResponseDto;
 import com.epam.team1.emotional.help.dto.SignupResponseDTO;
 import com.epam.team1.emotional.help.mappers.SignupMapper;
 import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.dto.SignupUserRequestDTO;
-import com.epam.team1.emotional.help.dto.MessageResponse;
 import com.epam.team1.emotional.help.service.SignupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,10 +32,10 @@ public class SignupController {
     }
 
     @GetMapping("/confirm-email/{code}")
-    public MessageResponse confirmEmail(@PathVariable("code") String code) {
-        MessageResponse messageResponse = signupService.confirmEmail(code);
+    public SignupConformedResponseDto confirmEmail(@PathVariable("code") String code) {
+        SignupConformedResponseDto signupConformedResponseDto = signupService.confirmEmail(code);
         log.error("email is conformed with code " + code);
-        return messageResponse;
+        return signupConformedResponseDto;
     }
 
 }

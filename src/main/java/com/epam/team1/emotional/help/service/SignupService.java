@@ -1,6 +1,8 @@
 package com.epam.team1.emotional.help.service;
 
 
+import com.epam.team1.emotional.help.dto.SignupConformedResponseDto;
+import com.epam.team1.emotional.help.dto.UserResponseDTO;
 import com.epam.team1.emotional.help.exception.EmailAlreadyExistsException;
 import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.model.AccessCode;
@@ -8,7 +10,7 @@ import com.epam.team1.emotional.help.repository.AccessCodeRepository;
 import com.epam.team1.emotional.help.mappers.UserMapper;
 import com.epam.team1.emotional.help.repository.UserRepository;
 import com.epam.team1.emotional.help.dto.SignupUserRequestDTO;
-import com.epam.team1.emotional.help.dto.MessageResponse;
+import com.epam.team1.emotional.help.security.util.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,7 @@ public class SignupService {
     private final PasswordEncoder encoder;
     private final MailService mailService;
     private final UserMapper userMapper;
+    private final JwtUtils jwtUtils;
 
     @Value("${spring.mail.confirmLinkIP}")
     private String confirmLinkIP;
@@ -38,14 +41,20 @@ public class SignupService {
     }
 
     @Transactional
-    public MessageResponse confirmEmail(String code) {
+    public SignupConformedResponseDto confirmEmail(String code) {
         AccessCode accesscode = accessCodeRepository.findByCode(code).orElseThrow(() -> new NotFoundException("you have entered an invalid access code"));
         User user = userRepository.findByAccessCodeId(accesscode.getId()).orElseThrow(() -> new NotFoundException("Code does not exist"));
         user.setEnabled(true);
         user.setAccessCode(null);
         userRepository.save(user);
         accessCodeRepository.deleteById(accesscode.getId());
-        return new MessageResponse("Your email has been successfully confirmed, now you can login to your account");
+        String jwtAccess = jwtUtils.generateJwtToken(user.getEmail());
+        UserResponseDTO userResponseDTO = userMapper.mapToResponseDto(user);
+
+        return new SignupConformedResponseDto("Your email has been successfully confirmed, now you can login to your account",
+                jwtAccess,userResponseDTO);
+
+
     }
 
     public User saveUser(SignupUserRequestDTO signupUserRequestDTO) {
