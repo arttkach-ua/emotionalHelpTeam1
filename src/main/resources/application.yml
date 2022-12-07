@@ -30,8 +30,8 @@ jwt:
   bearer: Bearer
   # those are the expiration durations for jwt access and jwt refresh
   # introduced in milliseconds.
-  accessExpirationMs: 18000000
-  refreshExpirationMs: 30000000
+  accessExpirationMs: 180000000
+  refreshExpirationMs: 300000000
 
 springdoc:
   swagger-ui:
