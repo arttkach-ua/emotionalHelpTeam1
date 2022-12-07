@@ -64,7 +64,7 @@ public class SignupService {
 
     private void sendEmail(String email, String code) {
          String subject = "Here is your verification link";
-         String confirmLink = confirmLinkIP + "signup/confirm-email/" + code;
+         String confirmLink = confirmLinkIP + "confirm/" + code;
          String mailText = "Click on this link to confirm your email \n" + confirmLink;
          mailService.send(email, subject, mailText);
     }

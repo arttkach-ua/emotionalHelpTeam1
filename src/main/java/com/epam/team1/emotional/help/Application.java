@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -30,94 +31,44 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-
-        if (!questionnaireRepository.existsByName("questionnaire 1")) {
-
+        if (!questionnaireRepository.existsByName("questionnaire 1")){
 
             Questionnaire questionnaire = new Questionnaire();
-            questionnaire.setName("questionnaire 1");
+            questionnaire.setName("questionnaire 1 " + UUID.randomUUID().toString());
             questionnaire.setDescription("questionnaire description");
 
             List<Question> questionList = new ArrayList<>();
 
+            for (int i = 1; i < 5; i++) {
+                Question question = new Question();
+                question.setName("question " + i + "  " + UUID.randomUUID().toString() );
+                question.setQuestionnaire(questionnaire);
+                List<Answer> answerList = new ArrayList<>();
+
+                for (int j = 1; j < 5; j++) {
+
+                    Answer answer = new Answer();
+                    answer.setName("answer " + j + "  " +  UUID.randomUUID().toString());
+                    answer.setPoints(j*j);
+                    answer.setQuestion(question);
+
+                    answerList.add(answer);
+                    System.out.println(answer);
+                }
+                question.setAnswersList(answerList);
+
+                questionList.add(question);
+            }
+
+            questionnaire.setQuestionList(questionList);
+
+            questionnaireRepository.save(questionnaire);
 
 
-//            Question question1 = new Question();
-//            question1.setName("question 1");
-//            question1.setQuestionnaire(questionnaire);
-//
-//            Answer answer1q1 = new Answer();
-//            answer1q1.setQuestion(question1);
-//            answer1q1.setName("Answer 1q1");
-//            answer1q1.setPoints(2);
-//
-//            Answer answer2q1 = new Answer();
-//            answer2q1.setQuestion(question1);
-//            answer2q1.setName("Answer 2q1");
-//            answer2q1.setPoints(2);
-//
-//            Answer answer3q1 = new Answer();
-//            answer3q1.setQuestion(question1);
-//            answer3q1.setName("Answer 3q1");
-//            answer3q1.setPoints(2);
-//
-//            Answer answer4q1 = new Answer();
-//            answer1q1.setQuestion(question1);
-//            answer1q1.setName("Answer 4q1");
-//            answer1q1.setPoints(2);
-//
-//            ArrayList<Answer> answerListq1 = new ArrayList<>();
-//            answerListq1.add(answer1q1);
-//            answerListq1.add(answer2q1);
-//            answerListq1.add(answer3q1);
-//            answerListq1.add(answer4q1);
-//
-//            question1.setAnswersList(answerListq1);
-
-            Question question2 = new Question();
-            question2.setName("question 2");
-            question2.setQuestionnaire(questionnaire);
-
-            Answer answer1q2 = new Answer();
-            answer1q2.setQuestion(question2);
-            answer1q2.setName("Answer 1q2");
-            answer1q2.setPoints(2);
-
-            Answer answer2q2 = new Answer();
-            answer2q2.setQuestion(question2);
-            answer2q2.setName("Answer 2q2");
-            answer2q2.setPoints(2);
-
-            Answer answer3q2 = new Answer();
-            answer3q2.setQuestion(question2);
-            answer3q2.setName("Answer 3q2");
-            answer3q2.setPoints(2);
-
-            Answer answer4q2 = new Answer();
-            answer4q2.setQuestion(question2);
-            answer4q2.setName("Answer 4q2");
-            answer4q2.setPoints(2);
-
-
-            ArrayList<Answer> answerListq2 = new ArrayList<>();
-            answerListq2.add(answer1q2);
-            answerListq2.add(answer2q2);
-            answerListq2.add(answer3q2);
-            answerListq2.add(answer4q2);
-
-            question2.setAnswersList(answerListq2);
-
-        //    questionList.add(question1);
-            questionList.add(question2);
-
-
-        questionnaire.setQuestionList(questionList);
-
-        questionnaireRepository.save(questionnaire);
-
+        }
 
     }
 
 
 }
-}
+
