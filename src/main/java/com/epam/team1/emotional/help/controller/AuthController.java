@@ -28,8 +28,8 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMapping("/login")
-    public LoginResponseDTO loginUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
+    @PostMapping("/login")
+    public @ResponseStatus(HttpStatus.OK)LoginResponseDTO loginUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
         return authService.loginUser(loginRequest);
     }
 

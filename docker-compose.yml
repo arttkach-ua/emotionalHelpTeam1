@@ -12,7 +12,7 @@ services:
     ports:
       - "3307:3306"
   app:
-    image: arturdockerhub/emotional-help
+    build: .
     networks:
       - backend
     ports:
