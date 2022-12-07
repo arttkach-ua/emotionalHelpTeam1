@@ -1,6 +1,7 @@
 package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.ResultRequestDto;
+import com.epam.team1.emotional.help.dto.ResultResponseDto;
 import com.epam.team1.emotional.help.model.Result;
 import com.epam.team1.emotional.help.providers.TestDataProvider;
 import com.epam.team1.emotional.help.repository.ResultRepository;
@@ -36,11 +37,11 @@ class ResultServiceTest {
         when(mockedResultRepository.save(any(Result.class)))
                 .thenReturn(TestDataProvider.getSingleResultForTests());
 
-        Result resultEntity = resultService.create(dto);
+        ResultResponseDto resultEntity = resultService.create(dto);
         assertEquals("full", resultEntity.getFullDescription());
         assertEquals("short", resultEntity.getShortDescription());
         assertEquals(1L, resultEntity.getId());
         assertEquals(25, resultEntity.getPoints());
-        assertEquals("test1", resultEntity.getQuestionnaire().getName());
+        assertEquals(1L, resultEntity.getQuestionnaireId());
     }
 }

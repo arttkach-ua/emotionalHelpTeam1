@@ -9,7 +9,7 @@ public class ProjectsDataProvider {
     public static List<Project> getProjectListForTests(){
         return List.of(
                 Project.builder().id(1L).title("some title 1").description("some description 1").build(),
-                Project.builder().id(1L).title("some title 2").description("some description 2").build());
+                Project.builder().id(2L).title("some title 2").description("some description 2").build());
     }
     public static Project getSingleProjectForTests(){
         return Project.builder()

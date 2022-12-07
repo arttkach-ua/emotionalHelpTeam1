@@ -5,8 +5,10 @@ import com.epam.team1.emotional.help.service.QuestionService;
 import com.epam.team1.emotional.help.service.QuestionnaireService;
 import com.epam.team1.emotional.help.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,7 +30,8 @@ public class QuestionnairesController {
     }
 
     @PostMapping
-    public QuestionnaireDto createQuiz(@RequestBody QuestionnaireDto dto){
+    @ResponseStatus(HttpStatus.CREATED)
+    public QuestionnaireDto createQuiz(@Valid @RequestBody QuestionnaireDto dto){
         return questionnaireService.create(dto);
     }
 

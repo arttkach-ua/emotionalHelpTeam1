@@ -1,6 +1,7 @@
 package com.epam.team1.emotional.help.mappers;
 
 import com.epam.team1.emotional.help.dto.ResultRequestDto;
+import com.epam.team1.emotional.help.dto.ResultResponseDto;
 import com.epam.team1.emotional.help.model.Result;
 import org.springframework.stereotype.Component;
 
@@ -22,5 +23,13 @@ public class ResultMapper {
                 .fullDescription(dto.getFullDescription())
                 .build();
     }
-
+    public ResultResponseDto toResultResponseDto(Result result){
+        return ResultResponseDto.builder()
+                .id(result.getId())
+                .questionnaireId(result.getQuestionnaire().getId())
+                .shortDescription(result.getShortDescription())
+                .fullDescription(result.getFullDescription())
+                .points(result.getPoints())
+                .build();
+    }
 }
