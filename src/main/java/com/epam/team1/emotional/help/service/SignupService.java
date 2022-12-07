@@ -51,8 +51,7 @@ public class SignupService {
         String jwtAccess = jwtUtils.generateJwtToken(user.getEmail());
         UserResponseDTO userResponseDTO = userMapper.mapToResponseDto(user);
 
-        return new SignupConformedResponseDto("Your email has been successfully confirmed, now you can login to your account",
-                jwtAccess,userResponseDTO);
+        return new SignupConformedResponseDto(jwtAccess,userResponseDTO);
 
 
     }

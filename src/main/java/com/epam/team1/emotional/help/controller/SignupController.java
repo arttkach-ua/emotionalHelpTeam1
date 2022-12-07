@@ -33,9 +33,7 @@ public class SignupController {
 
     @GetMapping("/confirm-email/{code}")
     public SignupConformedResponseDto confirmEmail(@PathVariable("code") String code) {
-        SignupConformedResponseDto signupConformedResponseDto = signupService.confirmEmail(code);
-        log.error("email is conformed with code " + code);
-        return signupConformedResponseDto;
+        return signupService.confirmEmail(code);
     }
 
 }
