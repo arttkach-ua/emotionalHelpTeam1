@@ -4,8 +4,10 @@ import com.epam.team1.emotional.help.dto.project.ProjectRequestDto;
 import com.epam.team1.emotional.help.dto.project.ProjectResponseDto;
 import com.epam.team1.emotional.help.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,8 @@ public class ProjectController {
         return projectService.getAll();
     }
     @PostMapping
-    public ProjectResponseDto createProject(@RequestBody ProjectRequestDto dto){
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProjectResponseDto createProject(@RequestBody @Valid ProjectRequestDto dto){
         return projectService.create(dto);
     }
 }

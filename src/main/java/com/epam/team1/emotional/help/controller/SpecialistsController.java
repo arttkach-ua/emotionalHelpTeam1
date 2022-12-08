@@ -4,6 +4,7 @@ import com.epam.team1.emotional.help.dto.Specialist.SpecialistRequestDto;
 import com.epam.team1.emotional.help.dto.Specialist.SpecialistResponseDto;
 import com.epam.team1.emotional.help.service.SpecialistsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,7 +23,8 @@ public class SpecialistsController {
         return specialistsService.getAll();
     }
     @PostMapping
-    public SpecialistResponseDto createSpecialist(@Valid@RequestBody SpecialistRequestDto dto){
+    @ResponseStatus(HttpStatus.CREATED)
+    public SpecialistResponseDto createSpecialist(@Valid @RequestBody SpecialistRequestDto dto){
         return specialistsService.create(dto);
     }
 }

@@ -1,6 +1,7 @@
 package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.ResultRequestDto;
+import com.epam.team1.emotional.help.dto.ResultResponseDto;
 import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.model.Result;
@@ -23,9 +24,10 @@ public class ResultService {
     @Autowired
     private QuestionnaireService questionnaireService;
 
-    public Result create(ResultRequestDto dto){
-        Result result = resultMapper.fromDto(dto);
-        return resultRepository.save(result);
+    public ResultResponseDto create(ResultRequestDto dto){
+        Result result = resultRepository.save(resultMapper.fromDto(dto));
+        return resultMapper.toResultResponseDto(result);
+
     }
 
     private Result mapResultFromResultRequestDto(ResultRequestDto dto){

@@ -5,7 +5,7 @@ import com.epam.team1.emotional.help.dto.article.ArticleResponseDto;
 import com.epam.team1.emotional.help.model.Article;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -20,7 +20,7 @@ public class ArticleMapper {
                 .title(dto.getTitle())
                 .description(dto.getDescription())
                 .fullDescription(dto.getFullDescription())
-                .creationDate(new Date())
+                .creationDate(LocalDateTime.now())
                 .build();
     }
     /**
