@@ -52,6 +52,6 @@ public class QuestionnairesController {
      */
     @PostMapping("/{id}/quiz")
     public QuizResponseDto calculateQuiz(@RequestBody QuizRequestDto dto){
-        return quizService.calculateQuizAndSaveToHistory(dto);
+        return quizService.processQuiz(dto);
     }
 }

@@ -17,13 +17,12 @@ public class QuizService {
     private final QuestionnaireService questionnaireService;
     private final ResultService resultService;
     private final AnswersService answersService;
-
     private final ResultMapper resultMapper;
 
     private final UserService userService;
     private final QuizHistoryService quizHistoryService;
 
-    public QuizResponseDto calculateQuizAndSaveToHistory(QuizRequestDto dto){
+    public QuizResponseDto processQuiz(QuizRequestDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
@@ -51,5 +50,5 @@ public class QuizService {
         dto.setDescription(result.getFullDescription());
         dto.setTotalPoints(quiz.getTotalPoints());
         return dto;
-    };
+    }
 }
