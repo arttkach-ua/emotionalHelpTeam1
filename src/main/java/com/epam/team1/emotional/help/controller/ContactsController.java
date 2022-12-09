@@ -11,10 +11,10 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@RequestMapping("/contact")
+@RequestMapping("/contacts")
 @RequiredArgsConstructor
 @CrossOrigin
-public class ContactController {
+public class ContactsController {
     private final MailService mailService;
 
     @GetMapping("/callRequest")
