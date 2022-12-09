@@ -26,9 +26,9 @@ public class QuizHistory extends BaseEntity{
     @JoinColumn(name = "users_id")
     private User user;
     @Column(name = "complete_date")
-    LocalDateTime completeDate;
+    private LocalDateTime completeDate;
     @ManyToOne
     @JoinColumn(name = "results_id")
-    Result result;
+    private Result result;
 
 }

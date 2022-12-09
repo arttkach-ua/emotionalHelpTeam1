@@ -6,25 +6,24 @@ import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
 import com.epam.team1.emotional.help.model.Result;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class QuizService {
-    @Autowired
-    private QuestionnaireService questionnaireService;
-    @Autowired
-    private ResultService resultService;
-    @Autowired
-    private AnswersService answersService;
-    @Autowired
-    private ResultMapper resultMapper;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private QuizHistoryService quizHistoryService;
+    private final QuestionnaireService questionnaireService;
+    private final ResultService resultService;
+    private final AnswersService answersService;
 
-    public QuizResponseDto calculateQuiz(QuizRequestDto dto){
+    private final ResultMapper resultMapper;
+
+    private final UserService userService;
+    private final QuizHistoryService quizHistoryService;
+
+    public QuizResponseDto calculateQuizAndSaveToHistory(QuizRequestDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));

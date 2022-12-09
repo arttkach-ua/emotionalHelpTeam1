@@ -7,22 +7,21 @@ import com.epam.team1.emotional.help.model.QuizHistory;
 import com.epam.team1.emotional.help.model.Result;
 import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.repository.QuizHistoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class QuizHistoryService {
-    @Autowired
-    private QuizHistoryRepository quizHistoryRepository;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private QuizHistoryMapper quizHistoryMapper;
-
+    private final QuizHistoryRepository quizHistoryRepository;
+    private final UserService userService;
+    private final QuizHistoryMapper quizHistoryMapper;
 
     public boolean saveToQuizHistory(Result result, Quiz quiz) {
         Optional<User> userOptional = userService.getCurrentUser();
