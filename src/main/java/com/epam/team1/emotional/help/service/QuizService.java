@@ -21,14 +21,16 @@ public class QuizService {
     private ResultMapper resultMapper;
     @Autowired
     private UserService userService;
+    @Autowired
+    private QuizHistoryService quizHistoryService;
 
     public QuizResponseDto calculateQuiz(QuizRequestDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
         Result result = resultService.getResultByQuestionnaireAndPoints(quiz.getQuestionnaire(),quiz.getTotalPoints());
-        return prepareQuizResponseDto(userService.userIsAuthorized(),result, quiz);
-
+        quizHistoryService.saveToQuizHistory(result, quiz);
+        return prepareQuizResponseDto(result, quiz);
     }
 
     public Quiz mapTestDtoToTest(QuizRequestDto dto){
@@ -45,9 +47,9 @@ public class QuizService {
                 .mapToInt(Answer::getPoints)
                 .sum();
     }
-    public QuizResponseDto prepareQuizResponseDto(Boolean userIsAuthorized, Result result, Quiz quiz){
+    public QuizResponseDto prepareQuizResponseDto(Result result, Quiz quiz){
         QuizResponseDto dto = new QuizResponseDto();
-        dto.setDescription(userIsAuthorized==Boolean.TRUE?result.getFullDescription() : result.getShortDescription());
+        dto.setDescription(result.getFullDescription());
         dto.setTotalPoints(quiz.getTotalPoints());
         return dto;
     };

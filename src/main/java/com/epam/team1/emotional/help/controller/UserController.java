@@ -1,12 +1,16 @@
 package com.epam.team1.emotional.help.controller;
 
 
-import com.epam.team1.emotional.help.dto.UserAdditionalDataRequestDto;
-import com.epam.team1.emotional.help.dto.UserResponseDTO;
+import com.epam.team1.emotional.help.dto.quizHistory.QuizHistoryResponseDto;
+import com.epam.team1.emotional.help.service.QuizHistoryService;
 import com.epam.team1.emotional.help.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/users")
@@ -15,5 +19,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    @Autowired
+    private QuizHistoryService quizHistoryService;
+
+    @GetMapping("/{id}/history")
+    public List<QuizHistoryResponseDto> getQuizHistoryByUser(@PathVariable("id") Long userId){
+        return quizHistoryService.getQuizHistoryByUser(userId);
+    }
 
 }

@@ -36,7 +36,6 @@ public class QuestionnaireService {
     }
 
     public QuestionnaireDto create(QuestionnaireDto dto) {
-        //TODO add validation before create
         Questionnaire questionnaire = questionnaireDtoMapper.fromDto(dto);
         return questionnaireDtoMapper.toDTO(questionnaireRepository.save(questionnaire));
     }

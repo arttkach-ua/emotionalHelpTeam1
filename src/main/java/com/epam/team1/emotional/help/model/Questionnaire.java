@@ -11,11 +11,10 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "questionaries")
+@Table(name = "questionnaires")
 @Getter
 @Setter
 @AllArgsConstructor
-//@RequiredArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 public class Questionnaire extends BaseEntity {
