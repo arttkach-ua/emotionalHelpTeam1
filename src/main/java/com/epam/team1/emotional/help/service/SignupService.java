@@ -4,6 +4,7 @@ package com.epam.team1.emotional.help.service;
 import com.epam.team1.emotional.help.dto.SignupConformedResponseDto;
 import com.epam.team1.emotional.help.dto.SignupResponseDTO;
 import com.epam.team1.emotional.help.dto.UserResponseDTO;
+import com.epam.team1.emotional.help.exception.ConformationCodeIsBlankException;
 import com.epam.team1.emotional.help.exception.EmailAlreadyExistsException;
 import com.epam.team1.emotional.help.mappers.SignupMapper;
 import com.epam.team1.emotional.help.model.User;
@@ -47,6 +48,7 @@ public class SignupService {
 
     @Transactional
     public SignupConformedResponseDto confirmEmail(String code) {
+        if (code.isBlank()){throw new ConformationCodeIsBlankException("you sent a blank message");}
         AccessCode accesscode = accessCodeRepository.findByCode(code).orElseThrow(() -> new NotFoundException("you have entered an invalid access code"));
         User user = userRepository.findByAccessCodeId(accesscode.getId()).orElseThrow(() -> new NotFoundException("Code does not exist"));
         user.setEnabled(true);
@@ -56,10 +58,7 @@ public class SignupService {
         String jwtAccess = jwtUtils.generateJwtToken(user.getEmail());
         UserResponseDTO userResponseDTO = userMapper.mapToResponseDto(user);
         log.error("success email conformation with code " + code);
-
         return new SignupConformedResponseDto(jwtAccess, userResponseDTO);
-
-
     }
 
     public SignupResponseDTO saveUser(SignupUserRequestDTO signupUserRequestDTO) {
@@ -86,10 +85,10 @@ public class SignupService {
     private AccessCode generateAccessCode(User user, String code) {
         AccessCode accessCode = user.getAccessCode();
         if (accessCode != null) {
-            AccessCode byId = accessCodeRepository.findById(accessCode.getId()).orElseThrow(() -> new NotFoundException("Code does not exist"));
-            byId.setCode(code);
-            byId.setCreatedAt(LocalDateTime.now());
-            return accessCodeRepository.save(byId);
+            AccessCode providedAccessCode = accessCodeRepository.findById(accessCode.getId()).orElseThrow(() -> new NotFoundException("Code does not exist"));
+            providedAccessCode.setCode(code);
+            providedAccessCode.setCreatedAt(LocalDateTime.now());
+            return accessCodeRepository.save(providedAccessCode);
         } else {
             accessCode = new AccessCode();
             accessCode.setCode(code);
