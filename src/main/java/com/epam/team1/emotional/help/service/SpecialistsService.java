@@ -5,17 +5,16 @@ import com.epam.team1.emotional.help.dto.Specialist.SpecialistResponseDto;
 import com.epam.team1.emotional.help.mappers.SpecialistMapper;
 import com.epam.team1.emotional.help.model.Specialist;
 import com.epam.team1.emotional.help.repository.SpecialistRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SpecialistsService {
-    @Autowired
-    private SpecialistMapper specialistMapper;
-    @Autowired
-    private SpecialistRepository specialistRepository;
+    private final SpecialistMapper specialistMapper;
+    private final SpecialistRepository specialistRepository;
 
     public SpecialistResponseDto create(SpecialistRequestDto dto){
         Specialist specialist = specialistRepository.save(specialistMapper.toSpecialist(dto));

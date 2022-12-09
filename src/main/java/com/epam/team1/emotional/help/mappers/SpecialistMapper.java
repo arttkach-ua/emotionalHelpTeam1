@@ -3,6 +3,8 @@ package com.epam.team1.emotional.help.mappers;
 import com.epam.team1.emotional.help.dto.Specialist.SpecialistRequestDto;
 import com.epam.team1.emotional.help.dto.Specialist.SpecialistResponseDto;
 import com.epam.team1.emotional.help.model.Specialist;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,7 +13,11 @@ import java.util.List;
  * This class is used to store methods that will map Specialist entity to or from dto
  */
 @Component
+@RequiredArgsConstructor
 public class SpecialistMapper {
+    @Value("${hosting.path}")
+    private String path;
+
     /**
      * maps {@link SpecialistRequestDto} to {@link Specialist} entity
      * @param dto - {@link SpecialistRequestDto}
@@ -31,11 +37,13 @@ public class SpecialistMapper {
      * @return - {@link SpecialistResponseDto}
      */
     public SpecialistResponseDto mapToResponseDto(Specialist specialist){
+
+
         return SpecialistResponseDto.builder()
                 .id(specialist.getId())
                 .name(specialist.getName())
                 .info(specialist.getInfo())
-                .image(specialist.getImage())
+                .image(path + specialist.getImage())
                 .build();
     }
 

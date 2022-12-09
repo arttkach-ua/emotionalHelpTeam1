@@ -22,7 +22,7 @@ public class QuizService {
     @Autowired
     private UserService userService;
 
-    public QuizResponseDto calculateQuiz(QuizRequestDto dto){
+    public QuizResponseDto processQuiz(QuizRequestDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
@@ -50,5 +50,5 @@ public class QuizService {
         dto.setDescription(userIsAuthorized==Boolean.TRUE?result.getFullDescription() : result.getShortDescription());
         dto.setTotalPoints(quiz.getTotalPoints());
         return dto;
-    };
+    }
 }
