@@ -3,20 +3,19 @@ package com.epam.team1.emotional.help.model;
 
 import com.epam.team1.emotional.help.model.enums.Gender;
 import com.epam.team1.emotional.help.model.enums.Role;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends BaseEntity {
@@ -29,7 +28,7 @@ public class User extends BaseEntity {
     private String email;
     @NotNull
     private String password;
-    private LocalDateTime birthday;
+    private LocalDate birthday;
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String country;

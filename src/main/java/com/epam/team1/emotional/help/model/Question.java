@@ -17,15 +17,15 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class Question extends BaseEntity {
-    @JsonIgnore//TODO удалить эту аннотацию. Для этого не возвращать ентити
+
     @ManyToOne()
-    @JoinColumn(name = "questionaries_id")
+    @JoinColumn(name = "questionnaires_id")
     private Questionnaire questionnaire;
 
     @NotNull
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "question")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "question")
     private List<Answer> answersList;
 }

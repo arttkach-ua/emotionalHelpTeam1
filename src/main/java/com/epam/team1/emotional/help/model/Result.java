@@ -22,7 +22,7 @@ import javax.persistence.*;
 @SuperBuilder
 public class Result extends BaseEntity {
     @ManyToOne()
-    @JoinColumn(name = "questionaries_id")
+    @JoinColumn(name = "questionnaires_id")
     private Questionnaire questionnaire;
     @Column(name="points")
     private Integer points;
