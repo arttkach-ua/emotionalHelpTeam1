@@ -7,22 +7,20 @@ import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.model.Result;
 import com.epam.team1.emotional.help.repository.ResultRepository;
 import com.epam.team1.emotional.help.util.ErrorMessages;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class ResultService {
-    @Autowired
-    private ResultMapper resultMapper;
-
-    @Autowired
-    private ResultRepository resultRepository;
-
-    @Autowired
-    private QuestionnaireService questionnaireService;
+    private final ResultMapper resultMapper;
+    private final ResultRepository resultRepository;
+    private final QuestionnaireService questionnaireService;
 
     public ResultResponseDto create(ResultRequestDto dto){
         Result result = resultRepository.save(resultMapper.fromDto(dto));

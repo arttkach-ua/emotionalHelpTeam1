@@ -6,29 +6,29 @@ import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
 import com.epam.team1.emotional.help.model.Result;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class QuizService {
-    @Autowired
-    private QuestionnaireService questionnaireService;
-    @Autowired
-    private ResultService resultService;
-    @Autowired
-    private AnswersService answersService;
-    @Autowired
-    private ResultMapper resultMapper;
-    @Autowired
-    private UserService userService;
+    private final QuestionnaireService questionnaireService;
+    private final ResultService resultService;
+    private final AnswersService answersService;
+    private final ResultMapper resultMapper;
+
+    private final UserService userService;
+    private final QuizHistoryService quizHistoryService;
 
     public QuizResponseDto processQuiz(QuizRequestDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
         Result result = resultService.getResultByQuestionnaireAndPoints(quiz.getQuestionnaire(),quiz.getTotalPoints());
-        return prepareQuizResponseDto(userService.userIsAuthorized(),result, quiz);
-
+        quizHistoryService.saveToQuizHistory(result, quiz);
+        return prepareQuizResponseDto(result, quiz);
     }
 
     public Quiz mapTestDtoToTest(QuizRequestDto dto){
@@ -45,9 +45,9 @@ public class QuizService {
                 .mapToInt(Answer::getPoints)
                 .sum();
     }
-    public QuizResponseDto prepareQuizResponseDto(Boolean userIsAuthorized, Result result, Quiz quiz){
+    public QuizResponseDto prepareQuizResponseDto(Result result, Quiz quiz){
         QuizResponseDto dto = new QuizResponseDto();
-        dto.setDescription(userIsAuthorized==Boolean.TRUE?result.getFullDescription() : result.getShortDescription());
+        dto.setDescription(result.getFullDescription());
         dto.setTotalPoints(quiz.getTotalPoints());
         return dto;
     }
