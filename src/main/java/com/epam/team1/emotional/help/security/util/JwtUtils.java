@@ -41,6 +41,22 @@ public class JwtUtils {
                 .compact();
     }
 
+    public String generateJwtToken(String username) {
+        Map<String, Object> claims = new HashMap<>();
+
+        final Date createdDate = new Date();
+        final Date expirationDate = calculateExpirationDate(createdDate, false);
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(username)
+                .setIssuedAt(createdDate)
+                .setExpiration(expirationDate)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+    }
+
+
+
     public String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
 

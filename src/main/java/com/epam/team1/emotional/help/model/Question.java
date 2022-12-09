@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class Question extends BaseEntity {
+
     @ManyToOne()
     @JoinColumn(name = "questionnaires_id")
     private Questionnaire questionnaire;
@@ -25,6 +26,6 @@ public class Question extends BaseEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "question")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "question")
     private List<Answer> answersList;
 }
