@@ -6,10 +6,13 @@ import com.epam.team1.emotional.help.mappers.SpecialistMapper;
 import com.epam.team1.emotional.help.model.Specialist;
 import com.epam.team1.emotional.help.repository.SpecialistRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SpecialistsService {

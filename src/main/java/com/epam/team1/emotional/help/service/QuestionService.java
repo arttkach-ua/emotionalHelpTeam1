@@ -6,20 +6,20 @@ import com.epam.team1.emotional.help.mappers.QuestionMapper;
 import com.epam.team1.emotional.help.model.Question;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.repository.QuestionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class QuestionService {
-    @Autowired
-    private QuestionRepository questionRepository;
-    @Autowired
-    private QuestionMapper questionMapper;
-    @Autowired
-    private QuestionnaireService questionnaireService;
+    private final QuestionRepository questionRepository;
+    private final QuestionMapper questionMapper;
+    private final QuestionnaireService questionnaireService;
 
     public List<Question> getAllByQuestionnaireId(){
         //TODO: finish it

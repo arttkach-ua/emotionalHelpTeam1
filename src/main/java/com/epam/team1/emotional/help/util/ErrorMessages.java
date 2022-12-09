@@ -10,4 +10,5 @@ public final class ErrorMessages {
     public static final String QUESTIONNAIRE_NOT_FOUND = "Questionnaire with id %d not found";
 
     public static final String ARTICLE_NOT_FOUND = "Article with id %d not found";
+    public static final String USER_NOT_FOUND = "User with id %d not found";
 }

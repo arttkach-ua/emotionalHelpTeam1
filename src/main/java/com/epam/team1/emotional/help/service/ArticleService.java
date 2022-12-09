@@ -6,19 +6,19 @@ import com.epam.team1.emotional.help.mappers.ArticleMapper;
 import com.epam.team1.emotional.help.model.Article;
 import com.epam.team1.emotional.help.repository.ArticleRepository;
 import com.epam.team1.emotional.help.util.ErrorMessages;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class ArticleService {
-    @Autowired
-    private ArticleRepository articleRepository;
-
-    @Autowired
-    private ArticleMapper articleMapper;
+    private final ArticleRepository articleRepository;
+    private final ArticleMapper articleMapper;
 
     public List<ArticleResponseDto> getAll(){
         return articleMapper.toArticleResponseDtoList(articleRepository.findAll());

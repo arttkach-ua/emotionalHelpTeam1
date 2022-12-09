@@ -1,5 +1,8 @@
 package com.epam.team1.emotional.help.service;
 
+import com.epam.team1.emotional.help.util.ErrorMessages;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.epam.team1.emotional.help.dto.UserAddDataRequestDto;
 import com.epam.team1.emotional.help.dto.UserResponseDTO;
 import com.epam.team1.emotional.help.exception.WrongUserIdException;
@@ -7,8 +10,6 @@ import com.epam.team1.emotional.help.mappers.UserMapper;
 import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.repository.UserRepository;
 import com.epam.team1.emotional.help.security.UserDetailsImplementation;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -18,26 +19,21 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
     private final UserRepository userRepository;
-
+    
     private final UserMapper userMapper;
 
-    public Boolean userIsAuthorized() {
-        //TODO finish it
-        return Boolean.TRUE;
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format(ErrorMessages.USER_NOT_FOUND, id)));
     }
 
     public Optional<User> getCurrentUser() {
-        try {
-            return Optional.of(((UserDetailsImplementation) SecurityContextHolder.
-                    getContext().
-                    getAuthentication().
-                    getPrincipal()).getUser());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-    }
+        return Optional.ofNullable(((UserDetailsImplementation) SecurityContextHolder.
+                getContext().
+                getAuthentication().
+                getPrincipal()).getUser());
+      }
 
     public UserResponseDTO getById(Long id) {
         User currentUser = getCurrentUser().orElseThrow(() -> new UsernameNotFoundException("user not found"));
