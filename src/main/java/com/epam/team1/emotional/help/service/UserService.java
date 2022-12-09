@@ -9,9 +9,11 @@ import com.epam.team1.emotional.help.repository.UserRepository;
 import com.epam.team1.emotional.help.security.UserDetailsImplementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,22 +28,20 @@ public class UserService {
         return Boolean.TRUE;
     }
 
-    public User getCurrentUser() {
-        User currentUser;
+    public Optional<User> getCurrentUser() {
         try {
-            currentUser = ((UserDetailsImplementation) SecurityContextHolder.
+            return Optional.of(((UserDetailsImplementation) SecurityContextHolder.
                     getContext().
                     getAuthentication().
-                    getPrincipal()).getUser();
-        } catch (NullPointerException e) {
-            return null;
+                    getPrincipal()).getUser());
+        } catch (Exception e) {
+            return Optional.empty();
         }
-        return currentUser;
     }
 
     public UserResponseDTO getById(Long id) {
-        User currentUser = getCurrentUser();
-        if (!currentUser.getId().equals(id)){
+        User currentUser = getCurrentUser().orElseThrow(() -> new UsernameNotFoundException("user not found"));
+        if (!currentUser.getId().equals(id)) {
             throw new WrongUserIdException("provided user id is not correct");
         }
         return userMapper.mapToResponseDto(userRepository.findById(id)
@@ -49,8 +49,8 @@ public class UserService {
     }
 
     public UserResponseDTO resetById(Long id, UserAddDataRequestDto userAddDataRequestDto) {
-        User currentUser = getCurrentUser();
-        if (!currentUser.getId().equals(id)){
+        User currentUser = getCurrentUser().orElseThrow(() -> new UsernameNotFoundException("user not found"));
+        if (!currentUser.getId().equals(id)) {
             throw new WrongUserIdException("provided user id is not correct");
         }
         User user = userRepository.findById(id)
