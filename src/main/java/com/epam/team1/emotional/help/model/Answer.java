@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @SuperBuilder
 public class Answer extends BaseEntity {
-    @JsonIgnore//TODO удалить эту аннотацию. Для этого не возвращать ентити
     @ManyToOne()
     @JoinColumn(name = "quetisons_id")
     private Question question;

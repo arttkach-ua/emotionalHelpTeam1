@@ -5,24 +5,19 @@ import com.epam.team1.emotional.help.mappers.QuestionnaireDtoMapper;
 import com.epam.team1.emotional.help.model.Questionnaire;
 import com.epam.team1.emotional.help.repository.QuestionnaireRepository;
 import com.epam.team1.emotional.help.util.ErrorMessages;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
+@Slf4j
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@RequiredArgsConstructor
 public class QuestionnaireService {
-    @Autowired
-    private QuestionnaireDtoMapper questionnaireDtoMapper;
-    @Autowired
-    private QuestionnaireRepository questionnaireRepository;
+    private final QuestionnaireDtoMapper questionnaireDtoMapper;
+    private final QuestionnaireRepository questionnaireRepository;
 
     public List<Questionnaire> findAll() {
         return questionnaireRepository.findAll();
@@ -36,7 +31,6 @@ public class QuestionnaireService {
     }
 
     public QuestionnaireDto create(QuestionnaireDto dto) {
-        //TODO add validation before create
         Questionnaire questionnaire = questionnaireDtoMapper.fromDto(dto);
         return questionnaireDtoMapper.toDTO(questionnaireRepository.save(questionnaire));
     }
