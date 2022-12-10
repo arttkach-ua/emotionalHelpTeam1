@@ -1,11 +1,9 @@
 package com.epam.team1.emotional.help.service;
 
+import com.epam.team1.emotional.help.dto.SendQuizResultToEmailDto;
 import com.epam.team1.emotional.help.dto.quizHistory.QuizHistoryResponseDto;
 import com.epam.team1.emotional.help.mappers.QuizHistoryMapper;
-import com.epam.team1.emotional.help.model.Quiz;
-import com.epam.team1.emotional.help.model.QuizHistory;
-import com.epam.team1.emotional.help.model.Result;
-import com.epam.team1.emotional.help.model.User;
+import com.epam.team1.emotional.help.model.*;
 import com.epam.team1.emotional.help.repository.QuizHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +20,8 @@ public class QuizHistoryService {
     private final QuizHistoryRepository quizHistoryRepository;
     private final UserService userService;
     private final QuizHistoryMapper quizHistoryMapper;
+    private final QuestionnaireService questionnaireService;
+    private final ResultService resultService;
 
     public boolean saveToQuizHistory(Result result, Quiz quiz) {
         Optional<User> userOptional = userService.getCurrentUser();
@@ -48,10 +48,29 @@ public class QuizHistoryService {
                 .completeDate(LocalDateTime.now())
                 .build();
     }
+    public QuizHistory createQuizHistory(User user, Questionnaire questionnaire, Integer pointsScored, Result result){
+        return QuizHistory.builder()
+                .user(user)
+                .questionnaire(questionnaire)
+                .points(pointsScored)
+                .result(result)
+                .completeDate(LocalDateTime.now()).build();
+    }
+
 
     public List<QuizHistoryResponseDto> getQuizHistoryByUser(Long userId) {
         User user = userService.getUserById(userId);
         List<QuizHistory> quizHistories = quizHistoryRepository.findByUser(user);
         return quizHistoryMapper.toQuizHistoryResponseDtoList(quizHistories);
+    }
+    public void saveQuizForUnauthenticatedUser(SendQuizResultToEmailDto dto){
+        Optional<User> userOptional= userService.findUserByEmail(dto.getEmail());
+        Questionnaire questionnaire = questionnaireService.getById(dto.getQuestionnaireId());
+        Result result = resultService.getResultByQuestionnaireAndPoints(questionnaire,dto.getPoints());
+
+        if (userOptional.isEmpty()||questionnaire==null) return;
+        QuizHistory quizHistory = createQuizHistory(userOptional.get(),questionnaire,dto.getPoints(),result);
+
+        quizHistoryRepository.save(quizHistory);
     }
 }

@@ -2,7 +2,9 @@ package com.epam.team1.emotional.help.controller;
 
 import com.epam.team1.emotional.help.dto.CallRequestDto;
 import com.epam.team1.emotional.help.dto.ConsultationRequestDto;
+import com.epam.team1.emotional.help.dto.SendQuizResultToEmailDto;
 import com.epam.team1.emotional.help.service.MailService;
+import com.epam.team1.emotional.help.service.QuizHistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import javax.validation.Valid;
 @CrossOrigin
 public class ContactsController {
     private final MailService mailService;
+    private final QuizHistoryService quizHistoryService;
 
     @GetMapping("/callRequest")
     public void callRequest(@Valid @RequestBody CallRequestDto dto){
@@ -24,5 +27,10 @@ public class ContactsController {
     @GetMapping("/consultationRequest")
     public void consultationRequest(@Valid @RequestBody ConsultationRequestDto dto){
         mailService.sendConsultationRequestMail(dto);
+    }
+    @GetMapping("/sendResult")
+    public void sendResultToEmailAndSaveIt(@Valid @RequestBody SendQuizResultToEmailDto dto){
+        mailService.sendQuizResultToMail(dto);
+        quizHistoryService.saveQuizForUnauthenticatedUser(dto);
     }
 }

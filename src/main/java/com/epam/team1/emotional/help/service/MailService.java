@@ -3,6 +3,7 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.CallRequestDto;
 import com.epam.team1.emotional.help.dto.ConsultationRequestDto;
+import com.epam.team1.emotional.help.dto.SendQuizResultToEmailDto;
 import com.epam.team1.emotional.help.util.MailMessages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,5 +50,10 @@ public class MailService {
         send(contactorMail,
                 String.format(MailMessages.CONSULTATION_REQUEST_MAIL_THEME, dto.getName()),
                 String.format(MailMessages.CONSULTATION_REQUEST_MAIL_BODY, dto.getName(), dto.getPhoneNumber(), (dto.getDate().toString())));
+    }
+    public void sendQuizResultToMail(SendQuizResultToEmailDto dto){
+        send(dto.getEmail(),
+                MailMessages.QUIZ_RESULT_MAIL_THEME,
+                String.format(MailMessages.QUIZ_RESULT_MAIL_BODY, dto.getName(),dto.getDescription()));
     }
 }

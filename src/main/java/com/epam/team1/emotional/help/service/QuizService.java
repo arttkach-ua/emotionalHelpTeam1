@@ -2,7 +2,6 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.QuizRequestDto;
 import com.epam.team1.emotional.help.dto.QuizResponseDto;
-import com.epam.team1.emotional.help.mappers.ResultMapper;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
 import com.epam.team1.emotional.help.model.Result;
@@ -17,9 +16,6 @@ public class QuizService {
     private final QuestionnaireService questionnaireService;
     private final ResultService resultService;
     private final AnswersService answersService;
-    private final ResultMapper resultMapper;
-
-    private final UserService userService;
     private final QuizHistoryService quizHistoryService;
 
     public QuizResponseDto processQuiz(QuizRequestDto dto){
