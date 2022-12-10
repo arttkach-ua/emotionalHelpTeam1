@@ -46,7 +46,7 @@ public class MailService {
     }
     public void sendConsultationRequestMail(ConsultationRequestDto dto){
         String mailTheme = String.format(MailMessages.CONSULTATION_REQUEST_MAIL_THEME, dto.getName());
-        String mailBody = String.format(MailMessages.CONSULTATION_REQUEST_MAIL_BODY, dto.getName(), dto.getPhoneNumber(), (dto.getDate().toString()));
+        String mailBody = String.format(MailMessages.CONSULTATION_REQUEST_MAIL_BODY, dto.getName(), dto.getPhoneNumber(), (dto.getDate()));
 
         send(contactorMail,mailTheme,mailBody);
     }

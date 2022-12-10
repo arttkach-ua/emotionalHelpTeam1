@@ -5,12 +5,10 @@ import com.epam.team1.emotional.help.dto.quizHistory.QuizHistoryResponseDto;
 import com.epam.team1.emotional.help.mappers.QuizHistoryMapper;
 import com.epam.team1.emotional.help.model.*;
 import com.epam.team1.emotional.help.repository.QuizHistoryRepository;
-import com.epam.team1.emotional.help.util.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
