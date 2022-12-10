@@ -25,7 +25,7 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format(ErrorMessages.USER_NOT_FOUND, id)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format(ErrorMessages.USER_BY_ID_NOT_FOUND, id)));
     }
 
     public Optional<User> getCurrentUser() {
@@ -64,8 +64,13 @@ public class UserService {
 
     }
 
-    Optional<User> findUserByEmail(String email){
+    public Optional<User> findUserOptionalByEmail(String email){
         return userRepository.findByEmail(email);
+    }
+
+    public User findUserByEmail(String email){
+        return findUserOptionalByEmail(email)
+                .orElseThrow(()->new EntityNotFoundException(String.format(ErrorMessages.USER_BY_EMAIL_NOT_FOUND, email)));
     }
 
 }

@@ -40,20 +40,19 @@ public class MailService {
     }
 
     public void sendCallRequestMail(CallRequestDto dto){
-
-        send(contactorMail,
-                String.format(MailMessages.CALL_ME_MAIL_THEME, dto.getName()),
-                String.format(MailMessages.CALL_ME_MAIL_BODY, dto.getName(), dto.getPhoneNumber()));
+        String mailTheme = String.format(MailMessages.CALL_ME_MAIL_THEME, dto.getName());
+                String mailBody = String.format(MailMessages.CALL_ME_MAIL_BODY, dto.getName(), dto.getPhoneNumber());
+        send(contactorMail, mailTheme, mailBody);
     }
     public void sendConsultationRequestMail(ConsultationRequestDto dto){
+        String mailTheme = String.format(MailMessages.CONSULTATION_REQUEST_MAIL_THEME, dto.getName());
+        String mailBody = String.format(MailMessages.CONSULTATION_REQUEST_MAIL_BODY, dto.getName(), dto.getPhoneNumber(), (dto.getDate().toString()));
 
-        send(contactorMail,
-                String.format(MailMessages.CONSULTATION_REQUEST_MAIL_THEME, dto.getName()),
-                String.format(MailMessages.CONSULTATION_REQUEST_MAIL_BODY, dto.getName(), dto.getPhoneNumber(), (dto.getDate().toString())));
+        send(contactorMail,mailTheme,mailBody);
     }
     public void sendQuizResultToMail(SendQuizResultToEmailDto dto){
-        send(dto.getEmail(),
-                MailMessages.QUIZ_RESULT_MAIL_THEME,
-                String.format(MailMessages.QUIZ_RESULT_MAIL_BODY, dto.getName(),dto.getDescription()));
+        String mailBody = String.format(MailMessages.QUIZ_RESULT_MAIL_BODY, dto.getName(),dto.getDescription());
+
+        send(dto.getEmail(), MailMessages.QUIZ_RESULT_MAIL_THEME, mailBody);
     }
 }

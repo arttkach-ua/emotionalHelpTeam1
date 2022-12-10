@@ -2,11 +2,15 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.QuizRequestDto;
 import com.epam.team1.emotional.help.dto.QuizResponseDto;
+import com.epam.team1.emotional.help.dto.SendQuizResultToEmailDto;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
 import com.epam.team1.emotional.help.model.Result;
+import com.epam.team1.emotional.help.util.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -17,6 +21,8 @@ public class QuizService {
     private final ResultService resultService;
     private final AnswersService answersService;
     private final QuizHistoryService quizHistoryService;
+    private final MailService mailService;
+
 
     public QuizResponseDto processQuiz(QuizRequestDto dto){
         Quiz quiz = mapTestDtoToTest(dto);
@@ -47,4 +53,14 @@ public class QuizService {
         dto.setTotalPoints(quiz.getTotalPoints());
         return dto;
     }
+    public void sendResultOfQuizToEmailAndSaveIt(SendQuizResultToEmailDto dto){
+        mailService.sendQuizResultToMail(dto);
+        try {
+            quizHistoryService.saveQuizForUnauthenticatedUser(dto);
+        }catch (Exception ex){
+            log.error(ErrorMessages.ERROR_WHILE_EMAIL_SENDING);
+            log.error(ex.getMessage());
+        }
+    }
+
 }

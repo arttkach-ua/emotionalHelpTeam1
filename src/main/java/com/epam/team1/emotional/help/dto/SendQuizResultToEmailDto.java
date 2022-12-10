@@ -27,7 +27,7 @@ public class SendQuizResultToEmailDto {
     private String description;
 
     @NotNull
-    Integer points;
+    private Integer points;
     @NotNull
     private Long questionnaireId;
 }
