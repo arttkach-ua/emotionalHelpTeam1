@@ -20,9 +20,9 @@ public class JwtUtils {
     @Value("${jwt.secret}")
     private String secret;
     @Value("${jwt.accessExpirationMs}")
-    private int jwtAccessExpirationMs;
+    private long jwtAccessExpirationMs;
     @Value("${jwt.refreshExpirationMs}")
-    private int jwtRefreshExpirationMs;
+    private long jwtRefreshExpirationMs;
 
     @Value("${jwt.bearer}")
     private String bearer;
@@ -121,7 +121,7 @@ public class JwtUtils {
 
     private Date calculateExpirationDate(Date createdDate, boolean forRefresh) {
 
-        int jwtExpirationInMs;
+        long jwtExpirationInMs;
         if (forRefresh) {
             jwtExpirationInMs = jwtRefreshExpirationMs;
         } else {

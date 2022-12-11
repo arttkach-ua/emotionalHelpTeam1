@@ -38,16 +38,15 @@ jwt:
   bearer: Bearer
   # those are the expiration durations for jwt access and jwt refresh
   # introduced in milliseconds.
-  accessExpirationMs: 800000000
-  refreshExpirationMs: 900000000
+  accessExpirationMs: 80000000000
+  refreshExpirationMs: 90000000000
 
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
 path:
-  basePackagePath: "C:/Users/Arthur_Khachatryan/avatars"
-  #basePackagePath: "/app/avatars"
+  basePackagePath: "avatars"
 
 
 

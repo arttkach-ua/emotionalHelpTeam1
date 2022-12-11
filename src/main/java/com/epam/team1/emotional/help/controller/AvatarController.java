@@ -36,8 +36,8 @@ public class AvatarController {
 
 
     @DeleteMapping("/{avatar-name}")
-    public void deleteByName(@PathVariable("avatar-name") @NotBlank String avatarName) {
+    public MessageResponse deleteByName(@PathVariable("avatar-name") @NotBlank String avatarName) {
         log.info("user did delete avatar request with avatar name " + avatarName);
-        avatarService.deleteByName(avatarName);
+        return avatarService.deleteByName(avatarName);
     }
 }

@@ -16,7 +16,8 @@ import org.webjars.NotFoundException;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -39,21 +40,27 @@ public class AvatarService {
             throw new RuntimeException("avatar must not be empty");
         }
         User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
-
-        String avatarOriginalFilename = avatar.getOriginalFilename();
-        File file = new File(basePackagePath + pathSeparator + "user_"+currentUser.getId() + pathSeparator + avatarOriginalFilename);
-
-        boolean wasSuccessful = file.mkdirs();
-        log.info("directories creation were successful = " + wasSuccessful + " it also can be not cussessfull becouse if it already exists");
+        String avatarOriginalName = avatar.getOriginalFilename();
+        final Path rootPath = Paths.get(basePackagePath);
+        Path foolPath;
         try {
-            avatar.transferTo(file);
-            currentUser.setImage(avatarOriginalFilename);
+            foolPath = rootPath.resolve("user_" + currentUser.getId());
+            Files.createDirectories(foolPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not initialize folder for upload!");
+        }
+        try {
+            Files.copy(avatar.getInputStream(), foolPath.resolve(avatarOriginalName));
+            currentUser.setImage(avatarOriginalName);
             userRepository.save(currentUser);
         } catch (Exception e) {
-            log.error("exception is " + e);
-            throw new RuntimeException(e);
+            if (e instanceof FileAlreadyExistsException) {
+                throw new RuntimeException("A file of that name already exists.");
+            }
+
+            throw new RuntimeException(e.getMessage());
         }
-        return new MessageResponse(avatarOriginalFilename);
+        return new MessageResponse(avatarOriginalName);
     }
 
     public byte[] getAsByteArray(String filename) {
@@ -62,12 +69,9 @@ public class AvatarService {
             throw new RuntimeException("you can not get your avatar as your avatar has bean deleted or you did not add it yet.");
         } else if (!currentUser.getImage().equals(filename)) {
             throw new RuntimeException("your provided name for user avatar is wrong");
-
         }
         try {
-            Path filePath = Paths.get(basePackagePath).resolve("user_"+currentUser.getId()).resolve(filename);
-
-            log.info("full name " + filePath);
+            Path filePath = Paths.get(basePackagePath).resolve("user_" + currentUser.getId()).resolve(filename);
             log.info("file absolute = " + filePath.getFileName());
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists() || resource.isReadable()) {
@@ -76,22 +80,20 @@ public class AvatarService {
                 throw new StorageFileNotFoundException(
                         "Could not read file: " + filename);
             }
-        } catch (MalformedURLException e) {
-            log.error(e.getLocalizedMessage());
-            throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.info(e.getLocalizedMessage());
+            throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
 
-    public void deleteByName(String avatarName) {
+    public MessageResponse deleteByName(String avatarName) {
         User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
         if (!currentUser.getImage().equals(avatarName)) {
             log.info("request for deleting avatar with avatar name is " + avatarName);
             log.info("user image name is " + currentUser.getImage());
             throw new RuntimeException("Avatar name is not correct");
         }
-        File file = new File(basePackagePath + pathSeparator + "user_"+currentUser.getId() + pathSeparator + avatarName);
+        File file = new File(basePackagePath + pathSeparator + "user_" + currentUser.getId() + pathSeparator + avatarName);
 
         if (!file.exists()) {
             log.info("file doesnot exists with path " + file);
@@ -101,5 +103,6 @@ public class AvatarService {
         file.delete();
         currentUser.setImage(null);
         userRepository.save(currentUser);
+        return new MessageResponse("avatar is deleted");
     }
 }
