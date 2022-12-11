@@ -41,18 +41,15 @@ public class AvatarService {
         User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
 
         String avatarOriginalFilename = avatar.getOriginalFilename();
-        File file = new File(basePackagePath + pathSeparator + currentUser.getEmail() + pathSeparator + avatarOriginalFilename);
+        File file = new File(basePackagePath + pathSeparator + "user_"+currentUser.getId() + pathSeparator + avatarOriginalFilename);
 
         boolean wasSuccessful = file.mkdirs();
         log.info("directories creation were successful = " + wasSuccessful + " it also can be not cussessfull becouse if it already exists");
-        log.info("file absolute = " + file.getAbsoluteFile());
-        log.info(" can read and wright  = " + file.canRead() + "" + file.canWrite());
         try {
             avatar.transferTo(file);
             currentUser.setImage(avatarOriginalFilename);
             userRepository.save(currentUser);
         } catch (Exception e) {
-            e.printStackTrace();
             log.error("exception is " + e);
             throw new RuntimeException(e);
         }
@@ -68,7 +65,7 @@ public class AvatarService {
 
         }
         try {
-            Path filePath = Paths.get(basePackagePath).resolve(currentUser.getEmail()).resolve(filename);
+            Path filePath = Paths.get(basePackagePath).resolve("user_"+currentUser.getId()).resolve(filename);
 
             log.info("full name " + filePath);
             log.info("file absolute = " + filePath.getFileName());
@@ -80,7 +77,7 @@ public class AvatarService {
                         "Could not read file: " + filename);
             }
         } catch (MalformedURLException e) {
-            log.info(e.getLocalizedMessage());
+            log.error(e.getLocalizedMessage());
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -94,7 +91,7 @@ public class AvatarService {
             log.info("user image name is " + currentUser.getImage());
             throw new RuntimeException("Avatar name is not correct");
         }
-        File file = new File(basePackagePath + pathSeparator + currentUser.getEmail() + pathSeparator + avatarName);
+        File file = new File(basePackagePath + pathSeparator + "user_"+currentUser.getId() + pathSeparator + avatarName);
 
         if (!file.exists()) {
             log.info("file doesnot exists with path " + file);

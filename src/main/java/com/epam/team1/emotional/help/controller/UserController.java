@@ -22,8 +22,6 @@ public class UserController {
 
     private final UserService userService;
 
-
-    @Autowired
     private QuizHistoryService quizHistoryService;
 
     @GetMapping("/{id}/history")
