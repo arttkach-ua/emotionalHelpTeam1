@@ -61,7 +61,12 @@ public class AvatarService {
 
     public Resource loadAsResource(String filename) {
         User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
+        if (currentUser.getImage() == null) {
+            throw new RuntimeException("you can not get your avatar as your avatar has bean deleted or you did not add it yet.");
+        } else if (!currentUser.getImage().equals(filename)) {
+            throw new RuntimeException("your provided name for user avatar is wrong");
 
+        }
         try {
             Path filePath = Paths.get(basePackagePath).resolve(currentUser.getEmail()).resolve(filename);
             log.info("full name " + filePath);
@@ -79,4 +84,22 @@ public class AvatarService {
         }
     }
 
+    public void deleteByName(String avatarName) {
+        User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
+        if (!currentUser.getImage().equals(avatarName)) {
+            log.info("request for deleting avatar with avatar name is " + avatarName);
+            log.info("user image name is " + currentUser.getImage());
+            throw new RuntimeException("Avatar name is not correct");
+        }
+        File file = new File(basePackagePath + pathSeparator + currentUser.getEmail() + pathSeparator + avatarName);
+
+        if (!file.exists()) {
+            log.info("file doesnot exists with path " + file);
+            throw new RuntimeException("file dos not exists");
+        }
+        log.info("file is going to delete = " + file);
+        file.delete();
+        currentUser.setImage(null);
+        userRepository.save(currentUser);
+    }
 }

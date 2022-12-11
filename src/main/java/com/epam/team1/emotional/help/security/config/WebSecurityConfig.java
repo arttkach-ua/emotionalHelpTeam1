@@ -61,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //
                 .antMatchers(HttpMethod.POST,"/avatars").authenticated()
                 .antMatchers("/avatars/{avatar-name}").authenticated()
+                .antMatchers(HttpMethod.DELETE,"/avatars/{avatar-name}").authenticated()
                 .antMatchers("/**").permitAll()
 
                 .anyRequest().authenticated();
