@@ -96,7 +96,7 @@ public class AvatarService {
         File file = new File(basePackagePath + pathSeparator + "user_" + currentUser.getId() + pathSeparator + avatarName);
 
         if (!file.exists()) {
-            log.info("file doesnot exists with path " + file);
+            log.error("file doesnot exists with path " + file);
             throw new RuntimeException("file dos not exists");
         }
         log.info("file is going to delete = " + file);
