@@ -1,8 +1,11 @@
 package com.epam.team1.emotional.help.service;
 
 
-import lombok.AllArgsConstructor;
+import com.epam.team1.emotional.help.dto.CallRequestDto;
+import com.epam.team1.emotional.help.dto.ConsultationRequestDto;
+import com.epam.team1.emotional.help.util.MailMessages;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,9 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class MailService {
+
+    @Value("${mail.contactorMail}")
+    private String contactorMail;
 
     private final JavaMailSender javaMailSender;
 
@@ -32,4 +38,16 @@ public class MailService {
         return String.valueOf(uuid);
     }
 
+    public void sendCallRequestMail(CallRequestDto dto){
+
+        send(contactorMail,
+                String.format(MailMessages.CALL_ME_MAIL_THEME, dto.getName()),
+                String.format(MailMessages.CALL_ME_MAIL_BODY, dto.getName(), dto.getPhoneNumber()));
+    }
+    public void sendConsultationRequestMail(ConsultationRequestDto dto){
+
+        send(contactorMail,
+                String.format(MailMessages.CONSULTATION_REQUEST_MAIL_THEME, dto.getName()),
+                String.format(MailMessages.CONSULTATION_REQUEST_MAIL_BODY, dto.getName(), dto.getPhoneNumber(), (dto.getDate().toString())));
+    }
 }

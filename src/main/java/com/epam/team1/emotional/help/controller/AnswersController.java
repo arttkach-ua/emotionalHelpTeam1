@@ -16,6 +16,6 @@ public class AnswersController {
     @ResponseStatus(HttpStatus.CREATED)
     String createAnswer(){
         //Todo create post processing
-        return "aaa";
+        return "in progress";
     }
 }

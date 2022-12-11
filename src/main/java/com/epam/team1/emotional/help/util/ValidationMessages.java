@@ -9,6 +9,8 @@ public final class ValidationMessages {
     public static final String TITLE_TOO_SHORT = "Image must be at least 5 characters";
     public static final String DESCRIPTION_TOO_SHORT = "Description must be at least 5 characters";
     public static final String FULL_DESCRIPTION_TOO_SHORT = "Full description must be at least 5 characters";
+    public static final String PHONE_NUMBER_TOO_SHORT = "Phone number must be at least 2 characters";
+    public static final String SPECIALIST_NAME_TOO_SHORT = "Specialist name must be at least 2 characters";
 
     public static final String NULL_INFO = "Info can't be null";
     public static final String NULL_NAME = "Name can't be null";
@@ -16,4 +18,9 @@ public final class ValidationMessages {
     public static final String NULL_TITLE = "Title can't be null";
     public static final String NULL_DESCRIPTION = "Description can't be null";
     public static final String NULL_FULL_DESCRIPTION = "Full description can't be null";
+    public static final String NULL_SPECIALIST_NAME = "Specialists name can't be null";
+    public static final String NULL_PHONE_NUMBER = "Phone number can't be null";
+
+    public static final String NAME_TOO_LONG = "Name must be not longer that 50 characters";
+    public static final String SPECIALIST_NAME_TOO_LONG = "Specialists name must be not longer that 50 characters";
 }
