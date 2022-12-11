@@ -44,7 +44,8 @@ springdoc:
     path: /swagger-ui.html
 
 path:
-  uploadPicturePath: C:\Users\Arthur_Khachatryan\Desktop\avatars
+  basePackagePath: "C:/Users/Arthur_Khachatryan/avatars"
+  #basePackagePath: "/app/avatars"
 
 
 

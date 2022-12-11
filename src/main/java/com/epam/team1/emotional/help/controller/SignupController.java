@@ -3,9 +3,8 @@ package com.epam.team1.emotional.help.controller;
 
 import com.epam.team1.emotional.help.dto.SignupConformedResponseDto;
 import com.epam.team1.emotional.help.dto.SignupResponseDTO;
-import com.epam.team1.emotional.help.mappers.SignupMapper;
-import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.dto.SignupUserRequestDTO;
+import com.epam.team1.emotional.help.mappers.SignupMapper;
 import com.epam.team1.emotional.help.service.SignupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +24,8 @@ public class SignupController {
     private final SignupMapper signupMapper;
 
     @PostMapping("/user")
-    public @ResponseStatus(HttpStatus.CREATED) SignupResponseDTO registerUser(@Valid @RequestBody SignupUserRequestDTO signupUserRequestDTO) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public SignupResponseDTO registerUser(@Valid @RequestBody SignupUserRequestDTO signupUserRequestDTO) {
         log.info("new registered request for " + signupUserRequestDTO);
         return signupService.saveUser(signupUserRequestDTO);
     }

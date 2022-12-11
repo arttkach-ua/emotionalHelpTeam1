@@ -1,118 +1,82 @@
 package com.epam.team1.emotional.help.service;
 
+import com.epam.team1.emotional.help.dto.MessageResponse;
 import com.epam.team1.emotional.help.exception.StorageFileNotFoundException;
+import com.epam.team1.emotional.help.model.User;
+import com.epam.team1.emotional.help.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.webjars.NotFoundException;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@Service
 @Slf4j
+@RequiredArgsConstructor
+@Service
 public class AvatarService {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
-    @Value("${path.uploadPicturePath}")
-    private String uploadPicturePath;
+    private final UserRepository userRepository;
 
-
-    String s = File.separator;
-    String packagePath = "C:"+s+"Users"+s+"Arthur_Khachatryan"+s+"hhhh";
+    @Value("${path.basePackagePath}")
+    private String basePackagePath;
 
 
-    public void save(Long userId, @NotNull MultipartFile avatar) throws IOException {
+    String pathSeparator = File.separator;
+
+    public MessageResponse save(@NotNull MultipartFile avatar) {
         if (avatar.isEmpty()) {
             throw new RuntimeException("avatar must not be empty");
         }
+        User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
 
-        String fileName = avatar.getOriginalFilename();
+        String avatarOriginalFilename = avatar.getOriginalFilename();
+        File file = new File(basePackagePath + pathSeparator + currentUser.getEmail() + pathSeparator + avatarOriginalFilename);
 
-        File file = new File(packagePath + s + fileName);
-
-
-        file.mkdirs();
-        // System.out.println(file.getAbsoluteFile());
-        //System.out.println(file.getCanonicalFile());
-        // System.out.println(file.exists());
-        // System.out.println("" + file.canRead() + "" + file.canWrite());
-        //file.
+        boolean wasSuccessful = file.mkdirs();
+        log.info("directories creation were successful = " + wasSuccessful + " it also can be not cussessfull becouse if it already exists");
+        log.info("file absolute = " + file.getAbsoluteFile());
+        log.info(" can read and wright  = " + file.canRead() + "" + file.canWrite());
         try {
             avatar.transferTo(file);
+            currentUser.setImage(avatarOriginalFilename);
+            userRepository.save(currentUser);
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("exception is " + e);
+            throw new RuntimeException(e);
         }
+        return new MessageResponse(avatarOriginalFilename);
     }
-
-
-    public Path getAvatar(String filename) {
-        Path rootLocation = Paths.get(packagePath);
-        return rootLocation.resolve(filename);
-    }
-
 
     public Resource loadAsResource(String filename) {
+        User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
+
         try {
-            Path file = getAvatar(filename);
-            log.info("full name " + file);
-            Resource resource = new UrlResource(file.toUri());
+            Path filePath = Paths.get(basePackagePath).resolve(currentUser.getEmail()).resolve(filename);
+            log.info("full name " + filePath);
+            log.info("file absolute = " + filePath.getFileName());
+            Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-
                 throw new StorageFileNotFoundException(
                         "Could not read file: " + filename);
-
             }
         } catch (MalformedURLException e) {
-            System.out.println(e);
-            System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
             log.info(e.getLocalizedMessage());
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
-
-//    public void save(Long userId, MultipartFile avatar) {
-//
-//        log.info("root location as path = " + rootLocation);
-//
-//        try {
-//            if (avatar.isEmpty()) {
-//                throw new StorageException("Failed to store empty file.");
-//            }
-//            Path destinationFile = this.rootLocation.resolve(Paths.get(avatar.getOriginalFilename()))
-//                    .normalize().toAbsolutePath();
-//
-//            if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-//                // This is a security check
-//                throw new StorageException(
-//                        "Cannot store file outside current directory.");
-//            }
-//            try (InputStream inputStream = avatar.getInputStream()) {
-//                Files.copy(inputStream, destinationFile,
-//                        StandardCopyOption.REPLACE_EXISTING);
-//            }
-//        } catch (IOException e) {
-//            throw new StorageException("Failed to store file.", e);
-//        }
-//    }
-
-
-//    public void getAvatar() {
-//        Path path = Path.of(rootLocation);
-//        return path.resolve();
-//
-//    }
-
 
 }
