@@ -6,7 +6,6 @@ import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.webjars.NotFoundException;
 
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -88,20 +88,18 @@ public class AvatarService {
 
     public MessageResponse deleteByName(String avatarName) {
         User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
-        if (currentUser.getImage() == null){
-            throw  new RuntimeException("User does not have avatar yet ");
-        }
         if (!currentUser.getImage().equals(avatarName)) {
             log.info("request for deleting avatar with avatar name is " , avatarName);
             throw new RuntimeException("Avatar name is not correct");
         }
-        File file = new File(basePackagePath + pathSeparator + "user_" + currentUser.getId());
+        File file = new File(basePackagePath + pathSeparator + "user_" + currentUser.getId()+pathSeparator+avatarName);
 
         if (!file.exists()) {
             log.error("file doesnot exists with path " + file);
             throw new RuntimeException("file dos not exists");
         }
         log.info("file is going to delete = " + file);
+
         file.delete();
         currentUser.setImage(null);
         userRepository.save(currentUser);
