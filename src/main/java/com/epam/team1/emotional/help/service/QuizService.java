@@ -6,9 +6,12 @@ import com.epam.team1.emotional.help.dto.SendQuizResultToEmailDto;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
 import com.epam.team1.emotional.help.model.Result;
+import com.epam.team1.emotional.help.util.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 
 @Slf4j
 @Service
@@ -51,8 +54,15 @@ public class QuizService {
         return dto;
     }
 
-    public void sendResultOfQuizToEmailAndSaveIt(SendQuizResultToEmailDto dto){
+    public void sendQuizResultAndSave(SendQuizResultToEmailDto dto){
+        log.trace("Beginning sanding quiz to email:" + dto.getEmail());
         mailService.sendQuizResultToMail(dto);
-        quizHistoryService.saveQuizForUnauthenticatedUser(dto);
+        try {
+            log.trace("Beginning saving quiz history for email:" + dto.getEmail());
+            quizHistoryService.saveQuizForUnauthenticatedUser(dto);
+        }catch (EntityNotFoundException ex){
+            log.error(ErrorMessages.ERROR_WHILE_EMAIL_SENDING);
+            log.error(ex.getMessage());
+        }
     }
 }

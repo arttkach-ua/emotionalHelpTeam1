@@ -5,12 +5,10 @@ import com.epam.team1.emotional.help.dto.ConsultationRequestDto;
 import com.epam.team1.emotional.help.dto.SendQuizResultToEmailDto;
 import com.epam.team1.emotional.help.service.MailService;
 import com.epam.team1.emotional.help.service.QuizService;
-import com.epam.team1.emotional.help.util.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @Slf4j
@@ -33,11 +31,6 @@ public class ContactsController {
     }
     @PostMapping("/sendResult")
     public void sendResultToEmailAndSaveIt(@Valid @RequestBody SendQuizResultToEmailDto dto){
-        quizService.sendResultOfQuizToEmailAndSaveIt(dto);
-    }
-    @ExceptionHandler(EntityNotFoundException.class)
-    public void handleEntityNotFoundException(EntityNotFoundException ex){
-        log.error(ErrorMessages.ERROR_WHILE_EMAIL_SENDING);
-        log.error(ex.getMessage());
+        quizService.sendQuizResultAndSave(dto);
     }
 }
