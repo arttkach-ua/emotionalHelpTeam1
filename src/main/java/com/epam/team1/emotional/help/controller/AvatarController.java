@@ -32,8 +32,7 @@ public class AvatarController {
     @GetMapping(value = "/{avatar-name}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getAvatar(@PathVariable("avatar-name") String avatarName) throws IOException {
         log.info("user did get avatar request with avatar name " + avatarName);
-        Resource avatar = avatarService.loadAsResource(avatarName);
-        return avatar.getInputStream().readAllBytes();
+        return avatarService.loadAsResource(avatarName).getInputStream().readAllBytes();
     }
 
 
