@@ -22,7 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
-    private QuizHistoryService quizHistoryService;
+    private final QuizHistoryService quizHistoryService;
 
     @GetMapping("/{id}/history")
     public List<QuizHistoryResponseDto> getQuizHistoryByUser(@PathVariable("id") Long userId){

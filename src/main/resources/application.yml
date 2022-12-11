@@ -47,7 +47,7 @@ springdoc:
     path: /swagger-ui.html
 
 path:
-  basePackagePath: "avatars"
+  basePackagePath: "users/avatars"
 
 
 

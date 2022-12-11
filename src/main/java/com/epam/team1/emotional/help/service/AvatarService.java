@@ -72,7 +72,7 @@ public class AvatarService {
         }
         try {
             Path filePath = Paths.get(basePackagePath).resolve("user_" + currentUser.getId()).resolve(filename);
-            log.info("file absolute = " + filePath.getFileName());
+            log.info("file absolute = " , filePath.getFileName());
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource.getInputStream().readAllBytes();
@@ -88,12 +88,14 @@ public class AvatarService {
 
     public MessageResponse deleteByName(String avatarName) {
         User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
+        if (currentUser.getImage() == null){
+            throw  new RuntimeException("User does not have avatar yet ");
+        }
         if (!currentUser.getImage().equals(avatarName)) {
-            log.info("request for deleting avatar with avatar name is " + avatarName);
-            log.info("user image name is " + currentUser.getImage());
+            log.info("request for deleting avatar with avatar name is " , avatarName);
             throw new RuntimeException("Avatar name is not correct");
         }
-        File file = new File(basePackagePath + pathSeparator + "user_" + currentUser.getId() + pathSeparator + avatarName);
+        File file = new File(basePackagePath + pathSeparator + "user_" + currentUser.getId());
 
         if (!file.exists()) {
             log.error("file doesnot exists with path " + file);
