@@ -2,6 +2,7 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.util.ErrorMessages;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.epam.team1.emotional.help.dto.UserAddDataRequestDto;
 import com.epam.team1.emotional.help.dto.UserResponseDTO;
@@ -19,8 +20,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    @Autowired
     private final UserRepository userRepository;
-    
+
+    @Autowired
     private final UserMapper userMapper;
 
     public User getUserById(Long id) {
