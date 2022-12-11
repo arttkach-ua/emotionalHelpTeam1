@@ -4,7 +4,6 @@ import com.epam.team1.emotional.help.dto.MessageResponse;
 import com.epam.team1.emotional.help.service.AvatarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,7 @@ public class AvatarController {
     @GetMapping(value = "/{avatar-name}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getAvatar(@PathVariable("avatar-name") String avatarName) throws IOException {
         log.info("user did get avatar request with avatar name " + avatarName);
-        return avatarService.loadAsResource(avatarName).getInputStream().readAllBytes();
+        return avatarService.getAsByteArray(avatarName);
     }
 
 

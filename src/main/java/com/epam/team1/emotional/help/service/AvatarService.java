@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.webjars.NotFoundException;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +31,6 @@ public class AvatarService {
 
     @Value("${path.basePackagePath}")
     private String basePackagePath;
-
 
     String pathSeparator = File.separator;
 
@@ -59,7 +59,7 @@ public class AvatarService {
         return new MessageResponse(avatarOriginalFilename);
     }
 
-    public Resource loadAsResource(String filename) {
+    public byte[] getAsByteArray(String filename) {
         User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
         if (currentUser.getImage() == null) {
             throw new RuntimeException("you can not get your avatar as your avatar has bean deleted or you did not add it yet.");
@@ -69,11 +69,12 @@ public class AvatarService {
         }
         try {
             Path filePath = Paths.get(basePackagePath).resolve(currentUser.getEmail()).resolve(filename);
+
             log.info("full name " + filePath);
             log.info("file absolute = " + filePath.getFileName());
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists() || resource.isReadable()) {
-                return resource;
+                return resource.getInputStream().readAllBytes();
             } else {
                 throw new StorageFileNotFoundException(
                         "Could not read file: " + filename);
@@ -81,6 +82,8 @@ public class AvatarService {
         } catch (MalformedURLException e) {
             log.info(e.getLocalizedMessage());
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
