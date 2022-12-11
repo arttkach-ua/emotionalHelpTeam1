@@ -28,6 +28,10 @@ spring:
           starttls:
             enable: true
     confirmLinkIP: http://localhost:4200/
+  servlet:
+    multipart:
+      max-file-size: 50000KB
+      max-request-size: 50000KB
 jwt:
   bearer: Bearer
   # those are the expiration durations for jwt access and jwt refresh
@@ -38,6 +42,11 @@ jwt:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+path:
+  uploadPicturePath: C:\Users\Arthur_Khachatryan\Desktop\avatars
+
+
 
 
 

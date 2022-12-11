@@ -1,8 +1,5 @@
 package com.epam.team1.emotional.help.exception;
 
-import com.epam.team1.emotional.help.exception.EmailAlreadyExistsException;
-import com.epam.team1.emotional.help.exception.IncorrectCurrentPasswordException;
-import com.epam.team1.emotional.help.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +7,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
@@ -60,7 +58,7 @@ public class RestExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException exception, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-        setCommonData(exception,errorResponse,request);
+        setCommonData(exception, errorResponse, request);
         log.error("exception type is " + exception.getClass().getSimpleName() + " , message = " +
                 exception.getMessage() + " , description " + request.getDescription(false));
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
@@ -70,7 +68,7 @@ public class RestExceptionHandler {
     protected ResponseEntity<Object> handleIOException(IOException exception, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.CONTINUE.value());
-        setCommonData(exception,errorResponse,request);
+        setCommonData(exception, errorResponse, request);
         log.error("exception type is " + exception.getClass().getSimpleName() + " , message = " +
                 exception.getMessage() + " , description " + request.getDescription(false));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
@@ -82,7 +80,7 @@ public class RestExceptionHandler {
                 + exception.getMessage() + " , exception type is " + exception.getClass().getName());
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-        setCommonData(exception,errorResponse,request);
+        setCommonData(exception, errorResponse, request);
         log.error("exception type is " + exception.getClass().getSimpleName() + " , message = " +
                 exception.getMessage() + " , description " + request.getDescription(false));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);

@@ -13,7 +13,6 @@ public class QuizHistory extends BaseEntity{
     @JoinColumn(name = "questionnaires_id")
     private Questionnaire questionnaire;
 
-
     @ManyToOne
     @JoinColumn(name = "users_id")
     private User user;
