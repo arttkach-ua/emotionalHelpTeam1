@@ -33,10 +33,14 @@ public class UserService {
 
     public Optional<User> getCurrentUser() {
         log.info("Call of UserService.getCurrentUser({}) method.");
-        return Optional.ofNullable(((UserDetailsImplementation) SecurityContextHolder.
-                getContext().
-                getAuthentication().
-                getPrincipal()).getUser());
+        try {
+            return Optional.ofNullable(((UserDetailsImplementation) SecurityContextHolder.
+                    getContext().
+                    getAuthentication().
+                    getPrincipal()).getUser());
+        }catch (Exception ex){
+            return Optional.empty();
+        }
       }
 
     public UserResponseDTO getById(Long id) {

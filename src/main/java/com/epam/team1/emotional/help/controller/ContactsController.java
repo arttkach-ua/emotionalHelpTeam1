@@ -21,12 +21,12 @@ public class ContactsController {
     private final QuizService quizService;
 
 
-    @GetMapping("/callRequest")
+    @PostMapping("/callRequest")
     public void callRequest(@Valid @RequestBody CallRequestDto dto){
         log.info("Call of /contacts/callRequest endpoint.(Get method). dto is {}", dto);
         mailService.sendCallRequestMail(dto);
     }
-    @GetMapping("/consultationRequest")
+    @PostMapping("/consultationRequest")
     public void consultationRequest(@Valid @RequestBody ConsultationRequestDto dto){
         log.info("Call of /contacts/consultationRequest endpoint.(Get method). dto is {}", dto);
         mailService.sendConsultationRequestMail(dto);

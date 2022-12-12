@@ -20,7 +20,7 @@ public class ArticlesController {
 
     @GetMapping
     public List<ArticleResponseDto> getAll(){
-        log.debug("Call of /articles endpoint.(Get method)");
+        log.debug("Call ArticlesController.getAll method");
         return articleService.getAll();
     }
     @GetMapping("/{id}")
