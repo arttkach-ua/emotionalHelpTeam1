@@ -7,6 +7,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
@@ -20,8 +21,8 @@ public class RestExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
         setCommonData(exception, errorResponse, request);
-        log.error("exception type is " + exception.getClass().getSimpleName() + " , message = " +
-                exception.getMessage() + " , description " + request.getDescription(false));
+        log.error("exception type is " , exception.getClass().getSimpleName() , " , message = " ,
+                exception.getMessage() , " , description " , request.getDescription(false));
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
@@ -38,8 +39,8 @@ public class RestExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
         setCommonData(exception, errorResponse, request);
-        log.error("exception type is " + exception.getClass().getSimpleName() + " , message = " +
-                exception.getMessage() + " , description " + request.getDescription(false));
+        log.error("exception type is " , exception.getClass().getSimpleName() , " , message = " ,
+                exception.getMessage() , " , description " , request.getDescription(false));
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
@@ -48,8 +49,8 @@ public class RestExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.CONTINUE.value());
         setCommonData(exception, errorResponse, request);
-        log.error("exception type is " + exception.getClass().getSimpleName() + " , message = " +
-                exception.getMessage() + " , description " + request.getDescription(false));
+        log.error("exception type is " , exception.getClass().getSimpleName() , " , message = " ,
+                exception.getMessage() , " , description " , request.getDescription(false));
         return new ResponseEntity<>(errorResponse, HttpStatus.EXPECTATION_FAILED);
     }
 
@@ -57,9 +58,9 @@ public class RestExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException exception, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-        setCommonData(exception,errorResponse,request);
-        log.error("exception type is " + exception.getClass().getSimpleName() + " , message = " +
-                exception.getMessage() + " , description " + request.getDescription(false));
+        setCommonData(exception, errorResponse, request);
+        log.error("exception type is " , exception.getClass().getSimpleName() , " , message = " ,
+                exception.getMessage() , " , description " , request.getDescription(false));
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
     }
 
@@ -67,21 +68,21 @@ public class RestExceptionHandler {
     protected ResponseEntity<Object> handleIOException(IOException exception, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.CONTINUE.value());
-        setCommonData(exception,errorResponse,request);
-        log.error("exception type is " + exception.getClass().getSimpleName() + " , message = " +
-                exception.getMessage() + " , description " + request.getDescription(false));
+        setCommonData(exception, errorResponse, request);
+        log.error("exception type is " , exception.getClass().getSimpleName() , " , message = " ,
+                exception.getMessage() , " , description " , request.getDescription(false));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     @ExceptionHandler()
     protected ResponseEntity<Object> handleIncorrectCurrentPasswordException(IncorrectCurrentPasswordException exception, WebRequest request) {
-        log.error("IncorrectCurrentPasswordException handler , " + "message = "
-                + exception.getMessage() + " , exception type is " + exception.getClass().getName());
+        log.error("IncorrectCurrentPasswordException handler , " , "message = "
+                , exception.getMessage() , " , exception type is " , exception.getClass().getName());
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-        setCommonData(exception,errorResponse,request);
-        log.error("exception type is " + exception.getClass().getSimpleName() + " , message = " +
-                exception.getMessage() + " , description " + request.getDescription(false));
+        setCommonData(exception, errorResponse, request);
+        log.error("exception type is " , exception.getClass().getSimpleName() , " , message = " ,
+                exception.getMessage() , " , description " , request.getDescription(false));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 }

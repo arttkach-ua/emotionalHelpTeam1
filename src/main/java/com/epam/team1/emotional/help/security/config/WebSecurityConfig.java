@@ -55,8 +55,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authentication/**").permitAll()
                 //
                 .antMatchers("/signup/user").permitAll()
-                .antMatchers(HttpMethod.GET,"/users/id").authenticated()
-                .antMatchers(HttpMethod.PATCH,"/users/id").authenticated()
+                //
+                .antMatchers("/users/{id}").authenticated()
+                .antMatchers(HttpMethod.PATCH,"/users/{id}").authenticated()
+                //
+                .antMatchers(HttpMethod.POST,"/avatars").authenticated()
+                .antMatchers("/avatars/{avatar-name}").authenticated()
+                .antMatchers(HttpMethod.DELETE,"/avatars/{avatar-name}").authenticated()
                 .antMatchers("/**").permitAll()
 
                 .anyRequest().authenticated();

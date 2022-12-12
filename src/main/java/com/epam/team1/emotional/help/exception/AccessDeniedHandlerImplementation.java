@@ -23,7 +23,7 @@ public class AccessDeniedHandlerImplementation implements AccessDeniedHandler {
     public void handle(HttpServletRequest httpServletRequest,
                        HttpServletResponse httpServletResponse,
                        AccessDeniedException exception) throws IOException, ServletException {
-        log.error("Exception = " + exception.getClass().getSimpleName() + " date = " + new Date() + " message = " + exception.getMessage());
+        log.error("Exception = " , exception.getClass().getSimpleName() , " date = " , new Date() , " message = " + exception.getMessage());
 
         ErrorResponse errorResponse = new ErrorResponse(403, exception.getMessage(),
                 System.currentTimeMillis(),exception.getClass().getSimpleName(),httpServletRequest.getServletPath());

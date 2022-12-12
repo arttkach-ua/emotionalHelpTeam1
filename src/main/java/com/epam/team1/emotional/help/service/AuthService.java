@@ -58,7 +58,7 @@ public class AuthService {
         String jwtAccess = jwtUtils.generateJwtToken(userDetailsImplementation, false);
         String jwtRefresh = jwtUtils.generateJwtToken(userDetailsImplementation, true);
 
-        log.info("user with userName " + loginRequest.getUsername() + " is logged in successfully");
+        log.info("user with userName {} is logged in successfully" , loginRequest.getUsername());
         return new LoginResponseDTO(jwtAccess, jwtRefresh,
                 loginMapper.mapToResponseDto(userDetailsImplementation.getUser()));
     }
@@ -70,9 +70,8 @@ public class AuthService {
 
         String jwtAccess = jwtUtils.generateJwtToken(userDetailsImplementation, false);
         String jwtRefresh = jwtUtils.generateJwtToken(userDetailsImplementation, true);
-        log.info("successfully jwt refresh for the user with username "
-                + getUserDetails().getUsername() + " with access token "
-                + jwtAccess + " , and with refresh token " + jwtRefresh);
+        log.info("successfully jwt refresh for the user with username {}."
+                , getUserDetails().getUsername());
         return new TokenRefreshResponseDTO(jwtAccess, jwtRefresh);
     }
 
@@ -88,10 +87,10 @@ public class AuthService {
 
             user.setPassword(passwordEncoder.encode(passwordResetRequest.getNewPassword()));
             userRepository.save(user);
-            log.info("successful password reset by a user with a username " + getUserDetails().getUsername()
-                    + ", new password is " + passwordResetRequest.getCurrentPassword());
+            log.info("successful password reset by a user with a username {}, , new password is {}" , getUserDetails().getUsername()
+                    ,passwordResetRequest.getCurrentPassword());
         } else {
-            log.error("user with the username " + getUserDetails().getUsername() + " provided an incorrect current password");
+            log.error("user with the username {} provided an incorrect current password" , getUserDetails().getUsername());
             throw new IncorrectCurrentPasswordException("Incorrect password");
         }
         return new MessageResponse("Password reset was successful");
