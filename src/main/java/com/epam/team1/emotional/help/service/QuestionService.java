@@ -32,11 +32,13 @@ public class QuestionService {
      * @return QuestionResponseDto with saved entity
      */
     public QuestionResponseDto create(QuestionRequestDto dto){
+        log.info("Call of QuestionService.create method. dto is {}", dto);
         Question question = mapQuestionFromQuestionDto(dto);
         return questionMapper.toQuestionResponseDto(questionRepository.save(question));
     }
 
     public List<Question> getAllByQuestionnaireId(long id){
+        log.info("Call of QuestionService.getAllByQuestionnaireId({}) method.", id);
         Questionnaire questionnaire = questionnaireService.getById(id);
         return questionRepository.findByQuestionnaire(questionnaire);
     }
@@ -47,11 +49,13 @@ public class QuestionService {
      * @return list of questionResponse dto
      */
     public List<QuestionResponseDto> getAllDtoByQuestionnaireId(long id){
+        log.info("Call of QuestionService.getAllDtoByQuestionnaireId({}) method.", id);
         return getAllByQuestionnaireId(id).stream()
                 .map(questionMapper::toQuestionResponseDto)
                 .toList();
     }
     public Question mapQuestionFromQuestionDto(QuestionRequestDto dto){
+        log.info("Call of QuestionService.mapQuestionFromQuestionDto method. dto is {}", dto);
         Question question = questionMapper.toQuestion(dto);
         question.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
         return question;

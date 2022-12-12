@@ -6,11 +6,11 @@ import com.epam.team1.emotional.help.mappers.ProjectMapper;
 import com.epam.team1.emotional.help.model.Project;
 import com.epam.team1.emotional.help.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProjectService {
@@ -18,9 +18,11 @@ public class ProjectService {
     private final ProjectMapper projectMapper;
 
     public List<ProjectResponseDto> getAll() {
+        log.info("Call of ProjectService.getAll method.");
         return projectMapper.toProjectResponseDtoList(projectRepository.findAll());
     }
     public ProjectResponseDto create(ProjectRequestDto dto){
+        log.info("Call of ProjectService.create method. dto is{}", dto);
         Project project = projectRepository.save(projectMapper.toProject(dto));
         return projectMapper.toProjectResponseDto(project);
     }

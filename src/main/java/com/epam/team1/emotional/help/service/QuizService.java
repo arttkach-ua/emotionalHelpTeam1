@@ -25,6 +25,7 @@ public class QuizService {
 
 
     public QuizResponseDto processQuiz(QuizRequestDto dto){
+        log.info("Call of QuizService.processQuiz method. Params: dto {}", dto);
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
@@ -34,6 +35,7 @@ public class QuizService {
     }
 
     public Quiz mapTestDtoToTest(QuizRequestDto dto){
+        log.info("Call of QuizService.mapTestDtoToTest method. Params: dto {}", dto);
         Quiz quiz = new Quiz();
         quiz.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
         quiz.setAnswers(dto.getAnswers().stream()
@@ -43,11 +45,13 @@ public class QuizService {
     }
 
     public Integer calculateTotalPoints(Quiz quiz){
+        log.info("Call of QuizService.calculateTotalPoints method. Params quiz {}", quiz);
         return quiz.getAnswers().stream()
                 .mapToInt(Answer::getPoints)
                 .sum();
     }
     public QuizResponseDto prepareQuizResponseDto(Result result, Quiz quiz){
+        log.info("Call of QuizService.prepareQuizResponseDto method. Params: result {} quiz {}", result, quiz);
         QuizResponseDto dto = new QuizResponseDto();
         dto.setDescription(result.getFullDescription());
         dto.setTotalPoints(quiz.getTotalPoints());
@@ -55,14 +59,13 @@ public class QuizService {
     }
 
     public void sendQuizResultAndSave(SendQuizResultToEmailDto dto){
-        log.trace("Beginning sanding quiz to email:" + dto.getEmail());
+        log.info("Beginning sanding quiz to email: {}", dto.getEmail());
         mailService.sendQuizResultToMail(dto);
         try {
-            log.trace("Beginning saving quiz history for email:" + dto.getEmail());
+            log.info("Beginning saving quiz history for email: {}", dto.getEmail());
             quizHistoryService.saveQuizForUnauthenticatedUser(dto);
         }catch (EntityNotFoundException ex){
-            log.error(ErrorMessages.ERROR_WHILE_EMAIL_SENDING);
-            log.error(ex.getMessage());
+            log.error(ErrorMessages.ERROR_WHILE_EMAIL_SENDING, ex.getMessage());
         }
     }
 }

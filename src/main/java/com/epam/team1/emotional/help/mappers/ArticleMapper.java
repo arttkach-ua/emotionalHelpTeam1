@@ -3,11 +3,12 @@ package com.epam.team1.emotional.help.mappers;
 import com.epam.team1.emotional.help.dto.article.ArticleRequestDto;
 import com.epam.team1.emotional.help.dto.article.ArticleResponseDto;
 import com.epam.team1.emotional.help.model.Article;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+@Slf4j
 @Component
 public class ArticleMapper {
     /**
@@ -16,6 +17,7 @@ public class ArticleMapper {
      * @return {@link Article}
      */
     public Article toArticle(ArticleRequestDto dto){
+        log.info("Call of ArticleMapper.toArticle method. Params: dto , {}", dto);
         return Article.builder()
                 .title(dto.getTitle())
                 .description(dto.getDescription())
@@ -29,6 +31,7 @@ public class ArticleMapper {
      * @return - {@link ArticleResponseDto}
      */
     public ArticleResponseDto toArticleResponseDto(Article article){
+        log.info("Call of ArticleMapper.toArticleResponseDto method. Params: article , {}", article);
         return ArticleResponseDto.builder()
                 .id(article.getId())
                 .title(article.getTitle())
@@ -43,6 +46,7 @@ public class ArticleMapper {
      * @return list of {@link ArticleResponseDto}
      */
     public List<ArticleResponseDto> toArticleResponseDtoList(List<Article> articles) {
+        log.info("Call of ArticleMapper.toArticleResponseDtoList method. Params: article , {}", articles);
         return articles.stream()
                 .map(this::toArticleResponseDto)
                 .toList();

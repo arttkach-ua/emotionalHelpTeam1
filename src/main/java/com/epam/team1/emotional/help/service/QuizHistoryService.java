@@ -23,6 +23,7 @@ public class QuizHistoryService {
     private final ResultService resultService;
 
     public boolean saveToQuizHistory(Result result, Quiz quiz) {
+        log.info("Call of QuizHistoryService.saveToQuizHistory method. Params: result {} quiz quiz", result, quiz);
         Optional<User> userOptional = userService.getCurrentUser();
         if (userOptional.isEmpty()){
             return false;
@@ -32,11 +33,13 @@ public class QuizHistoryService {
         return true;
     }
     public List<QuizHistoryResponseDto> getQuizHistoryByUser(Long userId) {
+        log.info("Call of QuizHistoryService.getQuizHistoryByUser({}) method.", userId);
         User user = userService.getUserById(userId);
         List<QuizHistory> quizHistories = quizHistoryRepository.findByUser(user);
         return quizHistoryMapper.toQuizHistoryResponseDtoList(quizHistories);
     }
     public void saveQuizForUnauthenticatedUser(SendQuizResultToEmailDto dto){
+        log.info("Call of QuizHistoryService.saveQuizForUnauthenticatedUser method. dto is", dto);
         User user = userService.findUserByEmail(dto.getEmail());
         Questionnaire questionnaire = questionnaireService.getById(dto.getQuestionnaireId());
         Result result = resultService.getResultByQuestionnaireAndPoints(questionnaire,dto.getPoints());
@@ -44,6 +47,6 @@ public class QuizHistoryService {
         QuizHistory quizHistory = quizHistoryMapper.toQuizHistory(user,questionnaire,dto.getPoints(),result);
 
         quizHistoryRepository.save(quizHistory);
-        log.trace(String.format("Quiz history for email %s saved successfully",dto.getEmail()));
+        log.info(String.format("Quiz history for email %s saved successfully",dto.getEmail()));
     }
 }

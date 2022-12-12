@@ -23,14 +23,17 @@ public class ContactsController {
 
     @GetMapping("/callRequest")
     public void callRequest(@Valid @RequestBody CallRequestDto dto){
+        log.info("Call of /contacts/callRequest endpoint.(Get method). dto is {}", dto);
         mailService.sendCallRequestMail(dto);
     }
     @GetMapping("/consultationRequest")
     public void consultationRequest(@Valid @RequestBody ConsultationRequestDto dto){
+        log.info("Call of /contacts/consultationRequest endpoint.(Get method). dto is {}", dto);
         mailService.sendConsultationRequestMail(dto);
     }
     @PostMapping("/sendResult")
     public void sendResultToEmailAndSaveIt(@Valid @RequestBody SendQuizResultToEmailDto dto){
+        log.info("Call of /contacts/sendResult endpoint.(Get method). dto is {}", dto);
         quizService.sendQuizResultAndSave(dto);
     }
 }

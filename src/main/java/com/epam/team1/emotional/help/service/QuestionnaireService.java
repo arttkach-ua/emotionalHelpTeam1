@@ -24,6 +24,7 @@ public class QuestionnaireService {
     }
 
     public List<QuestionnaireDto> findAllDto() {
+        log.info("Call of QuestionnaireService.findAllDto method.");
         List<Questionnaire> questionnaires = findAll();
         return questionnaires.stream()
                 .map(questionnaireDtoMapper::toDTO)
@@ -31,10 +32,12 @@ public class QuestionnaireService {
     }
 
     public QuestionnaireDto create(QuestionnaireDto dto) {
+        log.info("Call of QuestionnaireService.findAllDto method. dto is {}", dto);
         Questionnaire questionnaire = questionnaireDtoMapper.fromDto(dto);
         return questionnaireDtoMapper.toDTO(questionnaireRepository.save(questionnaire));
     }
     public Questionnaire getById(Long id){
+        log.info("Call of MailService.send method. Params: id {}", id);
         return questionnaireRepository.findById(id)
                 .orElseThrow(()->new EntityNotFoundException(String.format(ErrorMessages.QUESTIONNAIRE_NOT_FOUND, id)));
     }

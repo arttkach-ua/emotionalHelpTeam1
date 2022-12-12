@@ -2,6 +2,7 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.util.ErrorMessages;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.epam.team1.emotional.help.dto.UserAddDataRequestDto;
 import com.epam.team1.emotional.help.dto.UserResponseDTO;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -24,11 +26,13 @@ public class UserService {
     private final UserMapper userMapper;
 
     public User getUserById(Long id) {
+        log.info("Call of UserService.getUserById({}) method.", id);
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format(ErrorMessages.USER_BY_ID_NOT_FOUND, id)));
     }
 
     public Optional<User> getCurrentUser() {
+        log.info("Call of UserService.getCurrentUser({}) method.");
         return Optional.ofNullable(((UserDetailsImplementation) SecurityContextHolder.
                 getContext().
                 getAuthentication().
@@ -36,6 +40,7 @@ public class UserService {
       }
 
     public UserResponseDTO getById(Long id) {
+        log.info("Call of UserService.getById({}) method.", id);
         User currentUser = getCurrentUser().orElseThrow(() -> new UsernameNotFoundException("user not found"));
         if (!currentUser.getId().equals(id)) {
             throw new WrongUserIdException("provided user id is not correct");
@@ -45,6 +50,7 @@ public class UserService {
     }
 
     public UserResponseDTO resetById(Long id, UserAddDataRequestDto userAddDataRequestDto) {
+        log.info("Call of UserService.resetById method. Params: id {} userAddDataRequestDto {}", id, userAddDataRequestDto);
         User currentUser = getCurrentUser().orElseThrow(() -> new UsernameNotFoundException("user not found"));
         if (!currentUser.getId().equals(id)) {
             throw new WrongUserIdException("provided user id is not correct");
@@ -65,10 +71,12 @@ public class UserService {
     }
 
     public Optional<User> findUserOptionalByEmail(String email){
+        log.info("Call of UserService.findUserOptionalByEmail method. Params: email {}", email);
         return userRepository.findByEmail(email);
     }
 
     public User findUserByEmail(String email){
+        log.info("Call of UserService.findUserByEmail method. Params: email {}", email);
         return findUserOptionalByEmail(email)
                 .orElseThrow(()->new EntityNotFoundException(String.format(ErrorMessages.USER_BY_EMAIL_NOT_FOUND, email)));
     }

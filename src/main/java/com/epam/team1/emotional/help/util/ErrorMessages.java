@@ -11,5 +11,5 @@ public final class ErrorMessages {
     public static final String ARTICLE_NOT_FOUND = "Article with id %d not found";
     public static final String USER_BY_ID_NOT_FOUND = "User with id %d not found";
     public static final String USER_BY_EMAIL_NOT_FOUND = "User with e-mail %s not found";
-    public static final String ERROR_WHILE_EMAIL_SENDING = "Error while e-mail sending";
+    public static final String ERROR_WHILE_EMAIL_SENDING = "Error while e-mail sending. {}";
 }
