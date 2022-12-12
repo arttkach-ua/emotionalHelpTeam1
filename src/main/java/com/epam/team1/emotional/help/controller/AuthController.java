@@ -37,7 +37,7 @@ public class AuthController {
     public TokenRefreshResponseDTO refreshToken(HttpServletRequest httpServletRequest) {
         String userMail = userService.getCurrentUser().orElseThrow(
                 () -> new RuntimeException("user not found")).getEmail();
-        log.info("user with email {} sent refresh token request", userMail);
+        log.info("User with email {} sent refresh token request", userMail);
         return authService.refreshToken(httpServletRequest);
     }
 

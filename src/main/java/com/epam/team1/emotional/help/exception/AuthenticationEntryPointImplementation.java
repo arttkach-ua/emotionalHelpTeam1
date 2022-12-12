@@ -32,7 +32,7 @@ public class AuthenticationEntryPointImplementation implements AuthenticationEnt
                          AuthenticationException exception)
             throws IOException, ServletException {
 
-        log.error("RestAuthenticationEntryPoint " , "Unauthorized error: {}", exception.getMessage() , " , exception type is " , exception.getClass().getSimpleName() );
+        log.error("Unauthorized error: {} , exception type is {}.", exception.getMessage() , exception.getClass().getSimpleName() );
 
 
         ErrorResponse errorResponse = new ErrorResponse(401,
