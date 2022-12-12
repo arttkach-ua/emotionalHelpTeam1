@@ -70,9 +70,8 @@ public class AuthService {
 
         String jwtAccess = jwtUtils.generateJwtToken(userDetailsImplementation, false);
         String jwtRefresh = jwtUtils.generateJwtToken(userDetailsImplementation, true);
-        log.info("successfully jwt refresh for the user with username {}, and with refresh token {} ,  and with refresh token {}"
-                , getUserDetails().getUsername()
-                , jwtAccess , jwtRefresh);
+        log.info("successfully jwt refresh for the user with username {}."
+                , getUserDetails().getUsername());
         return new TokenRefreshResponseDTO(jwtAccess, jwtRefresh);
     }
 
