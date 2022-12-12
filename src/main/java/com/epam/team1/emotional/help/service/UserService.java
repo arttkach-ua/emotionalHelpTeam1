@@ -31,6 +31,7 @@ public class UserService {
     }
 
     public Optional<User> getCurrentUser() {
+
         return Optional.ofNullable(((UserDetailsImplementation) SecurityContextHolder.
                 getContext().
                 getAuthentication().

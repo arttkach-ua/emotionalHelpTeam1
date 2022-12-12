@@ -2,6 +2,7 @@ package com.epam.team1.emotional.help.controller;
 
 import com.epam.team1.emotional.help.dto.*;
 import com.epam.team1.emotional.help.exception.ErrorResponse;
+import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.service.AuthService;
 import com.epam.team1.emotional.help.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,14 +35,18 @@ public class AuthController {
 
     @PostMapping("/refresh-token")
     public TokenRefreshResponseDTO refreshToken(HttpServletRequest httpServletRequest) {
-        log.info("user with email {} sent refresh token request", userService.getCurrentUser().orElseThrow(() -> new RuntimeException("user not found")).getEmail());
+        String userMail = userService.getCurrentUser().orElseThrow(
+                () -> new RuntimeException("user not found")).getEmail();
+        log.info("user with email {} sent refresh token request", userMail);
         return authService.refreshToken(httpServletRequest);
     }
 
 
     @PostMapping("/reset-password")
     public MessageResponse resetPassword(@Valid @RequestBody PasswordResetRequest passwordResetRequest) {
-        log.info("user with email {} sent reset password request", userService.getCurrentUser().orElseThrow(() -> new RuntimeException("user not found")).getEmail());
+        String userMail = userService.getCurrentUser().orElseThrow(
+                () -> new RuntimeException("user not found")).getEmail();
+        log.info("user with email {} sent reset password request", userMail);
         return authService.resetPassword(passwordResetRequest);
     }
 
@@ -53,20 +58,22 @@ public class AuthController {
 
     @PostMapping("/reset-forgotten-password")
     public void resetForgottenPassword(@Valid @RequestBody ForgotPasswordRequestDTO forgotPasswordDTO) {
+        String userMail = userService.getCurrentUser().orElseThrow(
+                () -> new RuntimeException("user not found")).getEmail();
         authService.resetForgottenPassword(forgotPasswordDTO);
-        log.info("forgotten password has bean reset for the user {}.", userService.getCurrentUser().orElseThrow(() -> new RuntimeException("user not found")).getEmail());
+        log.info("forgotten password has bean reset for the user {}.", userMail);
     }
 
     @ExceptionHandler()
     protected ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException exception, WebRequest request) {
-        log.error("MethodArgumentNotValidException handler , {}, {}, {}, {}.  ", "message = "
-                , exception.getMessage(), " , exception type is ", exception.getClass().getName());
         ErrorResponse errorResponse = new ErrorResponse(400,
                 exception.getMessage(),
                 System.currentTimeMillis(),
                 exception.getClass().getSimpleName(),
                 request.getDescription(false)
         );
+        log.error("Exception message {}, exception type {},"
+                , exception.getMessage(), exception);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
 }
