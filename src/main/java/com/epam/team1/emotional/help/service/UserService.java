@@ -31,11 +31,15 @@ public class UserService {
     }
 
     public Optional<User> getCurrentUser() {
-
-        return Optional.ofNullable(((UserDetailsImplementation) SecurityContextHolder.
-                getContext().
-                getAuthentication().
-                getPrincipal()).getUser());
+        log.info("Call of UserService.getCurrentUser({}) method.");
+        try {
+            return Optional.ofNullable(((UserDetailsImplementation) SecurityContextHolder.
+                    getContext().
+                    getAuthentication().
+                    getPrincipal()).getUser());
+        }catch (Exception ex){
+            return Optional.empty();
+        }
       }
 
     public UserResponseDTO getById(Long id) {
