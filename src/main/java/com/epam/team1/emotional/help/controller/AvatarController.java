@@ -24,20 +24,20 @@ public class AvatarController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponse save(@RequestParam("avatar") MultipartFile avatar) {
-        log.info("user requests add avatar " + avatar.getOriginalFilename());
+        log.info("user requests add avatar " , avatar.getOriginalFilename());
         return avatarService.save(avatar);
     }
 
     @GetMapping(value = "/{avatar-name}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getAvatar(@PathVariable("avatar-name") String avatarName) throws IOException {
-        log.info("user did get avatar request with avatar name " + avatarName);
+        log.info("user did get avatar request with avatar name " , avatarName);
         return avatarService.getAsByteArray(avatarName);
     }
 
 
     @DeleteMapping("/{avatar-name}")
     public MessageResponse deleteByName(@PathVariable("avatar-name") @NotBlank String avatarName) {
-        log.info("user did delete avatar request with avatar name " + avatarName);
+        log.info("user did delete avatar request with avatar name " , avatarName);
         return avatarService.deleteByName(avatarName);
     }
 }

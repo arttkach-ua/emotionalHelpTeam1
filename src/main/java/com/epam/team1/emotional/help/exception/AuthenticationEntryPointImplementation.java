@@ -19,7 +19,7 @@ import java.io.OutputStream;
  * It can be used by one of the security filters as an AuthenticationException handler,
  * because exceptions arised in filters cannot be handled in the class with @RestControllerAdvice annotation.
  *
- *  (it handles exceptions which have bean thrown after reaching to dispatcher servlet)
+ *  (it handles exceptions which have been thrown after reaching to dispatcher servlet)
  * for setting this class as a handler we can use httpSecurity.exceptionHandling().authenticationEntryPoint(unauthorizedHandler) method
  * in security config class
  */
@@ -32,7 +32,7 @@ public class AuthenticationEntryPointImplementation implements AuthenticationEnt
                          AuthenticationException exception)
             throws IOException, ServletException {
 
-        log.error("RestAuthenticationEntryPoint " + "Unauthorized error: {}", exception.getMessage() + " , exception type is " + exception.getClass().getSimpleName() );
+        log.error("RestAuthenticationEntryPoint " , "Unauthorized error: {}", exception.getMessage() , " , exception type is " , exception.getClass().getSimpleName() );
 
 
         ErrorResponse errorResponse = new ErrorResponse(401,

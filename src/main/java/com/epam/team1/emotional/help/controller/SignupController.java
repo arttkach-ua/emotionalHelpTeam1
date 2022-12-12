@@ -26,13 +26,13 @@ public class SignupController {
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
     public SignupResponseDTO registerUser(@Valid @RequestBody SignupUserRequestDTO signupUserRequestDTO) {
-        log.info("new registered request for " + signupUserRequestDTO);
+        log.info("new registered request for " , signupUserRequestDTO);
         return signupService.saveUser(signupUserRequestDTO);
     }
 
     @GetMapping("/confirm-email/{code}")
     public SignupConformedResponseDto confirmEmail(@PathVariable("code") String code) {
-        log.info("user sent the following  conform email request " + code);
+        log.info("user sent the following  conform email request " , code);
         return signupService.confirmEmail(code);
     }
 

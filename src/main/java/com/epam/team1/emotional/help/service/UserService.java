@@ -2,6 +2,7 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.util.ErrorMessages;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.epam.team1.emotional.help.dto.UserAddDataRequestDto;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
 
@@ -61,6 +63,7 @@ public class UserService {
         if (userAddDataRequestDto.getBirthday() != null) {
             user.setBirthday(userAddDataRequestDto.getBirthday());
         }
+        log.info("user data is reseted " , user);
         return userMapper.mapToResponseDto(userRepository.save(user));
 
     }

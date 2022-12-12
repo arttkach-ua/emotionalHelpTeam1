@@ -26,19 +26,20 @@ public class UserController {
 
     @GetMapping("/{id}/history")
     public List<QuizHistoryResponseDto> getQuizHistoryByUser(@PathVariable("id") Long userId){
+        log.info("request for quiz history with id " , userId );
         return quizHistoryService.getQuizHistoryByUser(userId);
     }
 
     @GetMapping("/{id}")
     public UserResponseDTO getById(@PathVariable("id") Long id) {
-        log.info("request to get user with id " + id);
+        log.info("request to get user with id " , id);
         return userService.getById(id);
     }
 
 
     @PatchMapping("/{id}")
     public UserResponseDTO resetById(@PathVariable("id") Long id, @RequestBody UserAddDataRequestDto userAddDataRequestDto) {
-        log.info("request to reset user with id " + id);
+        log.info("request to reset user with id " , id);
         return userService.resetById(id, userAddDataRequestDto);
     }
 
