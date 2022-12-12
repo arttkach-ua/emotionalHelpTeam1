@@ -47,7 +47,6 @@ public class AvatarService {
             log.info("user current image path is " , file);
             file.delete();
         }
-
         final Path rootPath = Paths.get(basePackagePath);
         Path foolPath;
         try {
