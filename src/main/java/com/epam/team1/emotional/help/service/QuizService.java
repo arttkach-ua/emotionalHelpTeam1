@@ -2,13 +2,16 @@ package com.epam.team1.emotional.help.service;
 
 import com.epam.team1.emotional.help.dto.QuizRequestDto;
 import com.epam.team1.emotional.help.dto.QuizResponseDto;
-import com.epam.team1.emotional.help.mappers.ResultMapper;
+import com.epam.team1.emotional.help.dto.SendQuizResultToEmailDto;
 import com.epam.team1.emotional.help.model.Answer;
 import com.epam.team1.emotional.help.model.Quiz;
 import com.epam.team1.emotional.help.model.Result;
+import com.epam.team1.emotional.help.util.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
 
 @Slf4j
 @Service
@@ -17,12 +20,12 @@ public class QuizService {
     private final QuestionnaireService questionnaireService;
     private final ResultService resultService;
     private final AnswersService answersService;
-    private final ResultMapper resultMapper;
-
-    private final UserService userService;
     private final QuizHistoryService quizHistoryService;
+    private final MailService mailService;
+
 
     public QuizResponseDto processQuiz(QuizRequestDto dto){
+        log.info("Call of QuizService.processQuiz method. Params: dto {}", dto);
         Quiz quiz = mapTestDtoToTest(dto);
         calculateTotalPoints(quiz);
         quiz.setTotalPoints(calculateTotalPoints(quiz));
@@ -32,6 +35,7 @@ public class QuizService {
     }
 
     public Quiz mapTestDtoToTest(QuizRequestDto dto){
+        log.info("Call of QuizService.mapTestDtoToTest method. Params: dto {}", dto);
         Quiz quiz = new Quiz();
         quiz.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
         quiz.setAnswers(dto.getAnswers().stream()
@@ -41,14 +45,27 @@ public class QuizService {
     }
 
     public Integer calculateTotalPoints(Quiz quiz){
+        log.info("Call of QuizService.calculateTotalPoints method. Params quiz {}", quiz);
         return quiz.getAnswers().stream()
                 .mapToInt(Answer::getPoints)
                 .sum();
     }
     public QuizResponseDto prepareQuizResponseDto(Result result, Quiz quiz){
+        log.info("Call of QuizService.prepareQuizResponseDto method. Params: result {} quiz {}", result, quiz);
         QuizResponseDto dto = new QuizResponseDto();
         dto.setDescription(result.getFullDescription());
         dto.setTotalPoints(quiz.getTotalPoints());
         return dto;
+    }
+
+    public void sendQuizResultAndSave(SendQuizResultToEmailDto dto){
+        log.info("Beginning sanding quiz to email: {}", dto.getEmail());
+        mailService.sendQuizResultToMail(dto);
+        try {
+            log.info("Beginning saving quiz history for email: {}", dto.getEmail());
+            quizHistoryService.saveQuizForUnauthenticatedUser(dto);
+        }catch (EntityNotFoundException ex){
+            log.error(ErrorMessages.ERROR_WHILE_EMAIL_SENDING, ex.getMessage());
+        }
     }
 }

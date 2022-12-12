@@ -4,13 +4,14 @@ import com.epam.team1.emotional.help.dto.*;
 import com.epam.team1.emotional.help.service.QuestionService;
 import com.epam.team1.emotional.help.service.QuestionnaireService;
 import com.epam.team1.emotional.help.service.QuizService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/questionnaires")
 @CrossOrigin
@@ -32,6 +33,7 @@ public class QuestionnairesController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionnaireDto createQuiz(@Valid @RequestBody QuestionnaireDto dto){
+        log.info("Call of /questionnaires endpoint.(Post method). dto is {}", dto);
         return questionnaireService.create(dto);
     }
 
@@ -42,6 +44,7 @@ public class QuestionnairesController {
      */
     @GetMapping("/{id}/questions")
     public List<QuestionResponseDto> getAllQuestionsByQuestionnaireId(@PathVariable("id") Long id){
+        log.info("Call of /questionnaires/{id}/questions endpoint.(Post method). id is {}", id);
         return questionService.getAllDtoByQuestionnaireId(id);
     }
 
@@ -52,6 +55,7 @@ public class QuestionnairesController {
      */
     @PostMapping("/{id}/quiz")
     public QuizResponseDto calculateQuiz(@RequestBody QuizRequestDto dto){
+        log.info("Call of /questionnaires/{id}/quiz endpoint.(Post method). dto is {}", dto);
         return quizService.processQuiz(dto);
     }
 }

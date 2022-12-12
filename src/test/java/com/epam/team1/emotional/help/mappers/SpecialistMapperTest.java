@@ -7,14 +7,16 @@ import com.epam.team1.emotional.help.providers.TestDataProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@TestPropertySource(properties = { "hosting.path=testpath/" })
 class SpecialistMapperTest {
-
     @Autowired
     private SpecialistMapper specialistMapper;
 
@@ -35,7 +37,7 @@ class SpecialistMapperTest {
 
         assertEquals("some info", resultDto.getInfo());
         assertEquals("some name", resultDto.getName());
-        assertEquals("some path", resultDto.getImage());
+        assertEquals("testpath/some path", resultDto.getImage());
         assertEquals(1L, resultDto.getId());
 
     }

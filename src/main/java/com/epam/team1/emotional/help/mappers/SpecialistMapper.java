@@ -4,6 +4,7 @@ import com.epam.team1.emotional.help.dto.Specialist.SpecialistRequestDto;
 import com.epam.team1.emotional.help.dto.Specialist.SpecialistResponseDto;
 import com.epam.team1.emotional.help.model.Specialist;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class SpecialistMapper {
     @Value("${hosting.path}")
     private String path;
@@ -24,6 +26,7 @@ public class SpecialistMapper {
      * @return {@link Specialist}
      */
     public Specialist toSpecialist(SpecialistRequestDto dto){
+        log.info("Call of SpecialistMapper.toSpecialist method. Params: dto {}", dto);
         return Specialist.builder()
                 .info(dto.getInfo())
                 .name(dto.getName())
@@ -37,8 +40,7 @@ public class SpecialistMapper {
      * @return - {@link SpecialistResponseDto}
      */
     public SpecialistResponseDto mapToResponseDto(Specialist specialist){
-
-
+        log.info("Call of SpecialistMapper.mapToResponseDto method. Params: specialist {}", specialist);
         return SpecialistResponseDto.builder()
                 .id(specialist.getId())
                 .name(specialist.getName())
@@ -53,6 +55,7 @@ public class SpecialistMapper {
      * @return list of {@link SpecialistResponseDto}
      */
     public List<SpecialistResponseDto> toSpecialistResponseDtoList(List<Specialist> specialists) {
+        log.info("Call of SpecialistMapper.toSpecialistResponseDtoList method. Params: specialists {}", specialists);
         return specialists.stream()
                 .map(this::mapToResponseDto)
                 .toList();

@@ -23,18 +23,21 @@ public class ResultService {
     private final QuestionnaireService questionnaireService;
 
     public ResultResponseDto create(ResultRequestDto dto){
+        log.info("Call of ResultService.create method. Params: dto {}", dto);
         Result result = resultRepository.save(resultMapper.fromDto(dto));
         return resultMapper.toResultResponseDto(result);
 
     }
 
     private Result mapResultFromResultRequestDto(ResultRequestDto dto){
+        log.info("Call of ResultService.mapResultFromResultRequestDto method. Params dto {}", dto);
         Result result = resultMapper.fromDto(dto);
         result.setQuestionnaire(questionnaireService.getById(dto.getQuestionnaireId()));
         return result;
     }
 
     public Result getResultByQuestionnaireAndPoints(Questionnaire questionnaire, Integer points){
+        log.info("Call of ResultService.getResultByQuestionnaireAndPoints method. Params questionnaire {} points {}", questionnaire, points);
         Optional<Result> result = resultRepository
                 .findFirstByQuestionnaireAndPointsGreaterThanEqualOrderByPointsAsc(questionnaire, points);
         return result

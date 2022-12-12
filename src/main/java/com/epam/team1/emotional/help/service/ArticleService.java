@@ -21,15 +21,18 @@ public class ArticleService {
     private final ArticleMapper articleMapper;
 
     public List<ArticleResponseDto> getAll(){
+        log.info("Call of ArticleService.getAll method.");
         return articleMapper.toArticleResponseDtoList(articleRepository.findAll());
     }
 
     public ArticleResponseDto create(ArticleRequestDto dto) {
+        log.info("Call of ArticleService.create method. dto is{}", dto);
         Article article = articleRepository.save(articleMapper.toArticle(dto));
         return articleMapper.toArticleResponseDto(article);
     }
 
     public ArticleResponseDto getById(Long id) {
+        log.info("Call of ArticleService.getById method. id is{}", id);
         return articleMapper.toArticleResponseDto(articleRepository.findById(id)
                 .orElseThrow(()->new EntityNotFoundException(String.format(ErrorMessages.ARTICLE_NOT_FOUND, id))));
     }
