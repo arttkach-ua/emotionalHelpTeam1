@@ -35,6 +35,7 @@ public class AuthController {
 
     @PostMapping("/refresh-token")
     public TokenRefreshResponseDTO refreshToken(HttpServletRequest httpServletRequest) {
+        //log.info();
         String userMail = userService.getCurrentUser().orElseThrow(
                 () -> new RuntimeException("user not found")).getEmail();
         log.info("User with email {} sent refresh token request", userMail);

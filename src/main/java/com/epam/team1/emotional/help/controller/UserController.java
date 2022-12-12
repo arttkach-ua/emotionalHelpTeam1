@@ -18,6 +18,7 @@ import java.util.List;
 @CrossOrigin
 public class UserController {
 
+
     private final UserService userService;
 
     private final QuizHistoryService quizHistoryService;
