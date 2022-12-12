@@ -20,10 +20,12 @@ public class SpecialistsService {
     private final SpecialistRepository specialistRepository;
 
     public SpecialistResponseDto create(SpecialistRequestDto dto){
+        log.info("Call of SpecialistsService.create method. Params: dto {}", dto);
         Specialist specialist = specialistRepository.save(specialistMapper.toSpecialist(dto));
         return specialistMapper.mapToResponseDto(specialist);
     }
     public List<SpecialistResponseDto> getAll(){
+        log.info("Call of SpecialistsService.getAll method.");
         List<Specialist> specialists = specialistRepository.findAll();
         return specialistMapper.toSpecialistResponseDtoList(specialists);
     }

@@ -3,10 +3,11 @@ package com.epam.team1.emotional.help.mappers;
 import com.epam.team1.emotional.help.dto.project.ProjectRequestDto;
 import com.epam.team1.emotional.help.dto.project.ProjectResponseDto;
 import com.epam.team1.emotional.help.model.Project;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Slf4j
 @Component
 public class ProjectMapper {
     /**
@@ -15,6 +16,7 @@ public class ProjectMapper {
      * @return {@link Project}
      */
     public Project toProject(ProjectRequestDto dto){
+        log.info("Call of ProjectMapper.toProject method. Params: dto {}", dto);
         return Project.builder()
                 .title(dto.getTitle())
                 .description(dto.getDescription())
@@ -26,6 +28,7 @@ public class ProjectMapper {
      * @return - {@link ProjectResponseDto}
      */
     public ProjectResponseDto toProjectResponseDto(Project project){
+        log.info("Call of ProjectMapper.toProjectResponseDto method. Params: project {}", project);
         return ProjectResponseDto.builder()
                 .id(project.getId())
                 .title(project.getTitle())
@@ -38,6 +41,7 @@ public class ProjectMapper {
      * @return list of {@link ProjectResponseDto}
      */
     public List<ProjectResponseDto> toProjectResponseDtoList(List<Project> projects) {
+        log.info("Call of ProjectMapper.toProjectResponseDtoList method. Params: projects {}", projects);
         return projects.stream()
                 .map(this::toProjectResponseDto)
                 .toList();

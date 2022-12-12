@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
+@TestPropertySource(properties = { "hosting.path=testpath/" })
 class SpecialistsServiceTest {
     @Autowired
     private SpecialistsService specialistsService;
@@ -32,7 +34,7 @@ class SpecialistsServiceTest {
         assertEquals(1L, resultDto.getId());
         assertEquals("some name", resultDto.getName());
         assertEquals("some info", resultDto.getInfo());
-        assertEquals("some path", resultDto.getImage());
+        assertEquals("testpath/some path", resultDto.getImage());
         verify(specialistRepository,times(1)).save(any(Specialist.class));
     }
 
