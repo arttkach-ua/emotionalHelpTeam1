@@ -27,7 +27,7 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format(ErrorMessages.USER_NOT_FOUND, id)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format(ErrorMessages.USER_BY_ID_NOT_FOUND, id)));
     }
 
     public Optional<User> getCurrentUser() {
