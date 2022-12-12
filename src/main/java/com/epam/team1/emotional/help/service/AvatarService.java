@@ -44,7 +44,7 @@ public class AvatarService {
 
         if (currentUser.getImage() != null) {
             File file = new File(basePackagePath + pathSeparator + "user_" + currentUser.getId() + pathSeparator + currentUser.getImage());
-            log.info("user current image path is " , file);
+            log.info("user current image path is {}" , file);
             file.delete();
         }
         final Path rootPath = Paths.get(basePackagePath);
@@ -58,7 +58,7 @@ public class AvatarService {
         try {
             Files.copy(avatar.getInputStream(), foolPath.resolve(avatarOriginalName));
             currentUser.setImage(avatarOriginalName);
-            log.info("new user image is ", currentUser.getImage());
+            log.info("new user image is {}", currentUser.getImage());
             userRepository.save(currentUser);
         } catch (Exception e) {
             if (e instanceof FileAlreadyExistsException) {
@@ -79,7 +79,7 @@ public class AvatarService {
         }
         try {
             Path filePath = Paths.get(basePackagePath).resolve("user_" + currentUser.getId()).resolve(filename);
-            log.info("file absolute = ", filePath.getFileName());
+            log.info("file absolute = {}", filePath.getFileName());
             Resource resource = new UrlResource(filePath.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource.getInputStream().readAllBytes();
@@ -96,16 +96,16 @@ public class AvatarService {
     public MessageResponse deleteByName(String avatarName) {
         User currentUser = userService.getCurrentUser().orElseThrow(() -> new NotFoundException("User not found"));
         if (!currentUser.getImage().equals(avatarName)) {
-            log.info("request for deleting avatar with avatar name is ", avatarName);
+            log.info("request for deleting avatar with avatar name is {}", avatarName);
             throw new RuntimeException("Avatar name is not correct");
         }
         File file = new File(basePackagePath + pathSeparator + "user_" + currentUser.getId() + pathSeparator + avatarName);
 
         if (!file.exists()) {
-            log.error("file does not exists with path ", file);
+            log.error("file does not exists with path {}", file);
             throw new RuntimeException("file dos not exists");
         }
-        log.info("file is going to delete = ", file);
+        log.info("file is going to delete = {}", file);
 
         file.delete();
         currentUser.setImage(null);

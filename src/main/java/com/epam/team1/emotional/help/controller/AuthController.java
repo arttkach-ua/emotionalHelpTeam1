@@ -30,39 +30,39 @@ public class AuthController {
 
     @PostMapping("/login")
     public @ResponseStatus(HttpStatus.OK) LoginResponseDTO loginUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
-        log.info("user tries to login with credentials " , loginRequest);
+        log.info("user tries to login with credentials {} " , loginRequest);
         return authService.loginUser(loginRequest);
     }
 
 
     @PostMapping("/refresh-token")
     public TokenRefreshResponseDTO refreshToken(HttpServletRequest httpServletRequest) {
-        log.info("user sent refresh token request " , httpServletRequest.getHeader("Authorization"));
+        log.info("user sent refresh token request {} " , httpServletRequest.getHeader("Authorization"));
         return authService.refreshToken(httpServletRequest);
     }
 
 
     @PostMapping("/reset-password")
     public MessageResponse resetPassword(@Valid @RequestBody PasswordResetRequest passwordResetRequest) {
-        log.info("user sent resetPassword request with parames " , passwordResetRequest.toString());
+        log.info("user sent resetPassword request with params {}" , passwordResetRequest.toString());
         return authService.resetPassword(passwordResetRequest);
     }
 
     @PostMapping("/send-verification-code-to-mail")
     public void sendMail(@RequestParam("email") String email) {
         authService.sendEmail(email);
-        log.info("mail verification code is sent to the mail " , email);
+        log.info("mail verification code is sent to the mail  {}" , email);
     }
 
     @PostMapping("/reset-forgotten-password")
     public void resetForgottenPassword(@Valid @RequestBody ForgotPasswordRequestDTO forgotPasswordDTO) {
         authService.resetForgottenPassword(forgotPasswordDTO);
-        log.info("forgotten password has bean reset , access code is " , forgotPasswordDTO.getCode());
+        log.info("forgotten password has bean reset , access code is {}" , forgotPasswordDTO.getCode());
     }
 
     @ExceptionHandler()
     protected ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException exception, WebRequest request) {
-        log.error("MethodArgumentNotValidException handler , " , "message = "
+        log.error("MethodArgumentNotValidException handler , {}, {}, {}, {}.  " , "message = "
                 , exception.getMessage() , " , exception type is " , exception.getClass().getName());
         ErrorResponse errorResponse = new ErrorResponse(400,
                 exception.getMessage(),

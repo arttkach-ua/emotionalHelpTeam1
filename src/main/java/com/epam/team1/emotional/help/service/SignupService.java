@@ -57,7 +57,7 @@ public class SignupService {
         accessCodeRepository.deleteById(accesscode.getId());
         String jwtAccess = jwtUtils.generateJwtToken(user.getEmail());
         UserResponseDTO userResponseDTO = userMapper.mapToResponseDto(user);
-        log.error("success email conformation with code " , code);
+        log.error("success email conformation with code {}" , code);
         return new SignupConformedResponseDto(jwtAccess, userResponseDTO);
     }
 
@@ -70,7 +70,7 @@ public class SignupService {
         user.setPassword(encoder.encode(user.getPassword()));
         String code = mailService.generateCode();
         user.setAccessCode(generateAccessCode(user, code));
-        log.info("user is saved ",user);
+        log.info("user is saved {}",user);
         User userResp = userRepository.save(user);
         sendEmail(user.getEmail(), code);
         return signupMapper.mapToResponseDto(userResp);
@@ -81,7 +81,7 @@ public class SignupService {
         String confirmLink = confirmLinkIP + "confirm/" + code;
         String mailText = "Click on this link to confirm your email \n" + confirmLink;
         mailService.send(email, subject, mailText);
-        log.info("conformation mail has bean send to " , confirmLink);
+        log.info("conformation mail has bean send to {}" , confirmLink);
 
     }
 
@@ -98,7 +98,7 @@ public class SignupService {
         }
         accessCode.setCreatedAt(LocalDateTime.now());
         accessCodeRepository.save(accessCode);
-        log.info("generated access code is " , accessCode);
+        log.info("generated access code is {}" , accessCode);
         return accessCode;
     }
 

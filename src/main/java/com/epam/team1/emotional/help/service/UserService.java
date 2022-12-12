@@ -1,10 +1,5 @@
 package com.epam.team1.emotional.help.service;
 
-import com.epam.team1.emotional.help.util.ErrorMessages;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import com.epam.team1.emotional.help.dto.UserAddDataRequestDto;
 import com.epam.team1.emotional.help.dto.UserResponseDTO;
 import com.epam.team1.emotional.help.exception.WrongUserIdException;
@@ -12,6 +7,10 @@ import com.epam.team1.emotional.help.mappers.UserMapper;
 import com.epam.team1.emotional.help.model.User;
 import com.epam.team1.emotional.help.repository.UserRepository;
 import com.epam.team1.emotional.help.security.UserDetailsImplementation;
+import com.epam.team1.emotional.help.util.ErrorMessages;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -63,9 +62,8 @@ public class UserService {
         if (userAddDataRequestDto.getBirthday() != null) {
             user.setBirthday(userAddDataRequestDto.getBirthday());
         }
-        log.info("user data is reseted " , user);
+        log.info("user data is reset. {}." , user);
         return userMapper.mapToResponseDto(userRepository.save(user));
-
     }
 
 }
