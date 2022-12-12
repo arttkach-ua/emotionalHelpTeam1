@@ -41,7 +41,6 @@ jwt:
   accessExpirationMs: 80000000000
   refreshExpirationMs: 90000000000
 
-
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
